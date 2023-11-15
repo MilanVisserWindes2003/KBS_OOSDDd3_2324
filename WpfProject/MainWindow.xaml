@@ -6,7 +6,29 @@
         xmlns:local="clr-namespace:WpfProject"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+    <Grid Background="#252272">
+
+        <Frame x:Name="LoginFrame" NavigationUIVisibility="Hidden"/>
+        <Grid.RowDefinitions >
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Border Grid.Row="1" Background="White" >
+
+        </Border>
+
+        <StackPanel Orientation="Horizontal" Height="35" VerticalAlignment="Top" HorizontalAlignment="Right">
+            <Button Content="Login" Width="50" Height="25" Click="Button_Click" Background="#FF419BFF" FontWeight="Bold" Foreground="White" Margin="5,5,20,5" >
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform X="-2" Y="0"/>
+                    </TransformGroup>
+                </Button.RenderTransform>
+            </Button>
+        </StackPanel>
+        <Frame x:Name="Main" Margin="0,35,0,0" />
     </Grid>
 </Window>

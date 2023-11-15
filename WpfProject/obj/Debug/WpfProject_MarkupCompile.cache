@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\miluv\source\repos\KBS_OOSDDd3_2324\.git\WpfProject\obj\Debug\
+C:\Users\darkm\Source\Repos\KBS_OOSDDd3_2324\WpfProject\obj\Debug\
 WpfProject
 none
 false
 DEBUG;TRACE
-C:\Users\miluv\source\repos\KBS_OOSDDd3_2324\.git\WpfProject\App.xaml
-1219584333
+C:\Users\darkm\Source\Repos\KBS_OOSDDd3_2324\WpfProject\App.xaml
+3-1346268023
 
-51579654133
+7-1382828299
 13-1310406943
-MainWindow.xaml;
+Login.xaml;MainWindow.xaml;Register.xaml;
 
-True
+False
 

@@ -1,0 +1,6 @@
+C:\Users\darkm\Source\Repos\KBS_OOSDDd3_2324\DataAccess\bin\Debug\DataAccess.dll
+C:\Users\darkm\Source\Repos\KBS_OOSDDd3_2324\DataAccess\bin\Debug\DataAccess.pdb
+C:\Users\darkm\Source\Repos\KBS_OOSDDd3_2324\DataAccess\obj\Debug\DataAccess.csproj.AssemblyReference.cache
+C:\Users\darkm\Source\Repos\KBS_OOSDDd3_2324\DataAccess\obj\Debug\DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\darkm\Source\Repos\KBS_OOSDDd3_2324\DataAccess\obj\Debug\DataAccess.dll
+C:\Users\darkm\Source\Repos\KBS_OOSDDd3_2324\DataAccess\obj\Debug\DataAccess.pdb
