@@ -27,7 +27,6 @@ namespace WpfProject
 
         private void ButtonText_Click(object sender, RoutedEventArgs e)
         {
-            Login textConfigure = new Login();
             NavigationService.Navigate(new Uri("Login.xaml", UriKind.Relative));
         }
 
