@@ -14,14 +14,15 @@
             <RowDefinition Height="38*"/>
         </Grid.RowDefinitions>
         <Label Content="Welcome to Skepta&#xD;&#xA;" HorizontalAlignment="Center" Margin="0,64,0,0" VerticalAlignment="Top" Height="44" Width="224" FontWeight="Bold" FontSize="22"/>
-        <Label Content="Login:" HorizontalAlignment="Left" Margin="312,146,0,0" VerticalAlignment="Top" Width="61" Height="35" FontWeight="Bold" FontSize="16"/>
-        <Label Content="Wachtwoord:&#xD;&#xA;" HorizontalAlignment="Left" Margin="312,208,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Height="34" Width="115" Grid.RowSpan="2"/>
-        <TextBox Name="logintxt" HorizontalAlignment="Left" Height="29" Margin="312,174,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="146" FontWeight="Bold" TextChanged="TextBox_TextChanged" ContextMenuClosing="logintxt"/>
-        <TextBox Name="wachtwoordtxt" HorizontalAlignment="Left" Height="30" Margin="312,12,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="146" FontWeight="Bold" Grid.Row="1" ContextMenuClosing="wachtwoordtxt"/>
-        <Button Name="registreerbut" Content="Registreer" HorizontalAlignment="Left" Margin="312,113,0,0" VerticalAlignment="Top" Click="registreer_click" FontWeight="Bold" Background="#FF057BFF" Foreground="White" Width="146" Grid.Row="1"/>
-        <Button Name="loginbut" Content="Login" HorizontalAlignment="Left" Margin="312,57,0,0" VerticalAlignment="Top" FontWeight="Bold" Height="20" Width="146" Background="#FF0079FF" Foreground="White" RenderTransformOrigin="0.758,-1.117" Grid.Row="1" Click="login_click"/>
-        <Label Content="Login met je Skepta account" HorizontalAlignment="Left" Margin="312,108,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-        <Label Content="Nog geen account? Maak een account aan" HorizontalAlignment="Left" Margin="261,82,0,0" VerticalAlignment="Top" FontWeight="Bold" Grid.Row="1"/>
-
+        <Label Content="Login:" HorizontalAlignment="Left" Margin="327,134,0,0" VerticalAlignment="Top" Width="61" Height="35" FontWeight="Bold" FontSize="16"/>
+        <Label Content="Wachtwoord:" HorizontalAlignment="Left" Margin="328,214,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Height="34" Width="114" Grid.RowSpan="2"/>
+        <TextBox Name="logintxt" HorizontalAlignment="Center" Height="29" Margin="0,169,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="146" FontWeight="Bold" FontSize="16"/>
+        <PasswordBox Name="wachtwoordtxt" HorizontalAlignment="Center" Height="29" Margin="0,20,0,0" VerticalAlignment="Top" Width="146" FontWeight="Bold" Grid.Row="1" FontSize="16"/>
+        <Button Name="registreerbut" Content="Registreer" HorizontalAlignment="Center" Margin="0,113,0,0" VerticalAlignment="Top" Click="registreer_click" FontWeight="Bold" Background="#FF057BFF" Foreground="White" Width="146" Grid.Row="1"/>
+        <Button Name="loginbut" Content="Login" HorizontalAlignment="Center" Margin="0,57,0,0" VerticalAlignment="Top" FontWeight="Bold" Height="20" Width="146" Background="#FF0079FF" Foreground="White" RenderTransformOrigin="0.758,-1.117" Grid.Row="1" Click="login_click"/>
+        <Label Content="Login met je Skepta account" HorizontalAlignment="Center" Margin="0,108,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Label Content="Nog geen account? Maak een account aan" HorizontalAlignment="Center" Margin="0,82,0,0" VerticalAlignment="Top" FontWeight="Bold" Grid.Row="1"/>
+        <Border BorderBrush="#FF0A1172" BorderThickness="1" Margin="0,0,0,177" Background="#0A1172"/>
+        <Border BorderBrush="#FF0A1172" BorderThickness="1" HorizontalAlignment="Center" Height="42" Margin="0,186,0,0" Grid.Row="1" VerticalAlignment="Top" Width="800" Background="#0A1172"/>
     </Grid>
 </Page>
