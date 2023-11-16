@@ -74,17 +74,41 @@ namespace Business
             return false;
         }
 
-        public bool CheckRegister(string username, string password, string password2)
+        public (bool, string) CheckRegister(string username, string password, string password2)
         {
-            if (password == password2 && username.Length <= 20 && username.Length > 0 && password.Length > 0 && password.Length <= 20)
+            if (dataConnection.UsernameExists(username))
             {
-                if (dataConnection.UsernameExists(username) == false)
-                {
-                    dataConnection.Register(username, password);
-                    return true;
-                }
+                return (false, "Gebruikersnaam is al in gebruik.");
             }
-            return false;
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                return (false, "Vul een gebruikersnaam in.");
+            }
+            if (string.IsNullOrWhiteSpace(password))
+            {
+                return (false, "Vul een wachtwoord in.");
+            }
+            if (string.IsNullOrWhiteSpace(password2))
+            {
+                return (false, "Herhaal het wachtwoord.");
+            }
+            if (!(password == password2)) 
+            {
+                return (false, "Wachtwoorden komen niet overeen.");
+            }
+            if (!(username.Length <= 20)) 
+            {
+                return (false, "Gebruikersnaam mag maximaal 20 karaters zijn.");
+            }
+            if (!(password.Length <= 20))
+            {
+                return (false, "Wachtwoord mag maximaal 20 karaters zijn.");
+            }
+            if(dataConnection.Register(username, password))
+            {
+                return (true, "Je account is aangemaakt. Je kan nu inloggen.");
+            }
+            return (false, "Er is iets fout gegaan. Probeer opnieuw.");
         }
 
         public void setSpeechExercise(string exerciseTag)
