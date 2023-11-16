@@ -7,8 +7,8 @@
     <ProjectGuid>{AB5D2A2B-8E0E-4D06-9C11-FC2150CA4F90}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Buisness</RootNamespace>
-    <AssemblyName>Buisness</AssemblyName>
+    <RootNamespace>Business</RootNamespace>
+    <AssemblyName>Business</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
