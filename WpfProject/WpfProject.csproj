@@ -58,6 +58,9 @@
     <Compile Include="ExerciseTypeSelect.xaml.cs">
       <DependentUpon>ExerciseTypeSelect.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ExercisePage.xaml.cs">
+      <DependentUpon>ExercisePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TextLenghtSelect.xaml.cs">
       <DependentUpon>TextLenghtSelect.xaml</DependentUpon>
     </Compile>
@@ -68,6 +71,10 @@
       <DependentUpon>Register.xaml</DependentUpon>
     </Compile>
     <Page Include="ExerciseTypeSelect.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExercisePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

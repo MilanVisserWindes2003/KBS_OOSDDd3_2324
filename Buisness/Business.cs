@@ -11,26 +11,45 @@ namespace Business
     {
        
         bool isLoggedin;
-        DataAccess.DataAccess dataConnection; 
+        DataAccess.DataAccess dataConnection;
 
-        public int textLength;
-        public string textDifficulty;
-        public bool isSpeechExercise;
+        private int _textLength;
+        private string _textDifficulty;
+        private bool _isSpeechExercise;
+
+        public int TextLength
+        {
+            get { return _textLength; }
+            set { _textLength = value; }
+        }
+
+        public string TextDifficulty
+        {
+            get { return _textDifficulty; }
+            set { _textDifficulty = value; }
+        }
+
+        public bool IsSpeechExercise
+        {
+            get { return _isSpeechExercise; }
+            set { _isSpeechExercise = value; }
+        }
+
 
         public Business() { dataConnection = new DataAccess.DataAccess(); }
 
         public void textDifficultySetter(string difficulty)
         {
-            this.textDifficulty = difficulty;
+            this._textDifficulty = difficulty;
         }
 
         public void textLengthSetter(int length)
         {
-            this.textLength = length;
+            this._textLength = length;
         }
         public void isSpeechExerciseSetter(bool isSpeechExercise)
         {
-            this.isSpeechExercise = isSpeechExercise;
+            this._isSpeechExercise = isSpeechExercise;
         }
 
         public bool CheckLogin(string username, string password)
@@ -66,6 +85,18 @@ namespace Business
                 }
             }
             return false;
+        }
+
+        public void setSpeechExercise(string exerciseTag)
+        {
+            if (exerciseTag == "Text") 
+            { 
+                _isSpeechExercise = false; 
+            } 
+            else 
+            { 
+                _isSpeechExercise = true; 
+            }
         }
     }
 }

@@ -18,23 +18,14 @@ namespace WpfProject
     /// <summary>
     /// Interaction logic for ConfigurationPage.xaml
     /// </summary>
-    public partial class TextDifficultySelect : Page
+    public partial class ExercisePage : Page
     {
         Business.Business business;
-        public TextDifficultySelect(Business.Business business)
+        public ExercisePage(Business.Business business)
         {
            InitializeComponent();
            this.business = business;
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            if(sender is Button button)
-            {
-                string difficultyTag = button.Tag as string;
-                business.textDifficultySetter(difficultyTag);
-                NavigationService.Navigate(new TextLengthSelect(business));
-            }
+           this.DataContext = business;
         }
     }
 }

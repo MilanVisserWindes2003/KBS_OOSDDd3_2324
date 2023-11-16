@@ -34,7 +34,6 @@ namespace WpfProject
                 string lengthTag = button.Tag as string;
                 int length = int.Parse(lengthTag);
                 business.textLengthSetter(length);
-                MessageBox.Show($"{length}");
                 NavigationService.Navigate(new ExerciseTypeSelect(business));
             }
         }

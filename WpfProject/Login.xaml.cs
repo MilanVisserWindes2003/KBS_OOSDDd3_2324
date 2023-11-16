@@ -28,8 +28,8 @@ namespace WpfProject
 
         private void login_click(object sender, RoutedEventArgs e)
         {
-            string username = logintxt.Text;
-            string password = wachtwoordtxt.Password;
+            string username = logintxt.Text.Trim();
+            string password = wachtwoordtxt.Password.Trim();
             if (business.CheckLogin(username, password))
             {
                 NavigationService.Navigate(new TextDifficultySelect(business));

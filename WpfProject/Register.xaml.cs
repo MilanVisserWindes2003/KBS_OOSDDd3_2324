@@ -30,28 +30,29 @@ namespace WpfProject
         }
         private void registreer_Button(object sender, RoutedEventArgs e)
         {
-            if (!(logintxt.Text.Length <= 20 && wachtwoordtxt.Password.Length <= 20 && wachtwoordtxt2.Password == wachtwoordtxt.Password))
+            string username = logintxt.Text.Trim();
+            string password = wachtwoordtxt.Password.Trim();
+            string passwordConfirm = wachtwoordtxt2.Password.Trim();
+            if (!(username.Length <= 20 && password.Length <= 20 && passwordConfirm == password))
             {
                 return;
             }
-           
-            if (string.IsNullOrWhiteSpace(logintxt.Text))
+            if (string.IsNullOrWhiteSpace(username))
             {
                 MessageBox.Show("Gebruikersnaam is verplicht");
                 return;
             }
-
-            if (string.IsNullOrWhiteSpace(wachtwoordtxt.Password))
+            if (string.IsNullOrWhiteSpace(password))
             {
                 MessageBox.Show("Wachtwoord is verplicht");
                 return;
             } 
-            if (string.IsNullOrWhiteSpace(wachtwoordtxt2.Password))
+            if (string.IsNullOrWhiteSpace(passwordConfirm))
             {
                 MessageBox.Show("Herhaal je Wachtwoord");
                 return;
             } 
-            if(business.CheckRegister(logintxt.Text, wachtwoordtxt.Password, wachtwoordtxt2.Password)){
+            if(business.CheckRegister(username, password, passwordConfirm)){
                 MessageBox.Show("Je account is aangemaakt.");
                 NavigationService.Navigate(new Login(business));
             }

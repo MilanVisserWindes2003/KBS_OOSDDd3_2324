@@ -34,8 +34,8 @@ namespace WpfProject
             if(sender is Button button)
             {
                 string exerciseTag = button.Tag as string;
-                if(exerciseTag == "Text") { business.isSpeechExerciseSetter(false); } else { business.isSpeechExerciseSetter(true); }
-                NavigationService.Navigate(new Login(business));
+                business.setSpeechExercise(exerciseTag);
+                NavigationService.Navigate(new ExercisePage(business));
             }
         }
     }
