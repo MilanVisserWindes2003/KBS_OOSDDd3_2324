@@ -31,7 +31,12 @@ namespace WpfProject
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Login(business));
+            if(sender is Button button)
+            {
+                string exerciseTag = button.Tag as string;
+                if(exerciseTag == "Text") { business.isSpeechExerciseSetter(false); } else { business.isSpeechExerciseSetter(true); }
+                NavigationService.Navigate(new Login(business));
+            }
         }
     }
 }

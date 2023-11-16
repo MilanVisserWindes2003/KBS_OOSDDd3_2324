@@ -28,6 +28,10 @@ namespace Business
         {
             this.textLength = length;
         }
+        public void isSpeechExerciseSetter(bool isSpeechExercise)
+        {
+            this.isSpeechExercise = isSpeechExercise;
+        }
 
         public bool CheckLogin(string username, string password)
         {
