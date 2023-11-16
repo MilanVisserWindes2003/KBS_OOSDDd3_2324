@@ -60,19 +60,29 @@ namespace DataAccess
                     {
                         if (reader.Read())
                         {
-                            return username;
+                            Console.WriteLine(reader["wachtwoord"].ToString());
+                            return reader["wachtwoord"].ToString();
                         }
                     }
                     return null;
                 }
-                catch (Exception ex)
+                catch (MySqlException ex)
                 {
-                    Console.WriteLine(new NullReferenceException());
+                    Console.WriteLine($"MySQL Exception: {ex.Message}");
                     return null;
                 }
-                finally { connection.Close(); }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Exception: {ex.Message}");
+                    return null;
+                }
+                finally
+                {
+                    connection.Close();
+                }
             }
         }
+
 
         public bool Register(String username, String password)
         {
@@ -81,7 +91,7 @@ namespace DataAccess
                 try
                 {
                     connection.Open();
-                    // Register with Values for Colum @Gebruikersnaam and @Wachtwoord
+                    // Register with Values for Column @Gebruikersnaam and @Wachtwoord
                     MySqlCommand command = new MySqlCommand("INSERT INTO inloggegevens (gebruikersnaam, wachtwoord) VALUES (@gebruikersnaam, @wachtwoord)", connection);
                     command.Parameters.AddWithValue("@gebruikersnaam", username);
                     command.Parameters.AddWithValue("@wachtwoord", password);
@@ -107,6 +117,3 @@ namespace DataAccess
         }
     }
 }
-
-// Hij geeft geen fout wanneer de gebruikersnaam al bestaat
-// 

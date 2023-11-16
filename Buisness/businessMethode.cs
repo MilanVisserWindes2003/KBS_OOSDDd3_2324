@@ -11,9 +11,9 @@ namespace Business
     {
        
         bool isLoggedin;
-        DataAccess.Connectie dataConnection; 
+        Connectie dataConnection; 
 
-        public businessMethode() { dataConnection = new DataAccess.Connectie(); }
+        public businessMethode() { dataConnection = new Connectie(); }
 
         public bool CheckLogin(string username, string password)
         {
