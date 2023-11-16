@@ -18,21 +18,16 @@ namespace WpfProject
     /// <summary>
     /// Interaction logic for ConfigurationPage.xaml
     /// </summary>
-    public partial class ConfigurationPage : Page
+    public partial class TextDifficultySelect : Page
     {
-        public ConfigurationPage()
+        public TextDifficultySelect()
         {
            InitializeComponent();
         }
 
-        private void ButtonText_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Uri("Login.xaml", UriKind.Relative));
-        }
-
-        private void ButtonAudio_Click(object sender, RoutedEventArgs e)
-        {
-
+            NavigationService.Navigate(new TextLengthSelect());
         }
     }
 }
