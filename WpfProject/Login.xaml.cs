@@ -1,4 +1,5 @@
-﻿using System;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,8 @@ namespace WpfProject
     /// </summary>
     public partial class Login : Page
     {
+        private const string ConnectionDatabase = "Server=localhost;Database=lerentypen;User ID=root;Passord=;";
+
         public Login()
         {
             InitializeComponent();
@@ -39,7 +42,6 @@ namespace WpfProject
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-
         }
     }
 }

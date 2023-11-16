@@ -26,4 +26,3 @@
         <Border BorderBrush="#FF0A1172" BorderThickness="1" HorizontalAlignment="Center" Height="42" Margin="0,186,0,0" Grid.Row="1" VerticalAlignment="Top" Width="800" Background="#0A1172"/>
     </Grid>
 </Page>
-
