@@ -16,15 +16,18 @@ using System.Windows.Shapes;
 namespace WpfProject
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for ConfigurationPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class TextLengthSelect : Page
     {
-        public MainWindow()
+        public TextLengthSelect()
         {
-            InitializeComponent();
+           InitializeComponent();
+        }
 
-            MainFrame.NavigationService.Navigate(new Login());
-        }       
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new ExerciseTypeSelect());
+        }
     }
 }

@@ -5,7 +5,7 @@ VisualStudioVersion = 17.7.34202.233
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{0FF9456C-6D10-48D0-83CA-7DB8B7E9B433}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Buisness", "Buisness\Buisness.csproj", "{AB5D2A2B-8E0E-4D06-9C11-FC2150CA4F90}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business", "Buisness\Business.csproj", "{AB5D2A2B-8E0E-4D06-9C11-FC2150CA4F90}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfProject", "WpfProject\WpfProject.csproj", "{428A794D-3900-4850-B197-511AD6D6F221}"
 EndProject

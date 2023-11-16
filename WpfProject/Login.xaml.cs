@@ -29,7 +29,7 @@ namespace WpfProject
         {
             string username = logintxt.Text;
             string password = wachtwoordtxt.Password;
-            NavigationService.Navigate(new Uri("ConfigurationPage.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("TextDifficultySelect.xaml", UriKind.Relative));
         }
 
         private void registreer_click(object sender, RoutedEventArgs e)
