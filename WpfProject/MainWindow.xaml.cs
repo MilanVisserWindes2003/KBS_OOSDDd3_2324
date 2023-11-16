@@ -12,19 +12,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Business;
 
 namespace WpfProject
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
+        Business.Business business;
         public MainWindow()
         {
             InitializeComponent();
+            business = new Business.Business();
 
-            MainFrame.NavigationService.Navigate(new Login());
+            MainFrame.NavigationService.Navigate(new Login(business));
         }       
     }
 }

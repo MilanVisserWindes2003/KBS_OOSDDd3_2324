@@ -10,7 +10,7 @@ using MySql.Data.MySqlClient;
 
 namespace DataAccess
 {
-    public class Connectie
+    public class DataAccess
     {
         bool isConnected = false;
         private const string ConnectionDatabase = "Server=localhost;Database=Skepta;User ID=root;Passord=;";
@@ -107,6 +107,3 @@ namespace DataAccess
         }
     }
 }
-
-// Hij geeft geen fout wanneer de gebruikersnaam al bestaat
-// 

@@ -20,14 +20,16 @@ namespace WpfProject
     /// </summary>
     public partial class TextDifficultySelect : Page
     {
-        public TextDifficultySelect()
+        Business.Business business;
+        public TextDifficultySelect(Business.Business business)
         {
            InitializeComponent();
+           this.business = business;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new TextLengthSelect());
+            NavigationService.Navigate(new TextLengthSelect(business));
         }
     }
 }

@@ -20,14 +20,16 @@ namespace WpfProject
     /// </summary>
     public partial class TextLengthSelect : Page
     {
-        public TextLengthSelect()
+        Business.Business business;
+        public TextLengthSelect(Business.Business business)
         {
-           InitializeComponent();
+            InitializeComponent();
+            this.business = business;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new ExerciseTypeSelect());
+            NavigationService.Navigate(new ExerciseTypeSelect(business));
         }
     }
 }

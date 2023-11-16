@@ -22,11 +22,11 @@ namespace WpfProject
     /// </summary>
     public partial class Register : Page
     {
-        Business.businessMethode business;
-        public Register()
+        Business.Business business;
+        public Register(Business.Business business)
         {
             InitializeComponent();
-            business = new Business.businessMethode();
+            this.business = business;
         }
         private void registreer_Button(object sender, RoutedEventArgs e)
         {
@@ -53,7 +53,7 @@ namespace WpfProject
             } 
             if(business.CheckRegister(logintxt.Text, wachtwoordtxt.Password, wachtwoordtxt2.Password)){
                 MessageBox.Show("Je account is aangemaakt.");
-                NavigationService.Navigate(new Uri("Login.xaml", UriKind.Relative));
+                NavigationService.Navigate(new Login(business));
             }
             else 
             {
@@ -63,7 +63,7 @@ namespace WpfProject
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Uri("Login.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Login(business));
         }
     }
 }

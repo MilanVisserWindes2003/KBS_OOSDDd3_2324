@@ -20,16 +20,18 @@ namespace WpfProject
     /// </summary>
     public partial class ExerciseTypeSelect : Page
     {
-        public ExerciseTypeSelect()
+        Business.Business business;
+        public ExerciseTypeSelect(Business.Business business)
         {
-           InitializeComponent();
+            InitializeComponent();
             ImageViewer1.Source = new BitmapImage(new Uri("font.png", UriKind.Relative));
             ImageViewer2.Source = new BitmapImage(new Uri("speak.png", UriKind.Relative));
+            this.business = business;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Login());
+            NavigationService.Navigate(new Login(business));
         }
     }
 }

@@ -21,11 +21,11 @@ namespace WpfProject
     /// </summary>
     public partial class Login : Page
     {
-        Business.businessMethode business;
-        public Login()
+        Business.Business business;
+        public Login(Business.Business business)
         {
             InitializeComponent();
-            business = new businessMethode();
+            this.business = business;
 
         }
 
@@ -35,7 +35,7 @@ namespace WpfProject
             string password = wachtwoordtxt.Password;
             if (business.CheckLogin(logintxt.Text, wachtwoordtxt.Password))
             {
-                NavigationService.Navigate(new Uri("Login.xaml", UriKind.Relative));
+                NavigationService.Navigate(new Login(business));
             }
             else
             {
@@ -45,7 +45,7 @@ namespace WpfProject
 
         private void registreer_click(object sender, RoutedEventArgs e)
         {   
-            NavigationService.Navigate(new Uri("Register.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Register(business));
         }
     }
 }

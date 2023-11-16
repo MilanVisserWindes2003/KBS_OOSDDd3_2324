@@ -7,13 +7,13 @@ using DataAccess;
 
 namespace Business
 {
-    public class businessMethode
+    public class Business
     {
        
         bool isLoggedin;
-        DataAccess.Connectie dataConnection; 
+        DataAccess.DataAccess dataConnection; 
 
-        public businessMethode() { dataConnection = new DataAccess.Connectie(); }
+        public Business() { dataConnection = new DataAccess.DataAccess(); }
 
         public bool CheckLogin(string username, string password)
         {
