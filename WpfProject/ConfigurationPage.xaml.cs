@@ -27,8 +27,8 @@ namespace WpfProject
 
         private void ButtonText_Click(object sender, RoutedEventArgs e)
         {
-            TextConfigure textConfigure = new TextConfigure();
-            NavigationService.Navigate(new Uri("TextConfigure.xaml", UriKind.Relative));
+            Login textConfigure = new Login();
+            NavigationService.Navigate(new Uri("Login.xaml", UriKind.Relative));
         }
 
         private void ButtonAudio_Click(object sender, RoutedEventArgs e)
