@@ -28,7 +28,7 @@ namespace DataAccess
                 try
                 {
                     connection.Open();
-                    MySqlCommand command = new MySqlCommand("SELECT * FROM inloggegevens WHERE username = @Gebruikersnaam", connection);
+                    MySqlCommand command = new MySqlCommand("SELECT * FROM inloggegevens WHERE gebruikersnaam = @gebruikersnaam", connection);
                     command.Parameters.AddWithValue("@gebruikersnaam", username);
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -41,7 +41,7 @@ namespace DataAccess
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(new NullReferenceException());
+                    Console.WriteLine(ex.Message);
                     return false;
                 }
                 finally { connection.Close(); }
@@ -54,25 +54,27 @@ namespace DataAccess
                 try
                 {
                     connection.Open();
-                    MySqlCommand command = new MySqlCommand("SELECT wachtwoord FROM inloggegevens WHERE username = @Gebruikersnaam", connection);
+                    MySqlCommand command = new MySqlCommand("SELECT wachtwoord FROM inloggegevens WHERE gebruikersnaam = @gebruikersnaam", connection);
                     command.Parameters.AddWithValue("@gebruikersnaam", username);
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-                            return username;
+                            // Return the password instead of the username
+                            return reader["wachtwoord"].ToString();
                         }
                     }
                     return null;
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(new NullReferenceException());
+                    Console.WriteLine($"GetPassword Exception: {ex}");
                     return null;
                 }
                 finally { connection.Close(); }
             }
         }
+
 
         public bool Register(String username, String password)
         {

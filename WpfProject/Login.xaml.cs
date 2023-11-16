@@ -16,9 +16,6 @@ using Business;
 
 namespace WpfProject
 {
-    /// <summary>
-    /// Interaction logic for Login.xaml
-    /// </summary>
     public partial class Login : Page
     {
         Business.Business business;
@@ -33,7 +30,7 @@ namespace WpfProject
         {
             string username = logintxt.Text;
             string password = wachtwoordtxt.Password;
-            if (business.CheckLogin(logintxt.Text, wachtwoordtxt.Password))
+            if (business.CheckLogin(username, password))
             {
                 NavigationService.Navigate(new TextDifficultySelect(business));
             }

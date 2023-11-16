@@ -38,20 +38,23 @@ namespace Business
             if (dataConnection.UsernameExists(username))
             {
                 string databasePassword = dataConnection.GetPassword(username);
-                if (databasePassword == password)
+
+                // Check if the database password is not null and trim leading/trailing spaces
+                if (!string.IsNullOrEmpty(databasePassword))
                 {
-                    return true;
-                } 
-                else
-                {
-                    return false;
+                    databasePassword = databasePassword.Trim();
+
+                    // Compare the trimmed database password with the entered password
+                    if (databasePassword == password)
+                    {
+                        return true;
+                    }
                 }
             }
-            else
-            {
-                return false;
-            };
+
+            return false;
         }
+
         public bool CheckRegister(string username, string password, string password2)
         {
             if (password == password2 && username.Length <= 20 && username.Length > 0 && password.Length > 0 && password.Length <= 20)
