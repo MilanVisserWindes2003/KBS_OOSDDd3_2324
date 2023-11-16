@@ -1,4 +1,4 @@
-
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+
 
 namespace WpfProject
 {
@@ -31,17 +32,21 @@ namespace WpfProject
         private void login_click(object sender, RoutedEventArgs e)
         {
             string username = logintxt.Text;
-            string password = wachtwoordtxt.Password;
+            string password = wachtwoordtxt.Text;
+
+            //string loginResult = ConnectionDatabase.Login(username, password);
+
+            //MessageBox.Show(loginResult); // Show the result in a MessageBox for example
         }
 
         private void registreer_click(object sender, RoutedEventArgs e)
         {
             string username = logintxt.Text;
-            string password = wachtwoordtxt.Password;
-        }
+            string password = wachtwoordtxt.Text;
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
+            //string registerResult = ConnectionDatabase.Register(username, password);
+
+            //MessageBox.Show(registerResult); // Show the result in a MessageBox for example
         }
     }
 }
