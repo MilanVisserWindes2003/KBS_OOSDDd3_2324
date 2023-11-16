@@ -16,20 +16,24 @@ using System.Windows.Shapes;
 namespace WpfProject
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for ConfigurationPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ConfigurationPage : Page
     {
-        public MainWindow()
+        public ConfigurationPage()
         {
-            InitializeComponent();
+           InitializeComponent();
+        }
 
-            MainFrame.NavigationService.Navigate(new Login());
-        }
-        public void NavigateToConfiguration()
+        private void ButtonText_Click(object sender, RoutedEventArgs e)
         {
-            MainFrame.NavigationService.Navigate(new ConfigurationPage());
+            TextConfigure textConfigure = new TextConfigure();
+            NavigationService.Navigate(new Uri("TextConfigure.xaml", UriKind.Relative));
         }
-        
+
+        private void ButtonAudio_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
