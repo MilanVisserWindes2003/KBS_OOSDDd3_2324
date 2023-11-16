@@ -1,0 +1,30 @@
+﻿<Page x:Class="WpfProject.Register"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfProject"
+      mc:Ignorable="d" 
+      d:DesignHeight="1080" d:DesignWidth="1920"
+      Title="Register">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="38*"/>
+        </Grid.RowDefinitions>
+        <Label Content="Registreer bij Skepta" HorizontalAlignment="Center" Margin="0,25,0,0" VerticalAlignment="Top" Height="44" Width="224" FontWeight="Bold" FontSize="22" Grid.Row="1"/>
+        <Label Content="Gebruikersnaam:" HorizontalAlignment="Center" Margin="0,69,0,0" VerticalAlignment="Top" Width="146" Height="35" FontWeight="Bold" FontSize="16" Grid.Row="1"/>
+        <Label Content="Wachtwoord:" HorizontalAlignment="Left" Margin="887,166,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Height="34" Width="114" Grid.Row="1"/>
+        <Label Content="Herhaal Wachtwoord:" HorizontalAlignment="Left" Margin="887,270,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Height="34" Width="185" Grid.Row="1"/>
+        <TextBox Name="logintxt" HorizontalAlignment="Center" Height="29" Margin="0,109,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="146" FontWeight="Bold" FontSize="16"  Grid.Row="1"/>
+        <PasswordBox Name="wachtwoordtxt" HorizontalAlignment="Center" Height="29" VerticalAlignment="Top" Width="146" FontWeight="Bold" Grid.Row="1" FontSize="16" Margin="0,205,0,0"/>
+        <PasswordBox Name="wachtwoordtxt2" HorizontalAlignment="Center" Height="29" VerticalAlignment="Top" Width="146" FontWeight="Bold" Grid.Row="1" FontSize="16" Margin="0,309,0,0" />
+        <Button Name="registreerbut" Content="Registreer" HorizontalAlignment="Center" Margin="0,403,0,0" VerticalAlignment="Top" Click="registreer_Button" FontWeight="Bold" Background="#FF057BFF" Foreground="White" Width="146" Grid.Row="1"/>
+
+        <Border BorderBrush="#FF0A1172" BorderThickness="1" Background="#0A1172"/>
+        <Border BorderBrush="#FF0A1172" BorderThickness="1" HorizontalAlignment="Center" Height="76" Margin="0,878,0,0" Grid.Row="1" VerticalAlignment="Top" Width="1920" Background="#0A1172"/>
+        <Button Content="⌫" HorizontalAlignment="Left" VerticalAlignment="Center" Click="Back_Click" Width="88" Height="69" FontSize="48" FontWeight="Bold" Background="#FFF0F5FF" BorderBrush="#FF1C31BB" Margin="1184,0,0,0"/>
+    </Grid>
+</Page>
+
