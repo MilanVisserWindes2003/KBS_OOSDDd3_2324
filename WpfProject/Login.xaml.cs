@@ -35,7 +35,7 @@ namespace WpfProject
             string password = wachtwoordtxt.Password;
             if (business.CheckLogin(logintxt.Text, wachtwoordtxt.Password))
             {
-                NavigationService.Navigate(new Login(business));
+                NavigationService.Navigate(new TextDifficultySelect(business));
             }
             else
             {

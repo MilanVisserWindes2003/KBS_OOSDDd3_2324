@@ -29,7 +29,14 @@ namespace WpfProject
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new ExerciseTypeSelect(business));
+            if(sender is Button button)
+            {
+                string lengthTag = button.Tag as string;
+                int length = int.Parse(lengthTag);
+                business.textLengthSetter(length);
+                MessageBox.Show($"{length}");
+                NavigationService.Navigate(new ExerciseTypeSelect(business));
+            }
         }
     }
 }

@@ -13,7 +13,21 @@ namespace Business
         bool isLoggedin;
         DataAccess.DataAccess dataConnection; 
 
+        public int textLength;
+        public string textDifficulty;
+        public bool isSpeechExercise;
+
         public Business() { dataConnection = new DataAccess.DataAccess(); }
+
+        public void textDifficultySetter(string difficulty)
+        {
+            this.textDifficulty = difficulty;
+        }
+
+        public void textLengthSetter(int length)
+        {
+            this.textLength = length;
+        }
 
         public bool CheckLogin(string username, string password)
         {

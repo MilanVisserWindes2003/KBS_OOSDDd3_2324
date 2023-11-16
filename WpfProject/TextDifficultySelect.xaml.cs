@@ -29,7 +29,13 @@ namespace WpfProject
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new TextLengthSelect(business));
+            if(sender is Button button)
+            {
+                string difficultyTag = button.Tag as string;
+                business.textDifficultySetter(difficultyTag);
+                MessageBox.Show($"{business.textDifficulty}");
+                NavigationService.Navigate(new TextLengthSelect(business));
+            }
         }
     }
 }
