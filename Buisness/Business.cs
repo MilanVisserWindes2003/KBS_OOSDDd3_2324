@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DataAccess;
 
+
 namespace Business
 {
     public class Business
@@ -16,6 +17,7 @@ namespace Business
         private int _textLength;
         private string _textDifficulty;
         private bool _isSpeechExercise;
+        private string text;
 
         public int TextLength
         {
@@ -122,5 +124,9 @@ namespace Business
                 _isSpeechExercise = true; 
             }
         }
+        //set text methode aan dataAccess vragen
+        
     }
+
+    
 }

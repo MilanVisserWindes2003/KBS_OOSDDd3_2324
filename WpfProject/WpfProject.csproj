@@ -81,6 +81,9 @@
     <Compile Include="ExercisePage.xaml.cs">
       <DependentUpon>ExercisePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SelectedSpeechSpeed.xaml.cs">
+      <DependentUpon>SelectedSpeechSpeed.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SpeechExcersize.xaml.cs">
       <DependentUpon>SpeechExcersize.xaml</DependentUpon>
     </Compile>
@@ -96,6 +99,9 @@
     <Compile Include="Register.xaml.cs">
       <DependentUpon>Register.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TextShuffle.xaml.cs">
+      <DependentUpon>TextShuffle.xaml</DependentUpon>
+    </Compile>
     <Page Include="ExerciseTypeSelect.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -103,6 +109,10 @@
     <Page Include="ExercisePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SelectedSpeechSpeed.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SpeechExcersize.xaml">
       <SubType>Designer</SubType>
@@ -140,6 +150,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Register.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TextShuffle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

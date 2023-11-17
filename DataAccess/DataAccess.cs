@@ -115,5 +115,36 @@ namespace DataAccess
                 finally { connection.Close(); }
             }
         }
+
+        public List<string> ObTainTexts(string niveau, int lengte)
+        {
+            using (SqlConnection connection = new SqlConnection(ConnectionDatabase))
+            {
+                try
+                {
+                    connection.Open();
+                    List<string> teksten = new List<string>();
+                    string query = "SELECT tekst FROM tekst_tabel WHERE niveau = @niveau AND lengte = @lengte";
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@niveau", niveau);
+                        command.Parameters.AddWithValue("@lengte", lengte);
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                string tekst = reader["tekst"].ToString();
+                                teksten.Add(tekst);
+                            }
+                        }
+                        return teksten;
+                    }
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
     }
 }
