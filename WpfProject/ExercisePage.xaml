@@ -19,7 +19,6 @@
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
 
-        <!-- TextBlocks to display Business properties -->
         <TextBlock Grid.Row="1" Text="{Binding Path=TextLength, StringFormat='Text Length: {0}'}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <TextBlock Grid.Row="2" Text="{Binding Path=TextDifficulty, StringFormat='Text Difficulty: {0}'}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <TextBlock Grid.Row="3" Text="{Binding Path=IsSpeechExercise, StringFormat='Is Speech Exercise: {0}'}" HorizontalAlignment="Center" VerticalAlignment="Center"/>

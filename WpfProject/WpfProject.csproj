@@ -84,6 +84,9 @@
     <Compile Include="SpeechExcersize.xaml.cs">
       <DependentUpon>SpeechExcersize.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TextExcersize.xaml.cs">
+      <DependentUpon>TextExcersize.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TextLenghtSelect.xaml.cs">
       <DependentUpon>TextLenghtSelect.xaml</DependentUpon>
     </Compile>
@@ -102,6 +105,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="SpeechExcersize.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TextExcersize.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
