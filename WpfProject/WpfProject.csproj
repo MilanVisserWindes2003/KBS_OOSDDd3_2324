@@ -141,5 +141,11 @@
   <ItemGroup>
     <Resource Include="speak.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon Skepta.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon Skepta trans.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

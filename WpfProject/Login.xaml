@@ -10,19 +10,34 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="5*"/>
-            <RowDefinition Height="38*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="23*"/>
+            <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
-        <Label Content="Welkom op Skepta" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Height="40" Width="224" FontWeight="Bold" FontSize="22" RenderTransformOrigin="0.485,0.6" Grid.Row="1"/>
-        <Label Content="Login:" HorizontalAlignment="Left" Margin="887,127,0,0" VerticalAlignment="Top" Width="60" Height="35" FontWeight="Bold" FontSize="16" Grid.Row="1"/>
-        <Label Content="Wachtwoord:" HorizontalAlignment="Left" Margin="887,217,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Height="34" Width="114" Grid.Row="1"/>
-        <TextBox Name="logintxt" HorizontalAlignment="Center" Height="29" Margin="0,167,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="146" FontWeight="Bold" FontSize="16" Grid.Row="1"/>
-        <PasswordBox Name="wachtwoordtxt" HorizontalAlignment="Center" Height="29" Margin="0,256,0,0" VerticalAlignment="Top" Width="146" FontWeight="Bold" Grid.Row="1" FontSize="16"/>
-        <Button Name="registreerbut" Content="Registreer" HorizontalAlignment="Center" Margin="0,437,0,0" VerticalAlignment="Top" Click="registreer_click" FontWeight="Bold" Background="#FF057BFF" Foreground="White" Width="146" Grid.Row="1"/>
-        <Button Name="loginbut" Content="Login" HorizontalAlignment="Center" Margin="0,341,0,0" VerticalAlignment="Top" FontWeight="Bold" Height="20" Width="146" Background="#FF0079FF" Foreground="White" RenderTransformOrigin="0.758,-1.117" Grid.Row="1" Click="login_click"/>
-        <Label Content="Login met je Skepta account" HorizontalAlignment="Center" Margin="0,71,0,0" VerticalAlignment="Top" FontWeight="Bold" Grid.Row="1"/>
-        <Label Content="Nog geen account? Maak een account aan" HorizontalAlignment="Center" Margin="0,387,0,0" VerticalAlignment="Top" FontWeight="Bold" Grid.Row="1"/>
-        <Border BorderBrush="#FF0A1172" BorderThickness="1" Background="#0A1172"/>
-        <Border BorderBrush="#FF0A1172" BorderThickness="1" HorizontalAlignment="Left" Height="85" Margin="-6,869,0,0" Grid.Row="1" VerticalAlignment="Top" Width="1926" Background="#0A1172"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30*"/>
+            <ColumnDefinition Width="30*"/>
+            <ColumnDefinition Width="30*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="1" Grid.Row="1" VerticalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="6*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="1">
+                <Label Content="Welkom op Skepta" HorizontalAlignment="Center" Height="65" Width="332" FontSize="36" FontWeight="Bold"/>
+                <Label Content="Gebruikersnaam:" HorizontalAlignment="Center" Width="180" Height="35" FontWeight="Bold" FontSize="16"/>
+                <TextBox Name="logintxt" HorizontalAlignment="Center" Height="35" Text="" Width="180" FontWeight="Bold" FontSize="16"/>
+                <Label Content="Wachtwoord:" HorizontalAlignment="Center" FontWeight="Bold" FontSize="16" Height="35" Width="180"/>
+                <PasswordBox Name="wachtwoordtxt" HorizontalAlignment="Center" Height="35" Width="180" FontWeight="Bold" FontSize="16"/>
+                <Button Name="loginbut" Content="Login" HorizontalAlignment="Center" FontWeight="Bold" Height="35" Width="180" Background="#FF0079FF" Foreground="White" Click="login_click" FontSize="16" Margin="0,25,0,0"/>
+                <Label Content="Nog geen account?" HorizontalAlignment="Center" FontWeight="Bold" FontSize="16" Height="35"/>
+                <Button Name="registreerbut" Content="Registreer" HorizontalAlignment="Center" Click="registreer_click" FontWeight="Bold" Background="#FF057BFF" Foreground="White" Width="180" Height="35" FontSize="16"/>
+            </StackPanel>
+            
+        </Grid>
+        <Border BorderBrush="#FF0A1172" BorderThickness="1" Background="#0A1172" Grid.ColumnSpan="3" Margin="0,0,0,10"/>
+        <Border BorderBrush="#FF0A1172" BorderThickness="1" Background="#0A1172" Grid.ColumnSpan="3" Grid.Row="2"/>
     </Grid>
 </Page>
