@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace WpfProject
 {
-    /// <summary>
-    /// Interaction logic for ConfigurationPage.xaml
-    /// </summary>
     public partial class ExerciseTypeSelect : Page
     {
         Business.Business business;
