@@ -21,10 +21,28 @@ namespace WpfProject
     public partial class TextShuffle : Page
     {
         //reshuffle pagina heb je een varriable
+        Business.Business business;
+
         public TextShuffle(Business.Business business)
         {
             InitializeComponent();
+            this.business = business;
+            this.DataContext = business;
+            TextBlock.Text = business.obtainRandomText(business.TextDifficulty, business.TextLength);
+        }
 
+        private void Shuffle_Click(object sender, RoutedEventArgs e)
+        {
+            TextBlock.Text = business.obtainRandomText(business.TextDifficulty, business.TextLength);
+        }
+
+        private void Accept_Click(object sender, RoutedEventArgs e)
+        {
+            if (business.IsSpeechExercise)
+            {
+                NavigationService.Navigate(new SpeechExcersize(business));
+            }
+            NavigationService.Navigate(new TextExcersize(business));
         }
         //databind textblock aan buisness text
 

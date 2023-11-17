@@ -17,7 +17,7 @@ namespace Business
         private int _textLength;
         private string _textDifficulty;
         private bool _isSpeechExercise;
-        private string text;
+        private string RandomText = "";
 
         public int TextLength
         {
@@ -125,7 +125,15 @@ namespace Business
             }
         }
         //set text methode aan dataAccess vragen
-        
+        public string obtainRandomText(string niveau, int lengte)
+        {
+            List<string> teksten = dataConnection.ObTainTexts(niveau, lengte);
+            Random random = new Random();
+            int randomIndex = random.Next(0, teksten.Count);
+            this.RandomText = teksten[randomIndex]; 
+            return teksten[randomIndex];
+            
+        }
     }
 
     

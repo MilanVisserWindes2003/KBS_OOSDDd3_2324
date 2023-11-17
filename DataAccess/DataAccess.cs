@@ -13,7 +13,7 @@ namespace DataAccess
     public class DataAccess
     {
         bool isConnected = false;
-        private const string ConnectionDatabase = "Server=localhost;Database=Skepta;User ID=root;Passord=;";
+        private const string ConnectionDatabase = "Server=localhost;Database=Skepta;User ID=root;Password=;";
         public MySqlConnection Connection { get; set; }
 
         public void TableLerenTypenConnection()
@@ -49,12 +49,12 @@ namespace DataAccess
         }
         public string GetPassword(string username)
         {
-            using (MySqlConnection connection = new MySqlConnection(ConnectionDatabase))
+            using (Connection = new MySqlConnection(ConnectionDatabase))
             {
                 try
                 {
-                    connection.Open();
-                    MySqlCommand command = new MySqlCommand("SELECT wachtwoord FROM inloggegevens WHERE gebruikersnaam = @gebruikersnaam", connection);
+                    Connection.Open();
+                    MySqlCommand command = new MySqlCommand("SELECT wachtwoord FROM inloggegevens WHERE gebruikersnaam = @gebruikersnaam", Connection);
                     command.Parameters.AddWithValue("@gebruikersnaam", username);
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -78,7 +78,7 @@ namespace DataAccess
                 }
                 finally
                 {
-                    connection.Close();
+                    Connection.Close();
                 }
             }
         }
@@ -118,18 +118,18 @@ namespace DataAccess
 
         public List<string> ObTainTexts(string niveau, int lengte)
         {
-            using (SqlConnection connection = new SqlConnection(ConnectionDatabase))
+            using (Connection = new MySqlConnection(ConnectionDatabase))
             {
                 try
                 {
-                    connection.Open();
+                    Connection.Open();
                     List<string> teksten = new List<string>();
                     string query = "SELECT tekst FROM tekst_tabel WHERE niveau = @niveau AND lengte = @lengte";
-                    using (SqlCommand command = new SqlCommand(query, connection))
+                    using (MySqlCommand command = new MySqlCommand(query, Connection))
                     {
                         command.Parameters.AddWithValue("@niveau", niveau);
                         command.Parameters.AddWithValue("@lengte", lengte);
-                        using (SqlDataReader reader = command.ExecuteReader())
+                        using (MySqlDataReader reader = command.ExecuteReader())
                         {
                             while (reader.Read())
                             {
@@ -142,7 +142,7 @@ namespace DataAccess
                 }
                 finally
                 {
-                    connection.Close();
+                    Connection.Close();
                 }
             }
         }

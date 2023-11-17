@@ -45,7 +45,7 @@ namespace WpfProject
         public string Text { get; private set; }
         public string TypedText { get; set; }
         private string selectedSpeedOption;
-        public SpeechExcersize()
+        public SpeechExcersize(Business.Business business)
         {
             synthesizer.SetOutputToDefaultAudioDevice();
             synthesizer.SelectVoice("Microsoft Frank");

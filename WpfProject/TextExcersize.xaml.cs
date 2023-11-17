@@ -20,7 +20,7 @@ namespace WpfProject
     /// </summary>
     public partial class TextExcersize : Page
     {
-        public TextExcersize()
+        public TextExcersize(Business.Business business)
         {
             InitializeComponent();
         }
