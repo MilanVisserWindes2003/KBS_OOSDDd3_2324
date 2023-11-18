@@ -20,12 +20,9 @@ namespace WpfProject
     /// <summary>
     /// Interaction logic for SpeechExcersize.xaml
     /// </summary>
-    public partial class SpeechExcersize : Page, INotifyPropertyChanged
+    public partial class SpeechExcersize : Page
     {
         SpeechSynthesizer synthesizer = new SpeechSynthesizer();
-
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         public string SelectedSpeedOption
         {
@@ -37,7 +34,7 @@ namespace WpfProject
                 if (!selectedSpeedOption.Equals(value))
                 {
                     selectedSpeedOption = value;
-                    OnPropertyChanged(nameof(SelectedSpeedOption));
+                   
                     SetSynthesizerRate();
                 }
             }
@@ -52,7 +49,7 @@ namespace WpfProject
             InitializeComponent();
             DataContext = this;
             selectedSpeedOption = string.Empty;
-            Text = "hallo ik spreek nederlands";
+            Text = business.RandomText;
         }
         private void Speak(object sender, EventArgs e)
         {
@@ -61,11 +58,7 @@ namespace WpfProject
                 synthesizer.Speak(Text);
             }
         }
-        private void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
-        }
+       
         private void SetSynthesizerRate()
         {
             if (int.TryParse(SelectedSpeedOption, out int rate))

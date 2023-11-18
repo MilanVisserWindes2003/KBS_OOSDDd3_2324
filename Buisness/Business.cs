@@ -10,15 +10,20 @@ namespace Business
 {
     public class Business
     {
-       
+
         bool isLoggedin;
         DataAccess.DataAccess dataConnection;
 
         private int _textLength;
         private string _textDifficulty;
         private bool _isSpeechExercise;
-        private string RandomText = "";
-
+        private string randomText = "";
+        public string RandomText
+        {
+            get { return randomText; }
+            set { randomText = value; }
+        } 
+        
         public int TextLength
         {
             get { return _textLength; }
@@ -130,7 +135,7 @@ namespace Business
             List<string> teksten = dataConnection.ObTainTexts(niveau, lengte);
             Random random = new Random();
             int randomIndex = random.Next(0, teksten.Count);
-            this.RandomText = teksten[randomIndex]; 
+            this.randomText = teksten[randomIndex]; 
             return teksten[randomIndex];
             
         }

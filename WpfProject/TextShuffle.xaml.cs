@@ -44,9 +44,5 @@ namespace WpfProject
             }
             NavigationService.Navigate(new TextExcersize(business));
         }
-        //databind textblock aan buisness text
-
-        //shufflebutton maakt nieuwe pagina
-
     }
 }
