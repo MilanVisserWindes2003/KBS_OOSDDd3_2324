@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace WpfProject
 {
-    /// <summary>
-    /// Interaction logic for ConfigurationPage.xaml
-    /// </summary>
     public partial class TextLengthSelect : Page
     {
         Business.Business business;
