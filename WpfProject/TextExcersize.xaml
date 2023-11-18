@@ -1,4 +1,4 @@
-﻿<Page x:Class="WpfProject.TextExcersize"
+﻿<Page x:Class="WpfProject.TextExcersize" Focusable="True"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -20,5 +20,6 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <TextBlock Name="TextBlock" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Path=RandomText, StringFormat=''}" VerticalAlignment="Stretch" Grid.Column="1" Grid.Row="1"/>
+        <TextBlock x:Name="InputTextBlock" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="" Margin="10" VerticalAlignment="Stretch" Grid.Column="1" Grid.Row="2"/>
     </Grid>
 </Page>

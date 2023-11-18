@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataAccess;
+using System.Text;
+using System.Windows;
+using System.Windows.Input;
 
 
 namespace Business
@@ -137,6 +140,52 @@ namespace Business
             int randomIndex = random.Next(0, teksten.Count);
             this.randomText = teksten[randomIndex]; 
             return teksten[randomIndex]; 
+        }
+
+                public string GetPrintableCharacter(Key key, bool isShiftPressed)
+        {
+            string keyString = key.ToString();
+
+            if (key == Key.OemQuotes)
+            {
+                return isShiftPressed ? "\"" : "'";
+            }
+            else if (key == Key.OemQuestion)
+            {
+                return isShiftPressed ? "?" : "/";
+            }
+            else if (key == Key.OemPeriod)
+            {
+                return isShiftPressed ? ">" : ".";
+            }
+            else if (key == Key.OemComma)
+            {
+                return isShiftPressed ? "<" : ",";
+            }
+            else if (key == Key.D1)
+            {
+                return isShiftPressed ? "!" : "1";
+            }
+
+            return isShiftPressed ? keyString.ToUpper() : keyString.ToLower();
+        }
+
+        public bool IsPrintableKey(Key key)
+        {
+            return (key >= Key.A && key <= Key.Z) ||
+                   (key >= Key.D0 && key <= Key.D9) ||
+                   (key >= Key.NumPad0 && key <= Key.NumPad9) ||
+                   key == Key.OemQuotes || // Double and single quotation marks
+                   key == Key.OemQuestion || // Question mark
+                   key == Key.OemPeriod || // Period (.)
+                   key == Key.OemComma || // Comma (,)
+                   key == Key.Oem1 || // Exclamation mark (!) - US keyboard layout
+                   key == Key.Oem2 || // Slash (/) - specific to some keyboards
+                   key == Key.Oem3 || // Grave accent (`) - specific to some keyboards
+                   key == Key.OemPlus || // Plus sign (+)
+                   key == Key.OemMinus || // Minus sign (-)
+                   key == Key.OemOpenBrackets || // Opening square bracket ([)
+                   key == Key.OemCloseBrackets; // Closing square bracket (])
         }
     }
 }
