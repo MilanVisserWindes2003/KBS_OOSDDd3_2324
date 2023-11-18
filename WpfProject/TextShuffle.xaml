@@ -21,7 +21,7 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
-            <TextBlock Name="TextBlock" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Path=RandomText, StringFormat='o{0}'}" VerticalAlignment="Stretch" Grid.Row="1"/>
+            <TextBlock Name="TextBlock" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Path=RandomText, StringFormat=''}" VerticalAlignment="Stretch" Grid.Row="1"/>
             <Button Name="Shuffle" Content="Shuffle"  Width="250" Height="50" Grid.Row="2" HorizontalAlignment="Left" Click="Shuffle_Click"/>
             <Button Name="Accept" Content="Accepteer"  Width="250" Height="50" Grid.Row="2" HorizontalAlignment="Right" Click="Accept_Click"/>
         </Grid>

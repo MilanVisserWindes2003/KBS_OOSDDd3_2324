@@ -136,10 +136,7 @@ namespace Business
             Random random = new Random();
             int randomIndex = random.Next(0, teksten.Count);
             this.randomText = teksten[randomIndex]; 
-            return teksten[randomIndex];
-            
+            return teksten[randomIndex]; 
         }
     }
-
-    
 }

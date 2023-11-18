@@ -15,14 +15,14 @@ using System.Windows.Shapes;
 
 namespace WpfProject
 {
-    /// <summary>
-    /// Interaction logic for TextExcersize.xaml
-    /// </summary>
     public partial class TextExcersize : Page
     {
+        Business.Business business;
         public TextExcersize(Business.Business business)
         {
             InitializeComponent();
+            this.business = business;
+            this.DataContext = business;
         }
     }
 }
