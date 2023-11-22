@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -25,10 +27,11 @@ namespace WpfProject
             this.business = business;
             this.DataContext = business;
             this.PreviewKeyDown += MainWindow_PreviewKeyDown;
+            business.waitToStartTimer();
             this.Focus();
         }
 
-        public void MainWindow_PreviewKeyDown(object sender, KeyEventArgs e)
+        public void MainWindow_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (e.Key == Key.LeftShift || e.Key == Key.RightShift)
             {
@@ -107,7 +110,13 @@ namespace WpfProject
 
             if (isInputCorrect && userInput.Length == business.RandomText.Length)
             {
-                MessageBox.Show("Text typed correctly!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                DialogResult dialogResult = System.Windows.Forms.MessageBox.Show("Text typed correctly!", "Success", MessageBoxButtons.OK);
+                if(dialogResult == DialogResult.OK)
+                {
+                    NavigationService.Navigate(new resultaat(business));
+                    business.StopWatch();
+                    business.TimeElapsed();
+                } 
             }
         }
     }

@@ -57,6 +57,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Speech" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -80,6 +81,9 @@
     </Compile>
     <Compile Include="ExercisePage.xaml.cs">
       <DependentUpon>ExercisePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="resultaat.xaml.cs">
+      <DependentUpon>resultaat.xaml</DependentUpon>
     </Compile>
     <Compile Include="SelectedSpeechSpeed.xaml.cs">
       <DependentUpon>SelectedSpeechSpeed.xaml</DependentUpon>
@@ -109,6 +113,10 @@
     <Page Include="ExercisePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="resultaat.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SelectedSpeechSpeed.xaml">
       <SubType>Designer</SubType>

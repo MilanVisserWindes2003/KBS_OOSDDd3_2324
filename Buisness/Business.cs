@@ -7,7 +7,8 @@ using DataAccess;
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
-
+using System.IO.Ports;
+using System.Diagnostics;
 
 namespace Business
 {
@@ -15,12 +16,19 @@ namespace Business
     {
 
         bool isLoggedin;
+        Stopwatch stopWatch = new Stopwatch();
         DataAccess.DataAccess dataConnection;
 
         private int _textLength;
         private string _textDifficulty;
         private bool _isSpeechExercise;
         private string randomText = "";
+        private double elapsedTime;
+
+        public double ElapsedTime { 
+            get { return elapsedTime; }
+            set { elapsedTime = value; }
+        }
         public string RandomText
         {
             get { return randomText; }
@@ -186,6 +194,19 @@ namespace Business
                    key == Key.OemMinus || // Minus sign (-)
                    key == Key.OemOpenBrackets || // Opening square bracket ([)
                    key == Key.OemCloseBrackets; // Closing square bracket (])
+        }
+        public void waitToStartTimer()
+        {
+            Task.Delay(3);
+            stopWatch.Start();
+        }
+        public void StopWatch()
+        {
+            stopWatch.Stop();
+        }
+        public void TimeElapsed()
+        {
+            elapsedTime = stopWatch.Elapsed.TotalSeconds;
         }
     }
 }
