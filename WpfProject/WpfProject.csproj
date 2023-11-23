@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>WpfProject</RootNamespace>
     <AssemblyName>WpfProject</AssemblyName>
-    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -57,9 +57,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Speech" />
-
     <Reference Include="System.Windows.Forms" />
-
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -81,7 +79,6 @@
     <Compile Include="ExerciseTypeSelect.xaml.cs">
       <DependentUpon>ExerciseTypeSelect.xaml</DependentUpon>
     </Compile>
-
     <Compile Include="ExercisePage.xaml.cs">
       <DependentUpon>ExercisePage.xaml</DependentUpon>
     </Compile>
@@ -94,9 +91,9 @@
     <Compile Include="SpeechExcersize.xaml.cs">
       <DependentUpon>SpeechExcersize.xaml</DependentUpon>
     </Compile>
-	<Compile Include="TextExcersize.xaml.cs">
-		<DependentUpon>TextExcersize.xaml</DependentUpon>
-	</Compile>
+    <Compile Include="TextExcersize.xaml.cs">
+      <DependentUpon>TextExcersize.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SpeachExcersise.xaml.cs">
       <DependentUpon>SpeachExcersise.xaml</DependentUpon>
     </Compile>
@@ -133,9 +130,9 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="TextExcersize.xaml">
-		<SubType>Designer</SubType>
-		<Generator>MSBuild:Compile</Generator>
-	</Page>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SpeachExcersise.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
