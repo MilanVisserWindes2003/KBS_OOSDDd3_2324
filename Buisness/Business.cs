@@ -4,19 +4,43 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataAccess;
+using System.Text;
+using System.Windows;
+using System.Windows.Input;
+using System.IO.Ports;
+using System.Diagnostics;
+using System.ComponentModel;
+using System.Windows.Threading;
 
 namespace Business
 {
-    public class Business
+    public class Business : INotifyPropertyChanged
     {
-       
+
         bool isLoggedin;
+        //Stopwatch stopWatch = new Stopwatch();
         DataAccess.DataAccess dataConnection;
+        public DispatcherTimer timer;
 
         private int _textLength;
         private string _textDifficulty;
         private bool _isSpeechExercise;
+        private string randomText = "";
+       
+        private TimeSpan elapsedTime { get; set; }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        //public double ElapsedTime { 
+          //  get { return elapsedTime; }
+            //set { elapsedTime = value; }
+        //}
+        public string RandomText
+        {
+            get { return randomText; }
+            set { randomText = value; }
+        } 
+        
         public int TextLength
         {
             get { return _textLength; }
@@ -38,6 +62,10 @@ namespace Business
 
         public Business() { dataConnection = new DataAccess.DataAccess(); }
 
+        protected virtual void PropertyChangedHandler(string property)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+        }
         public void textDifficultySetter(string difficulty)
         {
             this._textDifficulty = difficulty;
@@ -121,6 +149,86 @@ namespace Business
             { 
                 _isSpeechExercise = true; 
             }
+        }
+        //set text methode aan dataAccess vragen
+        public string obtainRandomText(string niveau, int lengte)
+        {
+            List<string> teksten = dataConnection.ObTainTexts(niveau, lengte);
+            Random random = new Random();
+            int randomIndex = random.Next(0, teksten.Count);
+            this.randomText = teksten[randomIndex]; 
+            return teksten[randomIndex]; 
+        }
+
+                public string GetPrintableCharacter(Key key, bool isShiftPressed)
+        {
+            string keyString = key.ToString();
+
+            if (key == Key.OemQuotes)
+            {
+                return isShiftPressed ? "\"" : "'";
+            }
+            else if (key == Key.OemQuestion)
+            {
+                return isShiftPressed ? "?" : "/";
+            }
+            else if (key == Key.OemPeriod)
+            {
+                return isShiftPressed ? ">" : ".";
+            }
+            else if (key == Key.OemComma)
+            {
+                return isShiftPressed ? "<" : ",";
+            }
+            else if (key == Key.D1)
+            {
+                return isShiftPressed ? "!" : "1";
+            }
+
+            return isShiftPressed ? keyString.ToUpper() : keyString.ToLower();
+        }
+
+        public bool IsPrintableKey(Key key)
+        {
+            
+            return (key >= Key.A && key <= Key.Z) ||
+                   (key >= Key.D0 && key <= Key.D9) ||
+                   (key >= Key.NumPad0 && key <= Key.NumPad9) ||
+                   key == Key.OemQuotes || // Double and single quotation marks
+                   key == Key.OemQuestion || // Question mark
+                   key == Key.OemPeriod || // Period (.)
+                   key == Key.OemComma || // Comma (,)
+                   key == Key.Oem1 || // Exclamation mark (!) - US keyboard layout
+                   key == Key.Oem2 || // Slash (/) - specific to some keyboards
+                   key == Key.Oem3 || // Grave accent (`) - specific to some keyboards
+                   key == Key.OemPlus || // Plus sign (+)
+                   key == Key.OemMinus || // Minus sign (-)
+                   key == Key.OemOpenBrackets || // Opening square bracket ([)
+                   key == Key.OemCloseBrackets; // Closing square bracket (])
+            
+        }
+        //public void waitToStartTimer()
+        //{
+         //   Task.Delay(3);
+           // stopWatch.Start();
+        //}
+        //public void StopWatch()
+        //{
+          //  stopWatch.Stop();
+        //}
+        //public void TimeElapsed()
+        //{
+         //   elapsedTime = stopWatch.Elapsed.TotalSeconds;
+        //}
+
+        public void AddTimerTick()
+        {
+            elapsedTime.Add(TimeSpan.FromSeconds(1));
+        }
+
+        public string GetTimerText()
+        {
+            return $"{elapsedTime}";
         }
     }
 }

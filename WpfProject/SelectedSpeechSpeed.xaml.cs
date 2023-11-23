@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,10 +16,13 @@ using System.Windows.Shapes;
 
 namespace WpfProject
 {
-    public partial class TextLengthSelect : Page
+    /// <summary>
+    /// Interaction logic for SelectedSpeechSpeed.xaml
+    /// </summary>
+    public partial class SelectedSpeechSpeed : Page
     {
         Business.Business business;
-        public TextLengthSelect(Business.Business business)
+        public SelectedSpeechSpeed(Business.Business business)
         {
             InitializeComponent();
             this.business = business;
@@ -26,13 +30,7 @@ namespace WpfProject
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if(sender is Button button)
-            {
-                string lengthTag = button.Tag as string;
-                int length = int.Parse(lengthTag);
-                business.textLengthSetter(length);
-                NavigationService.Navigate(new ExerciseTypeSelect(business));
-            }
+            Trace.WriteLine(business.TextLength);
         }
     }
 }

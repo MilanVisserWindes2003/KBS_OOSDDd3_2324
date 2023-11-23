@@ -32,7 +32,14 @@ namespace WpfProject
             {
                 string exerciseTag = button.Tag as string;
                 business.setSpeechExercise(exerciseTag);
-                NavigationService.Navigate(new ExercisePage(business));
+                if(business.IsSpeechExercise)
+                {
+                    NavigationService.Navigate( new SelectedSpeechSpeed(business));
+                }
+                else
+                {
+                    NavigationService.Navigate(new TextShuffle(business));
+                }
             }
         }
     }

@@ -57,6 +57,10 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Speech" />
+<<<<<<< Updated upstream
+    <Reference Include="System.Windows.Forms" />
+=======
+>>>>>>> Stashed changes
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -78,14 +82,25 @@
     <Compile Include="ExerciseTypeSelect.xaml.cs">
       <DependentUpon>ExerciseTypeSelect.xaml</DependentUpon>
     </Compile>
+<<<<<<< Updated upstream
     <Compile Include="ExercisePage.xaml.cs">
       <DependentUpon>ExercisePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="resultaat.xaml.cs">
+      <DependentUpon>resultaat.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SelectedSpeechSpeed.xaml.cs">
+      <DependentUpon>SelectedSpeechSpeed.xaml</DependentUpon>
     </Compile>
     <Compile Include="SpeechExcersize.xaml.cs">
       <DependentUpon>SpeechExcersize.xaml</DependentUpon>
     </Compile>
     <Compile Include="TextExcersize.xaml.cs">
       <DependentUpon>TextExcersize.xaml</DependentUpon>
+=======
+    <Compile Include="SpeachExcersise.xaml.cs">
+      <DependentUpon>SpeachExcersise.xaml</DependentUpon>
+>>>>>>> Stashed changes
     </Compile>
     <Compile Include="TextLenghtSelect.xaml.cs">
       <DependentUpon>TextLenghtSelect.xaml</DependentUpon>
@@ -96,19 +111,34 @@
     <Compile Include="Register.xaml.cs">
       <DependentUpon>Register.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TextShuffle.xaml.cs">
+      <DependentUpon>TextShuffle.xaml</DependentUpon>
+    </Compile>
     <Page Include="ExerciseTypeSelect.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+<<<<<<< Updated upstream
     <Page Include="ExercisePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="resultaat.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SelectedSpeechSpeed.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SpeechExcersize.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="TextExcersize.xaml">
+=======
+    <Page Include="SpeachExcersise.xaml">
+>>>>>>> Stashed changes
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -140,6 +170,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Register.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TextShuffle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

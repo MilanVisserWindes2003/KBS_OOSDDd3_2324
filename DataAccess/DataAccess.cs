@@ -13,106 +13,100 @@ namespace DataAccess
     public class DataAccess
     {
         bool isConnected = false;
-        private const string ConnectionDatabase = "Server=localhost;Database=Skepta;User ID=root;Passord=;";
-        public MySqlConnection Connection { get; set; }
+        private const string connectionString = "Server=.\\SQLEXPRESS; Database = Skepta; Integrated Security = true;";
+        public SqlConnection Connection { get; set; }
 
         public void TableLerenTypenConnection()
         {
-            this.Connection = new MySqlConnection(ConnectionDatabase);
-        }
-
-        public bool UsernameExists(string username)
+            this.Connection = new SqlConnection(connectionString);
+        }       
+        
+        public List<string> ObTainTexts(string level, int length)
         {
-            using (MySqlConnection connection = new MySqlConnection(ConnectionDatabase))
+            using (Connection = new SqlConnection(connectionString))
             {
                 try
                 {
-                    connection.Open();
-                    MySqlCommand command = new MySqlCommand("SELECT * FROM inloggegevens WHERE gebruikersnaam = @gebruikersnaam", connection);
-                    command.Parameters.AddWithValue("@gebruikersnaam", username);
-                    using (MySqlDataReader reader = command.ExecuteReader())
+                    Connection.Open();
+                    List<string> teksten = new List<string>();
+                    string query = "SELECT [content] FROM [dbo].[text] WHERE [level] = @Level AND [length] = @Length";
+                    using (SqlCommand command = new SqlCommand(query, Connection))
                     {
-                        if (reader.Read())
+                        command.Parameters.AddWithValue("@level", level);
+                        command.Parameters.AddWithValue("@length", length);
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            return true;
+                            while (reader.Read())
+                            {
+                                string tekst = reader["content"].ToString();
+                                teksten.Add(tekst);
+                            }
                         }
+                        return teksten;
                     }
-                    return false;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    return false;
-                }
-                finally { connection.Close(); }
-            }
-        }
-        public string GetPassword(string username)
-        {
-            using (MySqlConnection connection = new MySqlConnection(ConnectionDatabase))
-            {
-                try
-                {
-                    connection.Open();
-                    MySqlCommand command = new MySqlCommand("SELECT wachtwoord FROM inloggegevens WHERE gebruikersnaam = @gebruikersnaam", connection);
-                    command.Parameters.AddWithValue("@gebruikersnaam", username);
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            Console.WriteLine(reader["wachtwoord"].ToString());
-                            return reader["wachtwoord"].ToString();
-                        }
-                    }
-                    return null;
-                }
-                catch (MySqlException ex)
-                {
-                    Console.WriteLine($"MySQL Exception: {ex.Message}");
-                    return null;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Exception: {ex.Message}");
-                    return null;
                 }
                 finally
                 {
-                    connection.Close();
+                    Connection.Close();
+                }
+            }
+        } 
+
+        public bool UsernameExists(string username)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                string query = "SELECT COUNT(*) FROM [dbo].[user] WHERE [username] = @Username";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Username", username);
+
+                    int count = (int)command.ExecuteScalar();
+
+                    return count > 0;
                 }
             }
         }
 
-
-        public bool Register(String username, String password)
+        public string GetPassword(string username)
         {
-            using (MySqlConnection connection = new MySqlConnection(ConnectionDatabase))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                try
+                connection.Open();
+
+                string query = "SELECT [password] FROM [dbo].[user] WHERE [username] = @Username";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    connection.Open();
-                    // Register with Values for Column @Gebruikersnaam and @Wachtwoord
-                    MySqlCommand command = new MySqlCommand("INSERT INTO inloggegevens (gebruikersnaam, wachtwoord) VALUES (@gebruikersnaam, @wachtwoord)", connection);
-                    command.Parameters.AddWithValue("@gebruikersnaam", username);
-                    command.Parameters.AddWithValue("@wachtwoord", password);
+                    command.Parameters.AddWithValue("@Username", username);
+
+                    object result = command.ExecuteScalar();
+
+                    return result != null ? result.ToString() : null;
+                }
+            }
+        }
+
+        public bool Register(string username, string password)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                string query = "INSERT INTO [dbo].[user] ([username], [password]) VALUES (@Username, @Password)";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Username", username);
+                    command.Parameters.AddWithValue("@Password", password);
+
                     int rowsAffected = command.ExecuteNonQuery();
 
-                    // Check if the registration was successful
-                    if (rowsAffected > 0)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
+                    return rowsAffected > 0;
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Registration Exception: {ex}");
-                    return false;
-                }
-                finally { connection.Close(); }
             }
         }
     }
