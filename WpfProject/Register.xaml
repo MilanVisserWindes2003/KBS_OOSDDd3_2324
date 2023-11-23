@@ -38,7 +38,8 @@
         </Grid>
         <Border BorderBrush="#FF0A1172" BorderThickness="1" Background="#0A1172" Grid.ColumnSpan="3" Margin="0,0,0,10"/>
         <Border BorderBrush="#FF0A1172" BorderThickness="1" Background="#0A1172" Grid.ColumnSpan="3" Grid.Row="2"/>
-        <Button Content="⌫" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Back_Click" Width="40" Height="40" FontSize="24" FontWeight="Bold" Background="#FFF0F5FF" BorderBrush="#FF1C31BB" Margin="10,10,0,0"/>
+        <Button Content="⬅Back" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Back_Click" Width="90" Height="40" FontSize="24" FontWeight="Bold" Background="#FFF0F5FF" BorderBrush="#FF1C31BB" Margin="10,10,0,0"/>
     </Grid>
 </Page>
+
 
