@@ -9,26 +9,32 @@ using System.Windows;
 using System.Windows.Input;
 using System.IO.Ports;
 using System.Diagnostics;
+using System.ComponentModel;
+using System.Windows.Threading;
 
 namespace Business
 {
-    public class Business
+    public class Business : INotifyPropertyChanged
     {
 
         bool isLoggedin;
-        Stopwatch stopWatch = new Stopwatch();
+        //Stopwatch stopWatch = new Stopwatch();
         DataAccess.DataAccess dataConnection;
+        public DispatcherTimer timer;
 
         private int _textLength;
         private string _textDifficulty;
         private bool _isSpeechExercise;
         private string randomText = "";
-        private double elapsedTime;
+       
+        private TimeSpan elapsedTime { get; set; }
 
-        public double ElapsedTime { 
-            get { return elapsedTime; }
-            set { elapsedTime = value; }
-        }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        //public double ElapsedTime { 
+          //  get { return elapsedTime; }
+            //set { elapsedTime = value; }
+        //}
         public string RandomText
         {
             get { return randomText; }
@@ -56,6 +62,10 @@ namespace Business
 
         public Business() { dataConnection = new DataAccess.DataAccess(); }
 
+        protected virtual void PropertyChangedHandler(string property)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+        }
         public void textDifficultySetter(string difficulty)
         {
             this._textDifficulty = difficulty;
@@ -180,6 +190,7 @@ namespace Business
 
         public bool IsPrintableKey(Key key)
         {
+            
             return (key >= Key.A && key <= Key.Z) ||
                    (key >= Key.D0 && key <= Key.D9) ||
                    (key >= Key.NumPad0 && key <= Key.NumPad9) ||
@@ -194,19 +205,30 @@ namespace Business
                    key == Key.OemMinus || // Minus sign (-)
                    key == Key.OemOpenBrackets || // Opening square bracket ([)
                    key == Key.OemCloseBrackets; // Closing square bracket (])
+            
         }
-        public void waitToStartTimer()
+        //public void waitToStartTimer()
+        //{
+         //   Task.Delay(3);
+           // stopWatch.Start();
+        //}
+        //public void StopWatch()
+        //{
+          //  stopWatch.Stop();
+        //}
+        //public void TimeElapsed()
+        //{
+         //   elapsedTime = stopWatch.Elapsed.TotalSeconds;
+        //}
+
+        public void AddTimerTick()
         {
-            Task.Delay(3);
-            stopWatch.Start();
+            elapsedTime.Add(TimeSpan.FromSeconds(1));
         }
-        public void StopWatch()
+
+        public string GetTimerText()
         {
-            stopWatch.Stop();
-        }
-        public void TimeElapsed()
-        {
-            elapsedTime = stopWatch.Elapsed.TotalSeconds;
+            return $"{elapsedTime}";
         }
     }
 }

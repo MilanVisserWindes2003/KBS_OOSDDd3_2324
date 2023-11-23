@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace WpfProject
 {
@@ -22,18 +23,16 @@ namespace WpfProject
     public partial class resultaat : Page
     {
         Business.Business business;
+        
 
         public resultaat(Business.Business business)
         {
-           
+            
             InitializeComponent();
-            this.DataContext = business;
-            this.Loaded += Resultaat_Loaded;
-
+            this.DataContext = this;
+            this.business = business;
+            timerResult.Text = business.GetTimerText();
         }
-        private void Resultaat_Loaded(object sender, RoutedEventArgs e)
-        {
-            this.DataContext = this.business;
-        }
+        
     }
 }
