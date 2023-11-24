@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="Skepta.Presentation.View.TextShuffle"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfProject" xmlns:view="clr-namespace:Skepta.Presentation.View"
+             mc:Ignorable="d" 
+      d:DesignHeight="1080" d:DesignWidth="1920">
+
+    <Grid Background="Azure">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <Border BorderBrush="black" BorderThickness="1" Grid.Row="0">
+                <TextBlock HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding RandomText}" VerticalAlignment="Stretch"  FontSize="24"/>
+            </Border>
+            <Button Content="Shuffle"  Width="250" Height="50" Grid.Row="2" HorizontalAlignment="Left" Command="{Binding Shuffle}"/>
+            <Button Content="Accepteer"  Width="250" Height="50" Grid.Row="2" HorizontalAlignment="Right" Command="{Binding Accept}"/>
+        </Grid>
+    </Grid>
+</UserControl>
