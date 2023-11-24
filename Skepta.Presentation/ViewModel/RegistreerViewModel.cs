@@ -1,5 +1,7 @@
-﻿using Skepta.Business;
+﻿using Org.BouncyCastle.Asn1.Cms;
+using Skepta.Business;
 using Skepta.Presentation.ViewModel.Commands;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Skepta.Presentation.ViewModel
@@ -10,6 +12,7 @@ namespace Skepta.Presentation.ViewModel
         private string errorText = "";
         private string password = "";
         private string passwordConfirm = "";
+        private string registrationStatus = "";
 
         public RegistreerViewModel(SkeptaModel model)
         {
@@ -17,7 +20,7 @@ namespace Skepta.Presentation.ViewModel
         }
 
         public ICommand Registreer => new BaseCommand(RegistreerCmd, AllowRegistreer);
-        public ICommand Back => new BaseCommand(() => RequestPrev = true);
+        public ICommand Login => new BaseCommand(() => RequestPage = PageId.Login);
 
         public string Username { get; set; } = string.Empty;
 
@@ -42,6 +45,7 @@ namespace Skepta.Presentation.ViewModel
                 NotifyPropertyChanged(nameof(Registreer));
             }
         }
+
         public string ErrorText
         {
             get => errorText;
@@ -52,20 +56,37 @@ namespace Skepta.Presentation.ViewModel
             }
         }
 
+        public string RegistrationStatus
+        {
+            get => registrationStatus;
+            set
+            {
+                registrationStatus = value;
+                NotifyPropertyChanged(nameof(RegistrationStatus));
+            }
+        }
+
         public override void OpenPage()
         {
             ErrorText = string.Empty;
+            RegistrationStatus = string.Empty;
         }
 
         public bool AllowRegistreer() => !string.IsNullOrWhiteSpace(password) && password.Equals(passwordConfirm);
-        private void RegistreerCmd()
+
+        private async void RegistreerCmd()
         {
             (bool pass, string message) = model.CheckRegister(Username, password, passwordConfirm);
 
-            ErrorText = message;
             if (pass)
             {
-                RequestPrev = true;
+                RegistrationStatus = "Succesvol geregistreerd! U wordt doorverwezen naar de login-pagina...";
+                await Task.Delay(2000);
+                Login.Execute(null);
+            }
+            else
+            {
+                ErrorText = message;
             }
         }
     }

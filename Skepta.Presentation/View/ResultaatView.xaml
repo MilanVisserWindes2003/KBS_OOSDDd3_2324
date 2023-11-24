@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Skepta.Presentation.View"
              mc:Ignorable="d" 
-             d:DesignHeight="1008" d:DesignWidth="1920">
+             d:DesignHeight="1080" d:DesignWidth="1920">
     <!--Dit stond er nog in idk: xmlns:business="clr-namespace:Business;assembly=Business" xmlns:business1="clr-namespace:Skepta.Business;assembly=Skepta.Business" d:DataContext="{d:DesignInstance Type=business1:SkeptaModel}"-->
     <Grid Background="Azure">
         <TextBlock Name="timerResult" HorizontalAlignment="Center" Margin="0,341,0,0" TextWrapping="Wrap" Text="{Binding Path=ElapsedTime}" VerticalAlignment="Top" Height="199" Width="1144"/>

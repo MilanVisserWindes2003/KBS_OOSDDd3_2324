@@ -6,31 +6,10 @@
         xmlns:local="clr-namespace:Skepta.Presentation"
         mc:Ignorable="d"
         d:DesignHeight="1080" d:DesignWidth="1920"
-        WindowStyle="ThreeDBorderWindow"
+        WindowStyle="None"
         WindowState="Maximized">
-        
-    <Grid Name="Window">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="14*"/>
-        </Grid.RowDefinitions>
-        <Grid Name="Header">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="20*"/>
-                <RowDefinition Height="17*"/>
-                <RowDefinition Height="14*"/>
-                <RowDefinition Height="11*"/>
-            </Grid.RowDefinitions>
-            <Border Background="#687EFF" Grid.Row="0"/>
-            <Border Background="#80B3FF" Grid.Row="1"/>
-            <Border Background="#98E4FF" Grid.Row="2"/>
-            <Border Background="#B6FFFA" Grid.Row="3"/>
-        </Grid>
-        <Image Name="Logo" Margin="15" HorizontalAlignment="Left">
-            <Image.Source>
-                <BitmapImage UriSource="pack://application:,,,/Resources/Img/LogoWhite.png"/>
-            </Image.Source>
-        </Image>
+
+    <Grid Name="Window" SnapsToDevicePixels="True">
         <ContentPresenter Content="{Binding CurrentPage}" Grid.Row="1"/>
     </Grid>
 </Window>
