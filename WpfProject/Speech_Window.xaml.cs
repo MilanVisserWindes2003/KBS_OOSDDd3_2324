@@ -4,7 +4,6 @@ using System;
 using System.ComponentModel;
 using System.Collections.Generic;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
-using System.Speech.Synthesis;
 
 namespace WpfProject
 {
@@ -14,6 +13,9 @@ namespace WpfProject
 
     public partial class Speech_Window : Window
     {
+
+
+        
 
         public string Text { get; private set; }
         public string TypedText { get; set; }
