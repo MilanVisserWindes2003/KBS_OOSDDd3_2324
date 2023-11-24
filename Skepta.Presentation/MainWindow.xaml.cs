@@ -19,7 +19,6 @@ namespace Skepta.Presentation
         public MainWindow()
         {
             InitializeComponent();
-            Logo.Source = new BitmapImage(new Uri("..\\..\\Resources\\Img\\LogoBlack.png", UriKind.Relative));
             viewModel = new MainWindowViewModel();
             DataContext = viewModel;
             this.PreviewKeyDown += MainWindow_PreviewKeyDown;
