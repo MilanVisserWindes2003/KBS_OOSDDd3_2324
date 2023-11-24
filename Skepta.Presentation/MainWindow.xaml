@@ -5,8 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Skepta.Presentation"
         mc:Ignorable="d"
-        d:DesignHeight="1080" d:DesignWidth="1920">
+        d:DesignHeight="1080" d:DesignWidth="1920"
+        WindowStyle="ThreeDBorderWindow"
+        WindowState="Maximized">
+        
     <Grid>
-        <ContentPresenter Content="{Binding CurrentPage}"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="14*"/>
+        </Grid.RowDefinitions>
+        <Border Background="Aqua"/>
+        <Image Name="Logo" Margin="5" Height="50" Width="80" HorizontalAlignment="Left" Grid.Row="1"/>
+        <ContentPresenter Content="{Binding CurrentPage}" Grid.Row="1"/>
     </Grid>
 </Window>

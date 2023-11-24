@@ -2,9 +2,11 @@
 using Skepta.Business.Util;
 using Skepta.Presentation.ViewModel;
 using Skepta.Presentation.ViewModel.Commands;
+using System;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 
 namespace Skepta.Presentation
 {
@@ -17,6 +19,7 @@ namespace Skepta.Presentation
         public MainWindow()
         {
             InitializeComponent();
+            Logo.Source = new BitmapImage(new Uri("Skepta.Presentation\\Resources\\Img\\LogoBlack.png", UriKind.Relative));
             viewModel = new MainWindowViewModel();
             DataContext = viewModel;
             this.PreviewKeyDown += MainWindow_PreviewKeyDown;
