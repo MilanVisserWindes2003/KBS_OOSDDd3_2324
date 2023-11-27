@@ -11,8 +11,6 @@ namespace Skepta.Presentation.View;
 public partial class TextExcersize : UserControl
 {
     private TextExcersizeViewModel viewModel;
-    private int aantalTekens;
-    private int aantalWoorden;
 
     public TextExcersize()
     {

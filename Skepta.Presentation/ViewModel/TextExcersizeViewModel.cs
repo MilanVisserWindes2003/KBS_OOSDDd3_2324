@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace Skepta.Presentation.ViewModel;
@@ -19,7 +20,7 @@ public class TextExcersizeViewModel : ViewModelBase, INotifyPropertyChanged
     private int aantalWoorden;
 
     private readonly Stopwatch stopwatch = new Stopwatch();
-    private readonly DispatcherTimer timer;
+    private DateTime lastRenderTime;
 
     public event PropertyChangedEventHandler PropertyChanged;
 
@@ -30,7 +31,6 @@ public class TextExcersizeViewModel : ViewModelBase, INotifyPropertyChanged
     public double ElapsedSeconds
     {
         get => stopwatch.Elapsed.TotalSeconds;
-        // Notify the UI when ElapsedSeconds changes
         set
         {
             NotifyPropertyChanged(nameof(ElapsedSeconds));
@@ -42,15 +42,19 @@ public class TextExcersizeViewModel : ViewModelBase, INotifyPropertyChanged
         this.model = model;
         stopwatch = new Stopwatch();
 
-        timer = new DispatcherTimer();
-        timer.Interval = TimeSpan.FromMilliseconds(1);
-        timer.Tick += Timer_Tick;
-        timer.Start();
+        CompositionTarget.Rendering += CompositionTarget_Rendering;
     }
-    private void Timer_Tick(object sender, EventArgs e)
+    private void CompositionTarget_Rendering(object sender, EventArgs e)
     {
-        ElapsedSeconds = stopwatch.Elapsed.TotalSeconds;
-        model.ElapsedTime = stopwatch.Elapsed;
+        double elapsedMilliseconds = (DateTime.Now - lastRenderTime).TotalMilliseconds;
+
+        if (elapsedMilliseconds >= 16)
+        {
+            ElapsedSeconds = stopwatch.Elapsed.TotalSeconds;
+            model.ElapsedTime = stopwatch.Elapsed;
+
+            lastRenderTime = DateTime.Now;
+        }
     }
 
     public string RandomText { get; set; } = string.Empty;
@@ -128,7 +132,7 @@ public class TextExcersizeViewModel : ViewModelBase, INotifyPropertyChanged
         if (RandomText.Equals(InputText))
         {
             stopwatch.Stop();
-            MessageBox.Show($"Exercise completed in {model.ElapsedTime.TotalSeconds:F3} seconds.", "Exercise Completed", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show($"Exercise completed in {model.ElapsedTime.TotalSeconds:F2} seconds.", "Exercise Completed", MessageBoxButton.OK, MessageBoxImage.Information);
             RequestPage = PageId.Resultaat;
         }
     }

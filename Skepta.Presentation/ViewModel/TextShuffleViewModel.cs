@@ -23,7 +23,7 @@ namespace Skepta.Presentation.ViewModel
 
         public ICommand Accept => new BaseCommand(() =>
         {
-            RequestNext = true;
+            RequestPage = PageId.TextToSpeech;
         });
 
 
