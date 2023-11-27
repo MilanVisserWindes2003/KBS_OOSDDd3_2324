@@ -33,7 +33,7 @@ public class SkeptaModel : ObservableObject
     public int TextLength
     {
         get { return _textLength; }
-        set { _textLength = value; }
+        set { _textLength = value; NotifyPropertyChanged(nameof(TextLength)); }
     }
 
     public string TextDifficulty
