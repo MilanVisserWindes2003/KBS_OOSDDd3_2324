@@ -21,10 +21,16 @@
                 <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
             <Border BorderBrush="black" BorderThickness="1" Grid.Row="0">
-                <TextBlock HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding RandomText}" VerticalAlignment="Stretch"  FontSize="24"/>
+                <TextBlock HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding RandomTextShuffle}" VerticalAlignment="Stretch"  FontSize="24"/>
             </Border>
-            <Button Content="Shuffle"  Width="250" Height="50" Grid.Row="2" HorizontalAlignment="Left" Command="{Binding Shuffle}"/>
-            <Button Content="Accepteer"  Width="250" Height="50" Grid.Row="2" HorizontalAlignment="Right" Command="{Binding Accept}"/>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Button Content="Shuffle" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Command="{Binding Shuffle}"/>
+            </Grid>
         </Grid>
     </Grid>
 </UserControl>

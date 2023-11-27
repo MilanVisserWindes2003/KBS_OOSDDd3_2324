@@ -27,7 +27,7 @@ public class SkeptaModel : ObservableObject
     public string RandomText
     {
         get { return randomText; }
-        set { randomText = value; }
+        set { randomText = value; NotifyPropertyChanged(nameof(RandomText)); }
     }
 
     public int TextLength
@@ -45,7 +45,7 @@ public class SkeptaModel : ObservableObject
     public bool IsSpeechExercise
     {
         get { return _isSpeechExercise; }
-        set { _isSpeechExercise = value; }
+        set { _isSpeechExercise = value; NotifyPropertyChanged(nameof(IsSpeechExercise)); }
     }
 
     public SkeptaModel()
@@ -142,7 +142,6 @@ public class SkeptaModel : ObservableObject
         Random random = new Random();
         int randomIndex = random.Next(0, teksten.Count);
         this.randomText = teksten[randomIndex];
-
         return teksten[randomIndex];
     }
 

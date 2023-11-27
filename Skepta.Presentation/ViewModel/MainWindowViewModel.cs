@@ -45,7 +45,7 @@ namespace Skepta.Presentation.ViewModel
             pages.Add(PageId.Resultaat, new ResultaatViewModel(model));
             pages.Add(PageId.Exercise, new ExercisePageViewModel(model));
 
-            SelectPage(PageId.Login);
+            SelectPage(PageId.Exercise);
         }
 
         public void HandleKey(Key key)

@@ -26,6 +26,9 @@
         <Viewbox Grid.Row="1" Grid.Column="0">
             <ContentPresenter Content="{Binding ExerciseTypeSelect}"/>
         </Viewbox>
+        <Viewbox Grid.Row="1" Grid.Column="1">
+            <ContentPresenter Content="{Binding TextSelect}"/>
+        </Viewbox>
 
         <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" Grid.Column="1" Margin="10">
             <StackPanel Orientation="Vertical">
