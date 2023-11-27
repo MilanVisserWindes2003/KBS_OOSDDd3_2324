@@ -17,7 +17,7 @@ public class TextExcersizeViewModel : ViewModelBase, INotifyPropertyChanged
     private string inputText = string.Empty;
     private int aantalTekens;
     private int aantalWoorden;
-
+   
     private readonly Stopwatch stopwatch = new Stopwatch();
     private readonly DispatcherTimer timer;
 
@@ -47,6 +47,7 @@ public class TextExcersizeViewModel : ViewModelBase, INotifyPropertyChanged
         timer.Tick += Timer_Tick;
         timer.Start();
     }
+    
     private void Timer_Tick(object sender, EventArgs e)
     {
         ElapsedSeconds = stopwatch.Elapsed.TotalSeconds;
@@ -130,6 +131,7 @@ public class TextExcersizeViewModel : ViewModelBase, INotifyPropertyChanged
             stopwatch.Stop();
             MessageBox.Show($"Exercise completed in {model.ElapsedTime.TotalSeconds:F3} seconds.", "Exercise Completed", MessageBoxButton.OK, MessageBoxImage.Information);
             RequestPage = PageId.Resultaat;
+            model.aantalWoordenPerMinuut();
         }
     }
 

@@ -5,7 +5,7 @@ namespace DataAccess
     public class DataAccess
     {
         bool isConnected = false;
-        private const string connectionString = "Server=.\\SQLEXPRESS04; Database = Skepta; Integrated Security = true;";
+        private const string connectionString = "Server=.\\SQLEXPRESS; Database = Skepta; Integrated Security = true;";
         //private const string connectionString =  "data source=localhost;Initial Catalog=Skepta; User ID=sa;Password=Sekrap40";
         public SqlConnection Connection { get; set; }
 

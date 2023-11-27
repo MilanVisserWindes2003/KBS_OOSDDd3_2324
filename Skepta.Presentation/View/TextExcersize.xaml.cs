@@ -17,8 +17,7 @@ public partial class TextExcersize : UserControl
     public TextExcersize()
     {
         InitializeComponent();
-        this.DataContextChanged += TextExcersize_DataContextChanged
-            ;
+        this.DataContextChanged += TextExcersize_DataContextChanged;
     }
 
     private void TextExcersize_DataContextChanged(object sender, System.Windows.DependencyPropertyChangedEventArgs e)
@@ -53,6 +52,7 @@ public partial class TextExcersize : UserControl
         InputTextBlock.Inlines.Clear();
         bool isInputCorrect = true;
         var userInput = viewModel.InputText;
+        
 
         for (int i = 0; i < userInput.Length; i++)
         {

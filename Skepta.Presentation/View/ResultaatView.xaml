@@ -2,14 +2,13 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Skepta.Presentation.View"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:viewmodel="clr-namespace:Skepta.Presentation.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:ResultaatViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="1080" d:DesignWidth="1920">
     <!--Dit stond er nog in idk: xmlns:business="clr-namespace:Business;assembly=Business" xmlns:business1="clr-namespace:Skepta.Business;assembly=Skepta.Business" d:DataContext="{d:DesignInstance Type=business1:SkeptaModel}"-->
     <Grid Background="Azure">
-        <TextBlock Name="timerResult" HorizontalAlignment="Center" Margin="0,341,0,0" TextWrapping="Wrap" Text="{Binding Path=ElapsedTime}" VerticalAlignment="Top" Height="199" Width="1144"/>
-        <Label Content="TeringGroot" FontSize="100" HorizontalAlignment="Center" Margin="0,642,0,0" VerticalAlignment="Top" Height="137" Width="812"/>
-
+        <TextBlock Name="timerResult" HorizontalAlignment="Center" Margin="0,341,0,0" TextWrapping="Wrap" Text="{Binding Path=WPM}" VerticalAlignment="Top" Height="199" Width="1144"/>
+        
+        
     </Grid>
 </UserControl>

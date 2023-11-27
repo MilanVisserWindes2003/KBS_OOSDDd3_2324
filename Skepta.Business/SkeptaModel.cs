@@ -18,6 +18,8 @@ public class SkeptaModel : ObservableObject
     private string randomText = "";
 
     private TimeSpan elapsedTime { get; set; }
+    private double wpm = 10000000;
+    public double aantalWoorden;
 
     public TimeSpan ElapsedTime { 
       get { return elapsedTime; }
@@ -48,10 +50,22 @@ public class SkeptaModel : ObservableObject
         set { _isSpeechExercise = value; }
     }
 
+    public double WPM
+    {
+        get { return wpm; }
+        set { wpm = value; NotifyPropertyChanged(nameof(WPM)); }
+    }
+
     public SkeptaModel()
     {
         dataConnection = new DataAccess.DataAccess();
         TTSConverter = new TextToSpeechConverter();
+    }
+
+    public void aantalWoordenPerMinuut()
+    {
+        WPM = Math.Ceiling((aantalWoorden / ElapsedTime.TotalSeconds) * 60);
+        
     }
 
     public TextToSpeechConverter TTSConverter { get; }
@@ -63,6 +77,15 @@ public class SkeptaModel : ObservableObject
     public void isSpeechExerciseSetter(bool isSpeechExercise)
     {
         this._isSpeechExercise = isSpeechExercise;
+    }
+
+    public void WordCounting()
+    {
+        if (string.IsNullOrWhiteSpace(RandomText))
+            return;
+
+        var amountOfWords = RandomText.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+        aantalWoorden = amountOfWords.Length;
     }
 
     public bool CheckLogin(string username, string password)
@@ -142,23 +165,10 @@ public class SkeptaModel : ObservableObject
         Random random = new Random();
         int randomIndex = random.Next(0, teksten.Count);
         this.randomText = teksten[randomIndex];
+        WordCounting();
 
         return teksten[randomIndex];
     }
-
-    //public void waitToStartTimer()
-    //{
-    //   Task.Delay(3);
-    // stopWatch.Start();
-    //}
-    //public void StopWatch()
-    //{
-    //  stopWatch.Stop();
-    //}
-    //public void TimeElapsed()
-    //{
-    //   elapsedTime = stopWatch.Elapsed.TotalSeconds;
-    //}
 
     public void AddTimerTick()
     {
