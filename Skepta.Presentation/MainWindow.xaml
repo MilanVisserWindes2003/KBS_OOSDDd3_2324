@@ -5,8 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Skepta.Presentation"
         mc:Ignorable="d"
-        d:DesignHeight="1080" d:DesignWidth="1920">
-    <Grid>
-        <ContentPresenter Content="{Binding CurrentPage}"/>
+        d:DesignHeight="1080" d:DesignWidth="1920"
+        WindowStyle="None"
+        WindowState="Maximized">
+
+    <Grid Name="Window" SnapsToDevicePixels="True">
+        <ContentPresenter Content="{Binding CurrentPage}" Grid.Row="1"/>
     </Grid>
 </Window>
+    
+<!-- Colors: B6FFFA, 98E4FF, 80B3FF, 687EFF-->

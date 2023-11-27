@@ -2,9 +2,11 @@
 using Skepta.Business.Util;
 using Skepta.Presentation.ViewModel;
 using Skepta.Presentation.ViewModel.Commands;
+using System;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 
 namespace Skepta.Presentation
 {
