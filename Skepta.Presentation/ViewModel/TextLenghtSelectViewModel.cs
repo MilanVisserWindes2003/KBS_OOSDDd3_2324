@@ -50,6 +50,7 @@ namespace Skepta.Presentation.ViewModel
             NotifyPropertyChanged(nameof(Selected));
             
             model.TextLength =  int.Parse(lengthText);
+            RequestPage = PageId.TextShuffle;
         }
     }
 }

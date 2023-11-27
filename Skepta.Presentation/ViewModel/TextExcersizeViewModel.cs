@@ -1,10 +1,16 @@
-﻿using Skepta.Business;
+﻿using Business;
+using Skepta.Business;
+using System;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Text;
+using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace Skepta.Presentation.ViewModel;
 
-public class TextExcersizeViewModel : ViewModelBase
+public class TextExcersizeViewModel : ViewModelBase, INotifyPropertyChanged
 {
     private readonly SkeptaModel model;
     private StringBuilder userInput = new StringBuilder();
@@ -12,9 +18,39 @@ public class TextExcersizeViewModel : ViewModelBase
     private int aantalTekens;
     private int aantalWoorden;
 
+    private readonly Stopwatch stopwatch = new Stopwatch();
+    private readonly DispatcherTimer timer;
+
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    private void NotifyPropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+    public double ElapsedSeconds
+    {
+        get => stopwatch.Elapsed.TotalSeconds;
+        // Notify the UI when ElapsedSeconds changes
+        set
+        {
+            NotifyPropertyChanged(nameof(ElapsedSeconds));
+        }
+    }
+
     public TextExcersizeViewModel(SkeptaModel model)
     {
         this.model = model;
+        stopwatch = new Stopwatch();
+
+        timer = new DispatcherTimer();
+        timer.Interval = TimeSpan.FromMilliseconds(1);
+        timer.Tick += Timer_Tick;
+        timer.Start();
+    }
+    private void Timer_Tick(object sender, EventArgs e)
+    {
+        ElapsedSeconds = stopwatch.Elapsed.TotalSeconds;
+        model.ElapsedTime = stopwatch.Elapsed;
     }
 
     public string RandomText { get; set; } = string.Empty;
@@ -44,6 +80,11 @@ public class TextExcersizeViewModel : ViewModelBase
     public override void OpenPage()
     {
         RandomText = model.RandomText;
+        StartTimer();
+    }
+    private void StartTimer()
+    {
+        stopwatch.Restart();
     }
 
     public override void KeyPressed(Key key)
@@ -86,6 +127,8 @@ public class TextExcersizeViewModel : ViewModelBase
 
         if (RandomText.Equals(InputText))
         {
+            stopwatch.Stop();
+            MessageBox.Show($"Exercise completed in {model.ElapsedTime.TotalSeconds:F3} seconds.", "Exercise Completed", MessageBoxButton.OK, MessageBoxImage.Information);
             RequestPage = PageId.Resultaat;
         }
     }
