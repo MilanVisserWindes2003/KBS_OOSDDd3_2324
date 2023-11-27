@@ -42,6 +42,5 @@ public class TextDifficultySelectViewModel : ViewModelBase
         NotifyPropertyChanged(nameof(Selected));    
 
         model.TextDifficulty = difficulty;
-        RequestNext = true;
     }
 }

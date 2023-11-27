@@ -13,6 +13,8 @@ public class ExercisePageViewModel : ViewModelBase
 {
     private SkeptaModel model;
     private bool difficultySelected = false;
+    private bool textLengthSelected = false;
+    private bool exerciseSelected = false;
     public ExercisePageViewModel(SkeptaModel model)
     {
         this.model = model;
@@ -35,6 +37,16 @@ public class ExercisePageViewModel : ViewModelBase
             difficultySelected = true;
             NotifyPropertyChanged(nameof(Verder));
         }
+        if (e.PropertyName == nameof(model.TextLength))
+        {
+            textLengthSelected = true;
+            NotifyPropertyChanged(nameof(Verder));
+        }
+        if (e.PropertyName == nameof(model.IsSpeechExercise))
+        {
+            exerciseSelected = true;
+            NotifyPropertyChanged(nameof(Verder));
+        }
     }
 
     private void VerderCmd()
@@ -42,5 +54,5 @@ public class ExercisePageViewModel : ViewModelBase
 
     }
 
-    private bool VerderAllowed() => difficultySelected;
+    private bool VerderAllowed() => difficultySelected && textLengthSelected;
 }
