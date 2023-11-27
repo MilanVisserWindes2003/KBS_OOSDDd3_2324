@@ -13,29 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WpfProject
+namespace Skepta.Presentation.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for TypeWindowView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class TypeWindowView : UserControl
     {
-        public MainWindow()
+        public TypeWindowView()
         {
             InitializeComponent();
-            
-        }
-
-        private void OpenWindow(object sender, EventArgs e)
-        {
-            Type_Window type_Window = new Type_Window();
-            type_Window.Show();
-        }
-
-        private void OpenWindowSpeech(object sender, EventArgs e)
-        {
-            Speech_Window speech = new Speech_Window();
-            speech.Show();
         }
     }
 }
