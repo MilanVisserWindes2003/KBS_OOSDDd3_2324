@@ -1,0 +1,78 @@
+﻿<Page x:Class="WpfProject.TextDifficultySelect"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfProject"
+      mc:Ignorable="d" 
+      d:DesignHeight="1080" d:DesignWidth="1920"
+      Title="ConfigurationPage">
+
+    <Grid Background="Azure">
+        <Grid.ColumnDefinitions>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Selecter tekst niveau" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="80" FontWeight="Bold" Margin="10"/>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Margin="10" Background="GhostWhite" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" BorderBrush="Green" BorderThickness="5" Click="Button_Click" Tag="A1">
+                <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10">
+                    <TextBlock Text="A1-Basis" TextAlignment="Center" FontSize="80" FontWeight="Bold" Foreground="Green"/>
+                    <TextBlock Text="Doorbraak – basiskennis van de taal, bekende dagelijkse uitdrukkingen en eenvoudige zinnen." TextAlignment="Center" FontSize="15"/>
+                </StackPanel>
+            </Button>
+            <Button Grid.Column="1" Margin="10" Background="GhostWhite" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" BorderBrush="Green" BorderThickness="5" Click="Button_Click" Tag="A2">
+                <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10">
+                    <TextBlock Text="A2-Basis" TextAlignment="Center" FontSize="80" FontWeight="Bold" Foreground="Green"/>
+                    <TextBlock Text="Tussenstap – bekend met veelgebruikte uitdrukkingen en kan gesprekken voeren over alledaagse zaken." TextAlignment="Center" FontSize="15"/>
+                </StackPanel>
+            </Button>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Margin="10" Background="GhostWhite" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" BorderBrush="Orange" BorderThickness="5" Click="Button_Click" Tag="B1">
+            <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10">
+                <TextBlock Text="B1-Gevorderd" TextAlignment="Center" FontSize="80" FontWeight="Bold" Foreground="Orange"/>
+                <TextBlock Text="Doorbraak – basiskennis van de taal, bekende dagelijkse uitdrukkingen en eenvoudige zinnen." TextAlignment="Center" FontSize="15"/>
+            </StackPanel>
+            </Button>
+            <Button Grid.Column="1" Margin="10" Background="GhostWhite" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" BorderBrush="Orange" BorderThickness="5" Click="Button_Click" Tag="B2">
+                <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10">
+                    <TextBlock Text="B2-Gevorderd" TextAlignment="Center" FontSize="80" FontWeight="Bold" Foreground="Orange"/>
+                    <TextBlock Text="Doorbraak – basiskennis van de taal, bekende dagelijkse uitdrukkingen en eenvoudige zinnen." TextAlignment="Center" FontSize="15"/>
+                </StackPanel>
+            </Button>
+        </Grid>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Margin="10" Background="GhostWhite" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" BorderBrush="Red" BorderThickness="5" Click="Button_Click" Tag="C1">
+                <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10">
+                    <TextBlock Text="C1-Vergevorderd" TextAlignment="Center" FontSize="80" FontWeight="Bold" Foreground="Red"/>
+                    <TextBlock Text="Doorbraak – basiskennis van de taal, bekende dagelijkse uitdrukkingen en eenvoudige zinnen." TextAlignment="Center" FontSize="15"/>
+                </StackPanel>
+            </Button>
+            <Button Grid.Column="1" Margin="10" Background="GhostWhite" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" BorderBrush="Red" BorderThickness="5" Click="Button_Click" Tag="C2">
+                <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10">
+                    <TextBlock Text="C2-Vergevorderd" TextAlignment="Center" FontSize="80" FontWeight="Bold" Foreground="Red"/>
+                    <TextBlock Text="Doorbraak – basiskennis van de taal, bekende dagelijkse uitdrukkingen en eenvoudige zinnen." TextAlignment="Center" FontSize="15"/>
+                </StackPanel>
+            </Button>
+        </Grid>
+    </Grid>
+</Page>

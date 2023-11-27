@@ -12,19 +12,20 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Business;
 
 namespace WpfProject
 {
-    public partial class MainWindow : Window
+    /// <summary>
+    /// Interaction logic for ConfigurationPage.xaml
+    /// </summary>
+    public partial class ExercisePage : Page
     {
         Business.Business business;
-        public MainWindow()
+        public ExercisePage(Business.Business business)
         {
-            InitializeComponent();
-            business = new Business.Business();
-
-            MainFrame.NavigationService.Navigate(new Login(business));
-        }       
+           InitializeComponent();
+           this.business = business;
+           this.DataContext = business;
+        }
     }
 }

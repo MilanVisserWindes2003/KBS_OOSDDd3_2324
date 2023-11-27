@@ -1,4 +1,12 @@
-﻿using System.Data.SqlClient;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Runtime.Remoting.Contexts;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.Win32;
+using MySql.Data.MySqlClient;
 
 namespace DataAccess
 {
@@ -6,7 +14,6 @@ namespace DataAccess
     {
         bool isConnected = false;
         private const string connectionString = "Server=.\\SQLEXPRESS; Database = Skepta; Integrated Security = true;";
-        //private const string connectionString =  "data source=localhost;Initial Catalog=Skepta; User ID=sa;Password=Sekrap40";
         public SqlConnection Connection { get; set; }
 
         public void TableLerenTypenConnection()

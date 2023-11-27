@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfProject"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Button Click="OpenWindow" Height="200" Margin="1,230,-1,4" Content="TypeWindow"/>
-        <Button Click="OpenWindowSpeech" Height="200" Margin="2,22,-2,212" Content="SpeechWindow"/>
-
+        Title="Skepta" ResizeMode="NoResize" d:Height="1080" d:Width="1920"
+        WindowState="Maximized"
+        WindowStyle="SingleBorderWindow">
+    <Grid Name="ConfigScreen">
+        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>

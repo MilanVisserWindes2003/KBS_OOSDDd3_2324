@@ -1,0 +1,29 @@
+﻿<Page x:Class="WpfProject.TextShuffle"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfProject"
+      mc:Ignorable="d" 
+      d:DesignHeight="1080" d:DesignWidth="1920"
+      Title="TextShuffle">
+
+    <Grid Background="Azure">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Name="TextBlock" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Path=RandomText, StringFormat=''}" VerticalAlignment="Stretch" Grid.Row="1"/>
+            <Button Name="Shuffle" Content="Shuffle"  Width="250" Height="50" Grid.Row="2" HorizontalAlignment="Left" Click="Shuffle_Click"/>
+            <Button Name="Accept" Content="Accepteer"  Width="250" Height="50" Grid.Row="2" HorizontalAlignment="Right" Click="Accept_Click"/>
+        </Grid>
+    </Grid>
+</Page>

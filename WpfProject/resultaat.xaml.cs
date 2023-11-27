@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Business;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,19 +13,26 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Business;
+using System.Windows.Threading;
 
 namespace WpfProject
 {
-    public partial class MainWindow : Window
+    /// <summary>
+    /// Interaction logic for resultaat.xaml
+    /// </summary>
+    public partial class resultaat : Page
     {
         Business.Business business;
-        public MainWindow()
-        {
-            InitializeComponent();
-            business = new Business.Business();
+        
 
-            MainFrame.NavigationService.Navigate(new Login(business));
-        }       
+        public resultaat(Business.Business business)
+        {
+            
+            InitializeComponent();
+            this.DataContext = this;
+            this.business = business;
+            timerResult.Text = business.GetTimerText();
+        }
+        
     }
 }
