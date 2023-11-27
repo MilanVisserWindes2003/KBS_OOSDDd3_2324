@@ -37,10 +37,12 @@ namespace Skepta.Presentation.ViewModel
         {
             if (e.PropertyName == nameof(model.TextDifficulty))
             {
+                RandomTextShuffle = model.ObtainRandomText();
                 NotifyPropertyChanged(nameof(Shuffle));
             }
             if (e.PropertyName == nameof(model.TextLength))
             {
+                RandomTextShuffle = model.ObtainRandomText();
                 NotifyPropertyChanged(nameof(Shuffle));
             }
         }

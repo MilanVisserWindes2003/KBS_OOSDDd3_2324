@@ -138,6 +138,10 @@ public class SkeptaModel : ObservableObject
 
     public string ObtainRandomText()
     {
+        if (string.IsNullOrEmpty(TextDifficulty) || TextLength == 0)
+        {
+            return string.Empty;
+        }
         List<string> teksten = dataConnection.ObTainTexts(TextDifficulty, TextLength);
         Random random = new Random();
         int randomIndex = random.Next(0, teksten.Count);

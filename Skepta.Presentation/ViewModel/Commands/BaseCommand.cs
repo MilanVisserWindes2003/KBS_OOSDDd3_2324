@@ -58,5 +58,4 @@ namespace Skepta.Presentation.ViewModel.Commands
         }
     }
 
-    public delegate void ActionWithParameter(string? parameter);
 }
