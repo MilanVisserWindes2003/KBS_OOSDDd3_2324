@@ -21,7 +21,6 @@ public class TextToSpeechViewModel : ViewModelBase, INotifyPropertyChanged
     private StringBuilder userInput = new StringBuilder();
     private string inputText = string.Empty;
     private int aantalTekens;
-    private int aantalWoorden;
 
     public event PropertyChangedEventHandler PropertyChanged;
 
@@ -29,6 +28,19 @@ public class TextToSpeechViewModel : ViewModelBase, INotifyPropertyChanged
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
+    public string ElapsedTimeText
+    {
+        get => elapsedTimeText;
+        set
+        {
+            if (elapsedTimeText != value)
+            {
+                elapsedTimeText = value;
+                NotifyPropertyChanged(nameof(ElapsedTimeText));
+            }
+        }
+    }
+    private string elapsedTimeText;
     public double ElapsedSeconds
     {
         get => stopwatch.Elapsed.TotalSeconds;
@@ -52,18 +64,6 @@ public class TextToSpeechViewModel : ViewModelBase, INotifyPropertyChanged
         set
         {
             inputText = value;
-            AantalWoorden = inputText.Split(' ').Length;
-            aantalTekens = inputText.Length;
-        }
-    }
-
-    public int AantalWoorden
-    {
-        get => aantalWoorden;
-        set
-        {
-            aantalWoorden = value;
-            NotifyPropertyChanged(nameof(AantalWoorden));
         }
     }
 
@@ -110,7 +110,6 @@ public class TextToSpeechViewModel : ViewModelBase, INotifyPropertyChanged
         else if (key == Key.Space)
         {
             userInput.Append(" ");
-            aantalWoorden++;
             UpdateUserInputDisplay();
         }
         else if (IsPrintableKey(key))
@@ -133,7 +132,9 @@ public class TextToSpeechViewModel : ViewModelBase, INotifyPropertyChanged
         if (RandomText.Equals(InputText))
         {
             stopwatch.Stop();
-            MessageBox.Show($"Exercise completed in {model.ElapsedTime.TotalSeconds:F2} seconds.", "Exercise Completed", MessageBoxButton.OK, MessageBoxImage.Information);
+            TimeSpan timeSpan = TimeSpan.FromSeconds(stopwatch.Elapsed.TotalSeconds);
+            ElapsedTimeText = $"{timeSpan:mm\\:ss},{timeSpan:ff}";
+            MessageBox.Show($"Exercise completed in {ElapsedTimeText}", "Exercise Completed", MessageBoxButton.OK, MessageBoxImage.Information);
             RequestPage = PageId.Resultaat;
         }
     }
