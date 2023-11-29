@@ -9,8 +9,7 @@ namespace Skepta.Presentation.ViewModel;
 
 public class TextToSpeechViewModel : ViewModelBase
 {
-    private readonly SkeptaModel model;
-    private string text;    private string RandomText;
+    private readonly SkeptaModel model;   
     public TextToSpeechViewModel(SkeptaModel model)
     {
         this.model = model;
@@ -18,7 +17,7 @@ public class TextToSpeechViewModel : ViewModelBase
 
     }
 
-    public ICommand Speak => new BaseCommand(SpeakCmd, () => !string.IsNullOrEmpty(Text));
+    public ICommand Speak => new BaseCommand(SpeakCmd, () => !string.IsNullOrEmpty(RandomText));
     public SpeedValue SelectedSpeedOption
     {
         get => model.TTSConverter.SpeedValue;
@@ -26,18 +25,12 @@ public class TextToSpeechViewModel : ViewModelBase
     }
     public SpeedValue[] SpeedOptions { get; set; }
 
-    public string Text { 
-        get => RandomText; 
+    public string RandomText { 
+        get => model.RandomText; 
     }
 
     private void SpeakCmd()
     {
-        model.TTSConverter.PlayText(Text);
+        model.TTSConverter.PlayText(RandomText);
     }
-
-    public override void OpenPage()
-    {
-        RandomText = model.ObtainRandomText();
-    }
-
 }

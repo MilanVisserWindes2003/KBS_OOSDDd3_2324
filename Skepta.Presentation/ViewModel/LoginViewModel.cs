@@ -48,7 +48,7 @@ public class LoginViewModel : ViewModelBase
     {
         if (model.CheckLogin(Username, Password))
         {
-            RequestNext = true;
+            RequestPage = PageId.Exercise;
             //NavigationService.Navigate(new TextDifficultySelect(business));
         }
         else
