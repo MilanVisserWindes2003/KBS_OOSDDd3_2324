@@ -10,31 +10,42 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Skepta.Business.ResultsLogic;
 
 namespace Skepta.Presentation.ViewModel
 {
     public class ResultaatViewModel : ViewModelBase
     {
         private SkeptaModel model;
+        private ResultsLogic rsl;
         private double wpm;
 
-        public ICommand LoadedCommand { get; }
-        public double WPM
+        public double wpmValue 
         {
-            get { return wpm; }
-            set { wpm = value; NotifyPropertyChanged(nameof(WPM)); }
+            get
+            {
+                return wpm;
+            }
+            set
+            {
+                wpm = value;
+                NotifyPropertyChanged(nameof(wpmValue));
+            }
         }
-
+        
         public ResultaatViewModel(SkeptaModel model) 
         { 
-            this.model = model;         
-            this.model.aantalWoordenPerMinuut();
+            this.model = model; 
+             rsl = new ResultsLogic();
+            //this.model.aantalWoordenPerMinuut();
             // idk model.Text = model.GetTimerText();
         }
-       
-       
 
-        //public void aantalWoordenPerMinuut() => WPM = Math.Ceiling((model.aantalWoordenPerMinuut() / 10) * 60);
+        public override void OpenPage()
+        {
+            rsl.aantalWoordenPerMinuut(model.RandomText, model.ElapsedTime);
+            wpmValue = rsl.WPM;
+        }
 
     }
 }

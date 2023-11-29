@@ -18,7 +18,7 @@ public class SkeptaModel : ObservableObject
     private string randomText = "";
 
     private TimeSpan elapsedTime { get; set; }
-    private double wpm = 10000000;
+    
 
     public TimeSpan ElapsedTime { 
       get { return elapsedTime; }
@@ -49,11 +49,7 @@ public class SkeptaModel : ObservableObject
         set { _isSpeechExercise = value; }
     }
 
-    public double WPM
-    {
-        get { return wpm; }
-        set { wpm = value; NotifyPropertyChanged(nameof(WPM)); }
-    }
+    
 
     public SkeptaModel()
     {
@@ -61,11 +57,7 @@ public class SkeptaModel : ObservableObject
         TTSConverter = new TextToSpeechConverter();
     }
 
-    public void aantalWoordenPerMinuut()
-    {
-        int aantalWoorden = WordCounting(RandomText);
-        WPM = Math.Ceiling((aantalWoorden/ ElapsedTime.TotalSeconds) * 60);
-    }
+    
 
     public TextToSpeechConverter TTSConverter { get; }
 
@@ -78,14 +70,7 @@ public class SkeptaModel : ObservableObject
         this._isSpeechExercise = isSpeechExercise;
     }
 
-    public int WordCounting(string randomText)
-    {
-        if (string.IsNullOrWhiteSpace(randomText)) // Corrected variable name
-            return 0;
-
-        var amountOfWords = randomText.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-        return amountOfWords.Length; // Return the count directly
-    }
+    
 
     public bool CheckLogin(string username, string password)
     {

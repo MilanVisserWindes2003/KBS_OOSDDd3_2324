@@ -24,7 +24,7 @@ namespace Skepta.Presentation.ViewModel
         public ICommand Accept => new BaseCommand(() =>
         {
             RequestNext = true;
-            model.WordCounting(RandomText);
+
         });
 
 

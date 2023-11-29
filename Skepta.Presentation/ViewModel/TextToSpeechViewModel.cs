@@ -38,7 +38,6 @@ public class TextToSpeechViewModel : ViewModelBase
     public override void OpenPage()
     {
         RandomText = model.ObtainRandomText();
-        model.WordCounting(RandomText);
     }
 
 }
