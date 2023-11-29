@@ -15,6 +15,7 @@ namespace Skepta.Presentation.ViewModel;
 
 public class TextToSpeechViewModel : ViewModelBase, INotifyPropertyChanged
 {
+
     private readonly SkeptaModel model; 
     private readonly Stopwatch stopwatch = new Stopwatch();
     private DateTime lastRenderTime;
@@ -50,6 +51,7 @@ public class TextToSpeechViewModel : ViewModelBase, INotifyPropertyChanged
             NotifyPropertyChanged(nameof(ElapsedSeconds));
         }
     }
+
     public TextToSpeechViewModel(SkeptaModel model)
     {
         this.model = model;
@@ -190,6 +192,7 @@ public class TextToSpeechViewModel : ViewModelBase, INotifyPropertyChanged
                key == Key.OemCloseBrackets; // Closing square bracket (])
     }
 
+
     public ICommand Speak => new BaseCommand(SpeakCmd, () => !string.IsNullOrEmpty(Text));
 
     public ICommand Paused => new BaseCommand(PauseCmd, () => !string.IsNullOrEmpty(Text));
@@ -212,7 +215,6 @@ public class TextToSpeechViewModel : ViewModelBase, INotifyPropertyChanged
         await Task.Delay(500);
         model.TTSConverter.PlayText(Text); // Speel de tekst opnieuw af vanaf het begin
     });
-
     public SpeedValue SelectedSpeedOption
     {
         get => model.TTSConverter.SpeedValue;
@@ -220,12 +222,12 @@ public class TextToSpeechViewModel : ViewModelBase, INotifyPropertyChanged
     }
     public SpeedValue[] SpeedOptions { get; set; }
 
-    public string Text { 
-        get => RandomText; 
+    public string RandomText { 
+        get => model.RandomText; 
     }
 
     private void SpeakCmd()
     {
-        model.TTSConverter.PlayText(Text);
+        model.TTSConverter.PlayText(RandomText);
     }
 }

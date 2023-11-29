@@ -7,24 +7,19 @@
              mc:Ignorable="d" 
       d:DesignHeight="1080" d:DesignWidth="1920">
 
-    <Grid Background="Azure">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="1*"/>
-        </Grid.ColumnDefinitions>
-        <Grid Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="2*"/>
-                <RowDefinition Height="5*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="2*"/>
-            </Grid.RowDefinitions>
-            <Border BorderBrush="black" BorderThickness="1" Grid.Row="0">
-                <TextBlock HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding RandomText}" VerticalAlignment="Stretch"  FontSize="24"/>
+    <Grid Background="Transparent">
+        <StackPanel Orientation="Vertical">
+            <TextBlock Grid.ColumnSpan="2" Text="Gekozen tekst" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                       FontSize="45" FontWeight="Bold" Margin="10"/>
+
+            <Border BorderBrush="black" BorderThickness="2" Padding="20" >
+                <TextBlock HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding RandomTextShuffle}" VerticalAlignment="Stretch"  FontSize="24"/>
             </Border>
-            <Button Content="Shuffle"  Width="250" Height="50" Grid.Row="2" HorizontalAlignment="Left" Command="{Binding Shuffle}"/>
-            <Button Content="Accepteer"  Width="250" Height="50" Grid.Row="2" HorizontalAlignment="Right" Command="{Binding Accept}"/>
-        </Grid>
+
+            <Button  Grid.Row="2" Grid.Column="3" VerticalAlignment="Bottom" Margin="0 20 0 0" MinHeight="100"
+                 Background="#687EFF" BorderBrush="Black" BorderThickness="3"
+                 FontSize="40" FontWeight="Bold"
+                 Content="Shuffle" Command="{Binding Shuffle}"/>
+        </StackPanel>
     </Grid>
 </UserControl>

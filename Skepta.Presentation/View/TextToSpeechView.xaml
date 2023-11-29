@@ -43,5 +43,6 @@
         </Rectangle>
         <TextBlock x:Name="InputTextBlock" 
    HorizontalAlignment="Center"  Margin="30" VerticalAlignment="Center" TextWrapping="Wrap" FontSize="24" Grid.Column="1" Grid.Row="2"/>
+
     </Grid>
 </UserControl>
