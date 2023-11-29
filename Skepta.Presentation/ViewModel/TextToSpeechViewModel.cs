@@ -6,6 +6,7 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -87,8 +88,11 @@ public class TextToSpeechViewModel : ViewModelBase, INotifyPropertyChanged
         RandomText = model.RandomText;
         StartTimer();
     }
-    private void StartTimer()
+    private async void StartTimer()
     {
+        await Task.Delay(3000); 
+        // Start de spraaksynthese en stopwatch na 3 seconden 
+        SpeakCmd();
         stopwatch.Restart();
     }
 
@@ -187,6 +191,28 @@ public class TextToSpeechViewModel : ViewModelBase, INotifyPropertyChanged
     }
 
     public ICommand Speak => new BaseCommand(SpeakCmd, () => !string.IsNullOrEmpty(Text));
+
+    public ICommand Paused => new BaseCommand(PauseCmd, () => !string.IsNullOrEmpty(Text));
+    // teskt to speech pauzeren en zorgt ervoor opnieuw starten van de tekst speech.
+    private void PauseCmd()
+    {
+        if (model.TTSConverter.PlayMode == PlayMode.Playing)
+        {
+            model.TTSConverter.Pause(); // Pauzeer het afspelen
+        }
+        else
+        {
+            model.TTSConverter.Resume(); // Hervat de tekst-naar-spraak als het gepauzeerd is 
+        }
+    }
+
+    public ICommand Restart => new BaseCommand(async () => 
+    {
+        // het Van vooraf aan beginnen van de tekst too speech
+        await Task.Delay(500);
+        model.TTSConverter.PlayText(Text); // Speel de tekst opnieuw af vanaf het begin
+    });
+
     public SpeedValue SelectedSpeedOption
     {
         get => model.TTSConverter.SpeedValue;
