@@ -27,7 +27,7 @@ public class TextToSpeechConverter
     {
         synthesizer = new SpeechSynthesizer();
         synthesizer.SetOutputToDefaultAudioDevice();
-        //synthesizer.SelectVoice("Microsoft Frank");
+        synthesizer.SelectVoice("Microsoft Frank");
         synthesizer.SpeakCompleted += Synthesizer_SpeakCompleted;
     }
 
