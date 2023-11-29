@@ -16,8 +16,6 @@ public class TextExcersizeViewModel : ViewModelBase, INotifyPropertyChanged
     private readonly SkeptaModel model;
     private StringBuilder userInput = new StringBuilder();
     private string inputText = string.Empty;
-    private int aantalTekens;
-    private int aantalWoorden;
 
     private readonly Stopwatch stopwatch = new Stopwatch();
     private DateTime lastRenderTime;
@@ -56,7 +54,19 @@ public class TextExcersizeViewModel : ViewModelBase, INotifyPropertyChanged
             lastRenderTime = DateTime.Now;
         }
     }
-
+    public string ElapsedTimeText
+    {
+        get => elapsedTimeText;
+        set
+        {
+            if (elapsedTimeText != value)
+            {
+                elapsedTimeText = value;
+                NotifyPropertyChanged(nameof(ElapsedTimeText));
+            }
+        }
+    }
+    private string elapsedTimeText;
     public string RandomText { get; set; } = string.Empty;
     public string InputText
     {
@@ -64,18 +74,6 @@ public class TextExcersizeViewModel : ViewModelBase, INotifyPropertyChanged
         set
         {
             inputText = value;
-            AantalWoorden = inputText.Split(' ').Length;
-            aantalTekens = inputText.Length;
-        }
-    }
-
-    public int AantalWoorden
-    {
-        get => aantalWoorden;
-        set
-        {
-            aantalWoorden = value;
-            NotifyPropertyChanged(nameof(AantalWoorden));
         }
     }
 
@@ -109,7 +107,6 @@ public class TextExcersizeViewModel : ViewModelBase, INotifyPropertyChanged
         else if (key == Key.Space)
         {
             userInput.Append(" ");
-            aantalWoorden++;
             UpdateUserInputDisplay();
         }
         else if (IsPrintableKey(key))
@@ -132,7 +129,9 @@ public class TextExcersizeViewModel : ViewModelBase, INotifyPropertyChanged
         if (RandomText.Equals(InputText))
         {
             stopwatch.Stop();
-            MessageBox.Show($"Exercise completed in {model.ElapsedTime.TotalSeconds:F2} seconds.", "Exercise Completed", MessageBoxButton.OK, MessageBoxImage.Information);
+            TimeSpan timeSpan = TimeSpan.FromSeconds(stopwatch.Elapsed.TotalSeconds);
+            ElapsedTimeText = $"{timeSpan:mm\\:ss},{timeSpan:ff}";
+            MessageBox.Show($"Exercise completed in {ElapsedTimeText}", "Exercise Completed", MessageBoxButton.OK, MessageBoxImage.Information);
             RequestPage = PageId.Resultaat;
         }
     }
