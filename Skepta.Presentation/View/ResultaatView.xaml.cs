@@ -27,5 +27,7 @@ namespace Skepta.Presentation.View
         {
             InitializeComponent();          
         }
+
+        
     }
 }

@@ -131,7 +131,7 @@ public class TextExcersizeViewModel : ViewModelBase, INotifyPropertyChanged
             stopwatch.Stop();
             MessageBox.Show($"Exercise completed in {model.ElapsedTime.TotalSeconds:F3} seconds.", "Exercise Completed", MessageBoxButton.OK, MessageBoxImage.Information);
             RequestPage = PageId.Resultaat;
-            model.aantalWoordenPerMinuut();
+            //model.aantalWoordenPerMinuut();
         }
     }
 

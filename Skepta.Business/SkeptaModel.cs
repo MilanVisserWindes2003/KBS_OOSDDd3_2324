@@ -19,7 +19,6 @@ public class SkeptaModel : ObservableObject
 
     private TimeSpan elapsedTime { get; set; }
     private double wpm = 10000000;
-    public double aantalWoorden;
 
     public TimeSpan ElapsedTime { 
       get { return elapsedTime; }
@@ -64,8 +63,8 @@ public class SkeptaModel : ObservableObject
 
     public void aantalWoordenPerMinuut()
     {
-        WPM = Math.Ceiling((aantalWoorden / ElapsedTime.TotalSeconds) * 60);
-        
+        int aantalWoorden = WordCounting(RandomText);
+        WPM = Math.Ceiling((aantalWoorden/ ElapsedTime.TotalSeconds) * 60);
     }
 
     public TextToSpeechConverter TTSConverter { get; }
@@ -79,13 +78,13 @@ public class SkeptaModel : ObservableObject
         this._isSpeechExercise = isSpeechExercise;
     }
 
-    public void WordCounting()
+    public int WordCounting(string randomText)
     {
-        if (string.IsNullOrWhiteSpace(RandomText))
-            return;
+        if (string.IsNullOrWhiteSpace(randomText)) // Corrected variable name
+            return 0;
 
-        var amountOfWords = RandomText.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-        aantalWoorden = amountOfWords.Length;
+        var amountOfWords = randomText.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+        return amountOfWords.Length; // Return the count directly
     }
 
     public bool CheckLogin(string username, string password)
@@ -165,8 +164,6 @@ public class SkeptaModel : ObservableObject
         Random random = new Random();
         int randomIndex = random.Next(0, teksten.Count);
         this.randomText = teksten[randomIndex];
-        WordCounting();
-
         return teksten[randomIndex];
     }
 
