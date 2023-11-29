@@ -46,9 +46,9 @@ public class TextToSpeechConverter
         {
             return false;
         }
-
         synthesizer.Rate = (int)SpeedValue;
         _ = synthesizer.SpeakAsync(text);
+        PlayMode = PlayMode.Playing;
         return true;
     }
 

@@ -1,22 +1,72 @@
-﻿using Skepta.Business;
+﻿using Business;
+using Skepta.Business;
+using System;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Text;
+using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace Skepta.Presentation.ViewModel;
 
-public class TextExcersizeViewModel : ViewModelBase
+public class TextExcersizeViewModel : ViewModelBase, INotifyPropertyChanged
 {
     private readonly SkeptaModel model;
     private StringBuilder userInput = new StringBuilder();
     private string inputText = string.Empty;
-    private int aantalTekens;
-    private int aantalWoorden;
+
+    private readonly Stopwatch stopwatch = new Stopwatch();
+    private DateTime lastRenderTime;
+
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    private void NotifyPropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+    public double ElapsedSeconds
+    {
+        get => stopwatch.Elapsed.TotalSeconds;
+        set
+        {
+            NotifyPropertyChanged(nameof(ElapsedSeconds));
+        }
+    }
 
     public TextExcersizeViewModel(SkeptaModel model)
     {
         this.model = model;
-    }
+        stopwatch = new Stopwatch();
 
+        CompositionTarget.Rendering += CompositionTarget_Rendering;
+    }
+    private void CompositionTarget_Rendering(object sender, EventArgs e)
+    {
+        double elapsedMilliseconds = (DateTime.Now - lastRenderTime).TotalMilliseconds;
+
+        if (elapsedMilliseconds >= 16)
+        {
+            ElapsedSeconds = stopwatch.Elapsed.TotalSeconds;
+            model.ElapsedTime = stopwatch.Elapsed;
+
+            lastRenderTime = DateTime.Now;
+        }
+    }
+    public string ElapsedTimeText
+    {
+        get => elapsedTimeText;
+        set
+        {
+            if (elapsedTimeText != value)
+            {
+                elapsedTimeText = value;
+                NotifyPropertyChanged(nameof(ElapsedTimeText));
+            }
+        }
+    }
+    private string elapsedTimeText;
     public string RandomText { get; set; } = string.Empty;
     public string InputText
     {
@@ -24,18 +74,6 @@ public class TextExcersizeViewModel : ViewModelBase
         set
         {
             inputText = value;
-            AantalWoorden = inputText.Split(' ').Length;
-            aantalTekens = inputText.Length;
-        }
-    }
-
-    public int AantalWoorden
-    {
-        get => aantalWoorden;
-        set
-        {
-            aantalWoorden = value;
-            NotifyPropertyChanged(nameof(AantalWoorden));
         }
     }
 
@@ -44,6 +82,11 @@ public class TextExcersizeViewModel : ViewModelBase
     public override void OpenPage()
     {
         RandomText = model.RandomText;
+        StartTimer();
+    }
+    private void StartTimer()
+    {
+        stopwatch.Restart();
     }
 
     public override void KeyPressed(Key key)
@@ -64,7 +107,6 @@ public class TextExcersizeViewModel : ViewModelBase
         else if (key == Key.Space)
         {
             userInput.Append(" ");
-            aantalWoorden++;
             UpdateUserInputDisplay();
         }
         else if (IsPrintableKey(key))
@@ -86,6 +128,10 @@ public class TextExcersizeViewModel : ViewModelBase
 
         if (RandomText.Equals(InputText))
         {
+            stopwatch.Stop();
+            TimeSpan timeSpan = TimeSpan.FromSeconds(stopwatch.Elapsed.TotalSeconds);
+            ElapsedTimeText = $"{timeSpan:mm\\:ss},{timeSpan:ff}";
+            MessageBox.Show($"Exercise completed in {ElapsedTimeText}", "Exercise Completed", MessageBoxButton.OK, MessageBoxImage.Information);
             RequestPage = PageId.Resultaat;
         }
     }

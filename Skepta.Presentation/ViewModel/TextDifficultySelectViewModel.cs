@@ -42,5 +42,6 @@ public class TextDifficultySelectViewModel : ViewModelBase
         NotifyPropertyChanged(nameof(Selected));    
 
         model.TextDifficulty = difficulty;
+        RequestPage = PageId.TextLength;
     }
 }

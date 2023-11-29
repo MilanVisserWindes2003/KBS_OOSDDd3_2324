@@ -11,14 +11,13 @@ namespace Skepta.Presentation.View;
 public partial class TextExcersize : UserControl
 {
     private TextExcersizeViewModel viewModel;
-    private int aantalTekens;
-    private int aantalWoorden;
+    public static Color purpleText = Color.FromRgb(104, 126, 255);
+    public static SolidColorBrush purpleTextBrush = new SolidColorBrush(purpleText);
 
     public TextExcersize()
     {
         InitializeComponent();
-        this.DataContextChanged += TextExcersize_DataContextChanged
-            ;
+        this.DataContextChanged += TextExcersize_DataContextChanged;
     }
 
     private void TextExcersize_DataContextChanged(object sender, System.Windows.DependencyPropertyChangedEventArgs e)
@@ -39,19 +38,9 @@ public partial class TextExcersize : UserControl
         }
     }
 
-    private void UpdateUserInputDisplay()
-    {
-        Dispatcher.Invoke(() =>
-        {
-            //InputTextBlock.Text = userInput.ToString();
-            CompareText();
-        });
-    }
-
     private void CompareText()
     {
         InputTextBlock.Inlines.Clear();
-        bool isInputCorrect = true;
         var userInput = viewModel.InputText;
 
         for (int i = 0; i < userInput.Length; i++)
@@ -60,7 +49,7 @@ public partial class TextExcersize : UserControl
             {
                 if (userInput[i] == viewModel.RandomText[i])
                 {
-                    InputTextBlock.Inlines.Add(new Run(userInput[i].ToString()) { Foreground = Brushes.Green });
+                    InputTextBlock.Inlines.Add(new Run(userInput[i].ToString()) { Foreground = purpleTextBrush });
                 }
                 else
                 {
@@ -72,26 +61,8 @@ public partial class TextExcersize : UserControl
                     {
                         InputTextBlock.Inlines.Add(new Run(userInput[i].ToString()) { Foreground = Brushes.Red });
                     }
-
-                    isInputCorrect = false;
                 }
             }
-            else
-            {
-                InputTextBlock.Inlines.Add(new Run(userInput[i].ToString()) { Foreground = Brushes.Red });
-                isInputCorrect = false;
-            }
-        }
-
-        if (isInputCorrect && userInput.Length == viewModel.RandomText.Length)
-        {
-            //DialogResult dialogResult = System.Windows.Forms.MessageBox.Show("Text typed correctly!", "Success", MessageBoxButtons.OK);
-            //if(dialogResult == DialogResult.OK)
-            //{
-            //NavigationService.Navigate(new resultaat(business));
-            //business.StopWatch();
-            //business.TimeElapsed();
-            //} 
         }
     }
 }
