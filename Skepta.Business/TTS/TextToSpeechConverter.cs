@@ -27,7 +27,7 @@ public class TextToSpeechConverter
     {
         synthesizer = new SpeechSynthesizer();
         synthesizer.SetOutputToDefaultAudioDevice();
-        //synthesizer.SelectVoice("Microsoft Frank");
+        synthesizer.SelectVoice("Microsoft Frank");
         synthesizer.SpeakCompleted += Synthesizer_SpeakCompleted;
     }
 
@@ -46,9 +46,9 @@ public class TextToSpeechConverter
         {
             return false;
         }
-
         synthesizer.Rate = (int)SpeedValue;
         _ = synthesizer.SpeakAsync(text);
+        PlayMode = PlayMode.Playing;
         return true;
     }
 

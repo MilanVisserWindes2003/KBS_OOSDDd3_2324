@@ -1,10 +1,5 @@
 ﻿using Skepta.Business;
 using Skepta.Presentation.ViewModel.Commands;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Skepta.Presentation.ViewModel
@@ -17,30 +12,50 @@ namespace Skepta.Presentation.ViewModel
         public TextShuffleViewModel(SkeptaModel model)
         {
             this.model = model;
+            model.PropertyChanged += Button_PropertyChanged;
         }
 
-        public ICommand Shuffle => new BaseCommand(() => RandomText = model.ObtainRandomText());
-
-        public ICommand Accept => new BaseCommand(() =>
-        {
-            RequestNext = true;
-
-        });
+        public ICommand Shuffle => new BaseCommand(() => RandomTextShuffle = model.ObtainRandomText(), VerderAllowed);
 
 
-        public string RandomText
+        public string RandomTextShuffle
         {
             get => randomText;
             set
             {
                 randomText = value;
-                NotifyPropertyChanged(nameof(RandomText));
+                model.RandomText = value;
+                NotifyPropertyChanged(nameof(RandomTextShuffle));
             }
         }
 
         public override void OpenPage()
         {
-            RandomText = model.ObtainRandomText();
+            RandomTextShuffle = model.ObtainRandomText();
+        }
+
+        private void Button_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(model.TextDifficulty))
+            {
+                RandomTextShuffle = model.ObtainRandomText();
+                NotifyPropertyChanged(nameof(Shuffle));
+            }
+            if (e.PropertyName == nameof(model.TextLength))
+            {
+                RandomTextShuffle = model.ObtainRandomText();
+                NotifyPropertyChanged(nameof(Shuffle));
+            }
+        }
+
+
+        private bool VerderAllowed()
+        {
+            if (model.TextLength == 0 || model.TextDifficulty == null)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

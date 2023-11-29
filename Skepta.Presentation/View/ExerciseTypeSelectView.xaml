@@ -21,14 +21,14 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Margin="10" Background="GhostWhite" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" BorderBrush="Gray" BorderThickness="5" Command="{Binding Text}" Tag="Text">
+            <Button Grid.Column="0" Margin="10" Background="GhostWhite" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" BorderBrush="Gray" BorderThickness="{Binding Selected[0]}" Command="{Binding Select}" CommandParameter="0" Tag="Text">
                 <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10">
                     <TextBlock Text="Text" TextAlignment="Center" FontSize="80" FontWeight="Bold" Foreground="Gray"/>
                     <TextBlock Text="Schrijf een text zo snel en nauwkeurig mogelijk over." TextAlignment="Center" FontSize="15"/>
                     <Image Name="ImageViewer1" Height="400" Width="400" Margin="50"/>
                 </StackPanel>
             </Button>
-            <Button Grid.Column="1" Margin="10" Background="GhostWhite" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" BorderBrush="Gray" BorderThickness="5" Command="{Binding Speech}" Tag="Speech">
+            <Button Grid.Column="1" Margin="10" Background="GhostWhite" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" BorderBrush="Gray" BorderThickness="{Binding Selected[1]}" Command="{Binding Select}" CommandParameter="1" Tag="Speech">
                 <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10">
                     <TextBlock Text="Gesproken" TextAlignment="Center" FontSize="80" FontWeight="Bold" Foreground="Gray"/>
                     <TextBlock Text="Notuleer het dialoog wat je hoort zo accuraat mogelijk." TextAlignment="Center" FontSize="15"/>

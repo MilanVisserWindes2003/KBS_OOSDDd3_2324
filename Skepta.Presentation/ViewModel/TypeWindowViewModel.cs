@@ -21,7 +21,7 @@ namespace Skepta.Presentation.ViewModel
         public string Story { get; set; }
         public bool isStoryVisible = false;
        
-            
+
 
         private void checkTextsCommand(string story, string typedText)
         {
