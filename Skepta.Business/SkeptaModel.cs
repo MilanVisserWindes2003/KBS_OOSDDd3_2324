@@ -18,6 +18,7 @@ public class SkeptaModel : ObservableObject
     private string randomText = "";
 
     private TimeSpan elapsedTime { get; set; }
+    
 
     public TimeSpan ElapsedTime { 
       get { return elapsedTime; }
@@ -48,11 +49,15 @@ public class SkeptaModel : ObservableObject
         set { _isSpeechExercise = value; NotifyPropertyChanged(nameof(IsSpeechExercise)); }
     }
 
+    
+
     public SkeptaModel()
     {
         dataConnection = new DataAccess.DataAccess();
         TTSConverter = new TextToSpeechConverter();
     }
+
+    
 
     public TextToSpeechConverter TTSConverter { get; }
 
@@ -64,6 +69,8 @@ public class SkeptaModel : ObservableObject
     {
         this._isSpeechExercise = isSpeechExercise;
     }
+
+    
 
     public bool CheckLogin(string username, string password)
     {
@@ -148,20 +155,6 @@ public class SkeptaModel : ObservableObject
         this.randomText = teksten[randomIndex];
         return teksten[randomIndex];
     }
-
-    //public void waitToStartTimer()
-    //{
-    //   Task.Delay(3);
-    // stopWatch.Start();
-    //}
-    //public void StopWatch()
-    //{
-    //  stopWatch.Stop();
-    //}
-    //public void TimeElapsed()
-    //{
-    //   elapsedTime = stopWatch.Elapsed.TotalSeconds;
-    //}
 
     public void AddTimerTick()
     {

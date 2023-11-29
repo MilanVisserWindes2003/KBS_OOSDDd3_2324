@@ -17,6 +17,7 @@ namespace Skepta.Presentation.ViewModel
 
         public ICommand Shuffle => new BaseCommand(() => RandomTextShuffle = model.ObtainRandomText(), VerderAllowed);
 
+
         public string RandomTextShuffle
         {
             get => randomText;

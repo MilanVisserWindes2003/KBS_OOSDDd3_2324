@@ -42,6 +42,7 @@ public partial class TextExcersize : UserControl
     {
         InputTextBlock.Inlines.Clear();
         var userInput = viewModel.InputText;
+        
 
         for (int i = 0; i < userInput.Length; i++)
         {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Skepta.Business;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,13 @@ namespace Skepta.Presentation.View
     /// </summary>
     public partial class ResultaatView : UserControl
     {
+        private readonly SkeptaModel model;
+
         public ResultaatView()
         {
-            InitializeComponent();
+            InitializeComponent();          
         }
+
+        
     }
 }

@@ -15,7 +15,6 @@ public class TextExcersizeViewModel : ViewModelBase, INotifyPropertyChanged
 {
     private readonly SkeptaModel model;
     private StringBuilder userInput = new StringBuilder();
-    private string inputText = string.Empty;
 
     private readonly Stopwatch stopwatch = new Stopwatch();
     private DateTime lastRenderTime;
@@ -41,7 +40,7 @@ public class TextExcersizeViewModel : ViewModelBase, INotifyPropertyChanged
         stopwatch = new Stopwatch();
 
         CompositionTarget.Rendering += CompositionTarget_Rendering;
-    }
+
     private void CompositionTarget_Rendering(object sender, EventArgs e)
     {
         double elapsedMilliseconds = (DateTime.Now - lastRenderTime).TotalMilliseconds;
@@ -133,6 +132,7 @@ public class TextExcersizeViewModel : ViewModelBase, INotifyPropertyChanged
             ElapsedTimeText = $"{timeSpan:mm\\:ss},{timeSpan:ff}";
             MessageBox.Show($"Exercise completed in {ElapsedTimeText}", "Exercise Completed", MessageBoxButton.OK, MessageBoxImage.Information);
             RequestPage = PageId.Resultaat;
+            //model.aantalWoordenPerMinuut();
         }
     }
 
