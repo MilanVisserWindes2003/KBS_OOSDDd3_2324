@@ -16,13 +16,15 @@ namespace Skepta.Presentation.ViewModel;
 public class TextToSpeechViewModel : ViewModelBase, INotifyPropertyChanged
 {
 
-    private readonly SkeptaModel model; 
+    private readonly SkeptaModel model;
     private readonly Stopwatch stopwatch = new Stopwatch();
     private DateTime lastRenderTime;
 
     private StringBuilder userInput = new StringBuilder();
     private string inputText = string.Empty;
     private int aantalTekens;
+
+    private string randomText;
 
     public event PropertyChangedEventHandler PropertyChanged;
 
@@ -60,7 +62,11 @@ public class TextToSpeechViewModel : ViewModelBase, INotifyPropertyChanged
         CompositionTarget.Rendering += CompositionTarget_Rendering;
     }
 
-    public string RandomText { get; set; } = string.Empty;
+    public string RandomText
+    {
+        get => randomText;
+        private set { randomText = value; }
+    }
     public string InputText
     {
         get => inputText;
@@ -92,7 +98,7 @@ public class TextToSpeechViewModel : ViewModelBase, INotifyPropertyChanged
     }
     private async void StartTimer()
     {
-        await Task.Delay(3000); 
+        await Task.Delay(3000);
         // Start de spraaksynthese en stopwatch na 3 seconden 
         SpeakCmd();
         stopwatch.Restart();
@@ -193,9 +199,9 @@ public class TextToSpeechViewModel : ViewModelBase, INotifyPropertyChanged
     }
 
 
-    public ICommand Speak => new BaseCommand(SpeakCmd, () => !string.IsNullOrEmpty(Text));
+    public ICommand Speak => new BaseCommand(SpeakCmd, () => !string.IsNullOrEmpty(RandomText));
 
-    public ICommand Paused => new BaseCommand(PauseCmd, () => !string.IsNullOrEmpty(Text));
+    public ICommand Paused => new BaseCommand(PauseCmd, () => !string.IsNullOrEmpty(RandomText));
     // teskt to speech pauzeren en zorgt ervoor opnieuw starten van de tekst speech.
     private void PauseCmd()
     {
@@ -209,11 +215,11 @@ public class TextToSpeechViewModel : ViewModelBase, INotifyPropertyChanged
         }
     }
 
-    public ICommand Restart => new BaseCommand(async () => 
+    public ICommand Restart => new BaseCommand(async () =>
     {
         // het Van vooraf aan beginnen van de tekst too speech
         await Task.Delay(500);
-        model.TTSConverter.PlayText(Text); // Speel de tekst opnieuw af vanaf het begin
+        model.TTSConverter.PlayText(RandomText); // Speel de tekst opnieuw af vanaf het begin
     });
     public SpeedValue SelectedSpeedOption
     {
@@ -221,11 +227,6 @@ public class TextToSpeechViewModel : ViewModelBase, INotifyPropertyChanged
         set => model.TTSConverter.SpeedValue = value;
     }
     public SpeedValue[] SpeedOptions { get; set; }
-
-    public string RandomText { 
-        get => model.RandomText; 
-    }
-
     private void SpeakCmd()
     {
         model.TTSConverter.PlayText(RandomText);
