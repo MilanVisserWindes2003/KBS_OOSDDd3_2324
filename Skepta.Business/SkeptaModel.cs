@@ -20,9 +20,10 @@ public class SkeptaModel : ObservableObject
     private TimeSpan elapsedTime { get; set; }
     
 
-    public TimeSpan ElapsedTime { 
-      get { return elapsedTime; }
-    set { elapsedTime = value; }
+    public TimeSpan ElapsedTime 
+    { 
+        get { return elapsedTime; }
+        set { elapsedTime = value; }
     }
 
     public string RandomText

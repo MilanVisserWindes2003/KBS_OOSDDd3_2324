@@ -11,20 +11,16 @@ using System.Windows.Threading;
 
 namespace Skepta.Presentation.ViewModel;
 
-public class TextExcersizeViewModel : ViewModelBase, INotifyPropertyChanged
+public class TextExcersizeViewModel : ViewModelBase
 {
     private readonly SkeptaModel model;
     private StringBuilder userInput = new StringBuilder();
 
     private readonly Stopwatch stopwatch = new Stopwatch();
     private DateTime lastRenderTime;
+    private string inputText = string.Empty;
 
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    private void NotifyPropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
+    
     public double ElapsedSeconds
     {
         get => stopwatch.Elapsed.TotalSeconds;
@@ -40,6 +36,7 @@ public class TextExcersizeViewModel : ViewModelBase, INotifyPropertyChanged
         stopwatch = new Stopwatch();
 
         CompositionTarget.Rendering += CompositionTarget_Rendering;
+    }
 
     private void CompositionTarget_Rendering(object sender, EventArgs e)
     {
@@ -131,8 +128,9 @@ public class TextExcersizeViewModel : ViewModelBase, INotifyPropertyChanged
             TimeSpan timeSpan = TimeSpan.FromSeconds(stopwatch.Elapsed.TotalSeconds);
             ElapsedTimeText = $"{timeSpan:mm\\:ss},{timeSpan:ff}";
             MessageBox.Show($"Exercise completed in {ElapsedTimeText}", "Exercise Completed", MessageBoxButton.OK, MessageBoxImage.Information);
+            model.ElapsedTime = stopwatch.Elapsed;
             RequestPage = PageId.Resultaat;
-            //model.aantalWoordenPerMinuut();
+            
         }
     }
 

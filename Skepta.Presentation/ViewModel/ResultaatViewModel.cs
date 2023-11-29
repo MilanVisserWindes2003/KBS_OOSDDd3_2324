@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Skepta.Business.ResultsLogic;
+using Skepta.Presentation.ViewModel.Commands;
 
 namespace Skepta.Presentation.ViewModel
 {
@@ -46,6 +47,8 @@ namespace Skepta.Presentation.ViewModel
             rsl.aantalWoordenPerMinuut(model.RandomText, model.ElapsedTime);
             wpmValue = rsl.WPM;
         }
+
+        public ICommand back => new BaseCommand(() => RequestPage = PageId.Exercise);
 
     }
 }
