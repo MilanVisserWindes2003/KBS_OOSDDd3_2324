@@ -73,7 +73,7 @@ public class TextToSpeechConverter
     {
         if (PlayMode != PlayMode.Stopped)
         {
-            synthesizer.Pause();
+            synthesizer.SpeakAsyncCancelAll();
             PlayMode = PlayMode.Stopped;
         }
     }
