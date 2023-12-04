@@ -1,7 +1,6 @@
 ﻿using Buisness.TTS;
+using Skepta.Business.Result;
 using Skepta.Business.Util;
-using System.ComponentModel;
-using System.Windows.Input;
 
 namespace Skepta.Business;
 
@@ -56,10 +55,11 @@ public class SkeptaModel : ObservableObject
     {
         dataConnection = new DataAccess.DataAccess();
         TTSConverter = new TextToSpeechConverter();
+        result = new ResultsLogic();
     }
 
     
-
+    public ResultsLogic result { get;}
     public TextToSpeechConverter TTSConverter { get; }
 
     public void textLengthSetter(int length)
