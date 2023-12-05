@@ -9,7 +9,10 @@ namespace Skepta.Presentation.ViewModel
         private SkeptaModel model;
 
         public ICommand Excersize => new BaseCommand(ExcersizeCmd);
+        public ICommand History => new BaseCommand(HistoryCmd);
+        public ICommand Settings => new BaseCommand(SettingsCmd);
         public ICommand Logout => new BaseCommand(LogoutCmd);
+        public ICommand Exit => new BaseCommand(ExitCmd);
         public MenuScreenViewModel(SkeptaModel model)
         {
             this.model = model;
@@ -20,9 +23,24 @@ namespace Skepta.Presentation.ViewModel
             RequestPage = PageId.Exercise;
         }
 
+        public void HistoryCmd()
+        {
+            RequestPage = PageId.History;
+        }
+
+        public void SettingsCmd()
+        {
+            RequestPage = PageId.Settings;
+        }
+
         public void LogoutCmd()
         {
             RequestPage = PageId.Login;
+        }
+
+        public void ExitCmd()
+        {
+            System.Environment.Exit(0);
         }
     }
 }
