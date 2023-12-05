@@ -36,10 +36,10 @@
                     Command="{Binding Excersize}" Margin="20" FontSize="20" BorderThickness="0"/>
             <Button x:Name="HistoryButton" Content="History"
                     Height="55" Width="300" Background="#687EFF" Foreground="White" 
-                    Command="{Binding Logout}" Margin="20" FontSize="20" BorderThickness="0"/>
+                    Command="{Binding History}" Margin="20" FontSize="20" BorderThickness="0"/>
             <Button x:Name="SettingsButton" Content="Settings"
                     Height="55" Width="300" Background="#687EFF" Foreground="White" 
-                    Command="{Binding Logout}" Margin="20" FontSize="20" BorderThickness="0"/>
+                    Command="{Binding Settings}" Margin="20" FontSize="20" BorderThickness="0"/>
             <Button x:Name="LogoutButton" Content="Logout"
                     Height="55" Width="300" Background="#687EFF" Foreground="White" 
                     Command="{Binding Logout}" Margin="20" FontSize="20" BorderThickness="0"/>

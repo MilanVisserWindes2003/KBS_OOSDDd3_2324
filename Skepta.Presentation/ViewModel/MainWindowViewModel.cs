@@ -20,7 +20,9 @@ namespace Skepta.Presentation.ViewModel
         TypeWindow,
         Resultaat,
         Exercise,
-        MenuScreen
+        MenuScreen,
+        Settings,
+        History
     }
 
     public class MainWindowViewModel : ViewModelBase
@@ -46,6 +48,8 @@ namespace Skepta.Presentation.ViewModel
             pages.Add(PageId.Resultaat, new ResultaatViewModel(model));
             pages.Add(PageId.Exercise, new ExercisePageViewModel(model));
             pages.Add(PageId.MenuScreen, new MenuScreenViewModel(model));
+            pages.Add(PageId.Settings, new SettingsViewModel(model));
+            pages.Add(PageId.History, new HistoryViewModel(model));
 
             SelectPage(PageId.Login);
         }
@@ -109,4 +113,6 @@ namespace Skepta.Presentation.ViewModel
             }
         }
     }
+
+    
 }
