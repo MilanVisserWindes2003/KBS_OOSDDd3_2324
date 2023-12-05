@@ -19,7 +19,8 @@ namespace Skepta.Presentation.ViewModel
         TextToSpeech,
         TypeWindow,
         Resultaat,
-        Exercise
+        Exercise,
+        MenuScreen
     }
 
     public class MainWindowViewModel : ViewModelBase
@@ -44,6 +45,7 @@ namespace Skepta.Presentation.ViewModel
             pages.Add(PageId.TypeWindow, new TypeWindowModel(model));
             pages.Add(PageId.Resultaat, new ResultaatViewModel(model));
             pages.Add(PageId.Exercise, new ExercisePageViewModel(model));
+            pages.Add(PageId.MenuScreen, new MenuScreenViewModel(model));
 
             SelectPage(PageId.Login);
         }
