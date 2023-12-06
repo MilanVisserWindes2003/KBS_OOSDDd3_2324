@@ -31,17 +31,17 @@
                 <BitmapImage UriSource="pack://application:,,,/Resources/Img/LogoWhite.png"/>
             </Image.Source>
         </Image>
-        <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Label Content="Gebruikersnaam" HorizontalAlignment="Center" FontSize="24" HorizontalContentAlignment="Center" Foreground="#7C8099"/>
-            <TextBox Text="{Binding Username}" HorizontalAlignment="Center" Width="250" FontSize="20"  Foreground="#7C8099"/>
-            <Label Content="Wachtwoord" HorizontalAlignment="Center" FontSize="24" Width="180" HorizontalContentAlignment="Center"  Foreground="#7C8099"/>
+        <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Height="590" Width="436">
+            <Label Content="Gebruikersnaam" HorizontalAlignment="Center" FontSize="24" Margin="10" HorizontalContentAlignment="Center" Foreground="#7C8099"/>
+            <TextBox Text="{Binding Username}" HorizontalAlignment="Center" Margin="20" Width="250" FontSize="20"  Foreground="Black"/>
+            <Label Content="Wachtwoord" HorizontalAlignment="Center" FontSize="24" Margin="10" Width="180" HorizontalContentAlignment="Center"  Foreground="#7C8099"/>
             <PasswordBox PasswordChar="*" PasswordChanged="PasswordChanged"  
                              HorizontalAlignment="Center" VerticalContentAlignment="Center"
-                              Width="250" FontSize="20"  Foreground="#7C8099"/>
+                              Width="250" FontSize="20" Margin="20" Foreground="Black"/>
             <Button Name="loginbut" Content="Login" HorizontalAlignment="Center" VerticalAlignment="Center"
-                         Height="35" Width="250" Background="#687EFF" Foreground="White" 
+                         Height="35" Width="250"  Background="#687EFF" Foreground="White" 
                         Command="{Binding Login}" FontSize="20" Margin="0,25,0,0" BorderThickness="0"/>
-            <Label Content="Nog geen account?" HorizontalAlignment="Center" FontWeight="Thin" FontSize="16" Height="35" VerticalContentAlignment="Center"  Foreground="#7C8099"/>
+            <Label Content="Nog geen account?" Margin="20" HorizontalAlignment="Center" FontWeight="Thin" FontSize="16" Height="35" VerticalContentAlignment="Center"  Foreground="#7C8099"/>
             <Button Name="registreerbut" Content="Registreer" HorizontalAlignment="Center" Command="{Binding Register}"  Background="#687EFF" Foreground="White" Width="250" Height="35" FontSize="20" BorderThickness="0"/>
             <TextBlock Text="{Binding ErrorText}" Foreground="Red" FontSize="16" FontWeight="Thin" MaxWidth="250" TextWrapping="Wrap" HorizontalAlignment="Center"/>
         </StackPanel>

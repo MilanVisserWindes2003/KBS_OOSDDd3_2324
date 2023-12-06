@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="Skepta.Presentation.View.MenuView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Skepta.Presentation.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="1080" d:DesignWidth="1920">
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="960"/>
+            <ColumnDefinition Width="960"/>
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="11*"/>
+                <RowDefinition Height="14*"/>
+                <RowDefinition Height="17*"/>
+                <RowDefinition Height="20*"/>
+            </Grid.RowDefinitions>
+            <Border Background="#687EFF" Grid.Row="0"/>
+            <Border Background="#80B3FF" Grid.Row="1"/>
+            <Border Background="#98E4FF" Grid.Row="2"/>
+            <Border Background="#B6FFFA" Grid.Row="3"/>
+        </Grid>
+        <Image Name="Logo" Margin="50" HorizontalAlignment="Center">
+            <Image.Source>
+                <BitmapImage UriSource="pack://application:,,,/Resources/Img/LogoWhite.png"/>
+            </Image.Source>
+        </Image>
+
+        <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Height="590">
+            <Label Content="                    MENU" FontSize="30" Height="82" Width="436"/>
+            <Button x:Name="LoginButton" Content="Excersize"
+                    Height="55" Width="300" Background="#687EFF" Foreground="White" 
+                    Command="{Binding Excersize}" Margin="20" FontSize="20" BorderThickness="0"/>
+            <Button x:Name="HistoryButton" Content="History"
+                    Height="55" Width="300" Background="#687EFF" Foreground="White" 
+                    Command="{Binding History}" Margin="20" FontSize="20" BorderThickness="0"/>
+            <Button x:Name="SettingsButton" Content="Settings"
+                    Height="55" Width="300" Background="#687EFF" Foreground="White" 
+                    Command="{Binding Settings}" Margin="20" FontSize="20" BorderThickness="0"/>
+            <Button x:Name="LogoutButton" Content="Logout"
+                    Height="55" Width="300" Background="#687EFF" Foreground="White" 
+                    Command="{Binding Logout}" Margin="20" FontSize="20" BorderThickness="0"/>
+            <Button x:Name="ExitButton" Content="Exit"
+                    Height="55" Width="300" Background="#687EFF" Foreground="White" 
+                    Command="{Binding Exit}" Margin="20" FontSize="20" BorderThickness="0"/>
+
+        </StackPanel>
+
+    </Grid>
+</UserControl>
