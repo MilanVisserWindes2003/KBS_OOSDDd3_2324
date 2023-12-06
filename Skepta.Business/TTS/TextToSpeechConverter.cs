@@ -20,14 +20,18 @@ public enum PlayMode
     Playing,
     Paused
 }
+
+
+
 public class TextToSpeechConverter
 {
     private readonly SpeechSynthesizer synthesizer;
+    private string voice;
     public TextToSpeechConverter()
     {
         synthesizer = new SpeechSynthesizer();
         synthesizer.SetOutputToDefaultAudioDevice();
-        synthesizer.SelectVoice("Microsoft Frank");
+        SetVoice("Nederlands");
         synthesizer.SpeakCompleted += Synthesizer_SpeakCompleted;
     }
 
@@ -39,6 +43,19 @@ public class TextToSpeechConverter
     public IList<SpeedValue> SpeedValues { get; private set; }
     public SpeedValue SpeedValue { get; set; } = SpeedValue.Normal;
     public PlayMode PlayMode { get; private set; } = PlayMode.Stopped;
+    public List<string> Voices { get;} = new List<string>() { "Nederlands" , "Belgisch"};
+    private Dictionary<string, string> LanguageOptions { get; } = new Dictionary<string, string>
+{
+    { "Nederlands", "Microsoft Frank" },
+    { "Belgisch", "Microsoft Bart" }
+    // Add more languages and voices as needed
+};
+
+    public string Voice {
+        get => voice;
+        set => SetVoice(value);
+    }
+
 
     public bool PlayText(string text)
     {
@@ -78,6 +95,17 @@ public class TextToSpeechConverter
         }
     }
 
+    public void SetVoice(string voice)
+    {
+        string Speaker = LanguageOptions[voice];
+        if (CheckVoiceExists(Speaker)) 
+        {
+            synthesizer.SelectVoice(Speaker);
+            voice = Speaker;
+        }
+        
+    }
+
     private void SetupSpeedValues()
     {
         List<SpeedValue> speedValues = new List<SpeedValue>();
@@ -86,5 +114,18 @@ public class TextToSpeechConverter
             speedValues.Add(value);
         }
         SpeedValues = speedValues;
+    }
+
+    private bool CheckVoiceExists (string voice)
+    {
+        foreach (InstalledVoice voices in synthesizer.GetInstalledVoices())
+        {
+            VoiceInfo info = voices.VoiceInfo;
+            if (info.Name.Equals(voice))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -23,15 +23,16 @@ public class TextToSpeechViewModel : ViewModelBase
     private string elapsedTimeText;
 
     private string randomText;
-   
+
 
     public TextToSpeechViewModel(SkeptaModel model)
     {
         this.model = model;
         stopwatch = new Stopwatch();
         SpeedOptions = Enum.GetValues<SpeedValue>();
+        LanguageOptions = model.TTSConverter.Voices.ToArray();
         CompositionTarget.Rendering += CompositionTarget_Rendering;
-    }   
+    }
     public ICommand Speak => new BaseCommand(SpeakCmd, () => model.TTSConverter.PlayMode == PlayMode.Stopped);
 
     public ICommand Pause => new BaseCommand(PauseCmd, () => model.TTSConverter.PlayMode != PlayMode.Stopped);
@@ -80,7 +81,7 @@ public class TextToSpeechViewModel : ViewModelBase
     private void CompositionTarget_Rendering(object sender, EventArgs e)
     {
         double elapsedMilliseconds = (DateTime.Now - lastRenderTime).TotalMilliseconds;
-        
+
         if (elapsedMilliseconds >= 100)
         {
             RefreshButtons();
@@ -139,7 +140,7 @@ public class TextToSpeechViewModel : ViewModelBase
         }
     }
 
-    
+
     public string GetPrintableCharacter(Key key, bool isShiftPressed)
     {
         string keyString = key.ToString();
@@ -168,7 +169,7 @@ public class TextToSpeechViewModel : ViewModelBase
         return isShiftPressed ? keyString.ToUpper() : keyString.ToLower();
     }
 
-    
+
 
     public SpeedValue SelectedSpeedOption
     {
@@ -176,6 +177,13 @@ public class TextToSpeechViewModel : ViewModelBase
         set => model.TTSConverter.SpeedValue = value;
     }
     public SpeedValue[] SpeedOptions { get; set; }
+    public string[] LanguageOptions { get; set; }
+    public string SelectedLanguage
+    {
+        get => model.TTSConverter.Voice;
+        set => model.TTSConverter.SetVoice(value);
+    }
+
     private void SpeakCmd()
     {
         model.TTSConverter.PlayText(RandomText);
