@@ -1,9 +1,7 @@
 ﻿using Buisness.TTS;
 using Skepta.Business;
-using Skepta.Business.Util;
 using Skepta.Presentation.ViewModel.Commands;
 using System;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,7 +20,6 @@ public class TextToSpeechViewModel : ViewModelBase
 
     private StringBuilder userInput = new StringBuilder();
     private string inputText = string.Empty;
-    private int aantalTekens;
     private string elapsedTimeText;
 
     private string randomText;
@@ -97,6 +94,8 @@ public class TextToSpeechViewModel : ViewModelBase
     public override void OpenPage()
     {
         RandomText = model.RandomText;
+        InputText = string.Empty;
+        userInput.Clear();
         StartTimer();
     }
     private async void StartTimer()

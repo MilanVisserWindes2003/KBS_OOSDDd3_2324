@@ -10,8 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using Skepta.Business.ResultsLogic;
 using Skepta.Presentation.ViewModel.Commands;
+using Skepta.Business.Result;
 
 namespace Skepta.Presentation.ViewModel
 {
@@ -20,8 +20,9 @@ namespace Skepta.Presentation.ViewModel
         private SkeptaModel model;
         private ResultsLogic rsl;
         private double wpm;
+        private char mistake;
 
-        public double wpmValue 
+        public double wpmValue
         {
             get
             {
@@ -33,11 +34,21 @@ namespace Skepta.Presentation.ViewModel
                 NotifyPropertyChanged(nameof(wpmValue));
             }
         }
+
+        public char Mistake
+        {
+            get { return mistake; }
+            set 
+            { 
+                mistake = value;
+                NotifyPropertyChanged(nameof(Mistake));
+            }
+        }
         
         public ResultaatViewModel(SkeptaModel model) 
         { 
-            this.model = model; 
-             rsl = new ResultsLogic();
+            this.model = model;
+            rsl = model.result;
             //this.model.aantalWoordenPerMinuut();
             // idk model.Text = model.GetTimerText();
         }
@@ -46,9 +57,16 @@ namespace Skepta.Presentation.ViewModel
         {
             rsl.aantalWoordenPerMinuut(model.RandomText, model.ElapsedTime);
             wpmValue = rsl.WPM;
+            Mistake = rsl.WorstMistake;
         }
 
-        public ICommand back => new BaseCommand(() => RequestPage = PageId.Exercise);
+        public ICommand back => new BaseCommand(BackCmd);
+
+        private void BackCmd()
+        {
+            rsl.EmptyDictionairy();
+            RequestPage = PageId.Exercise;
+        }
 
     }
 }
