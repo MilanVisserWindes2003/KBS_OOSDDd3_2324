@@ -7,30 +7,30 @@
       mc:Ignorable="d" 
       d:DesignHeight="1080" d:DesignWidth="1920">
 
-    <Grid Background="Transparent">
+    <Grid Background="White" Margin="20,0,20,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
 
         <Viewbox Grid.Row="0" Grid.Column="0" Grid.RowSpan="2">
-            <StackPanel Orientation="Vertical" Margin="30">
+            <StackPanel Orientation="Vertical" Margin="10">
                 <ContentPresenter Content="{Binding DifficultySelect}"/>
                 <ContentPresenter Content="{Binding LenghtSelect}"/>
                 <ContentPresenter Content="{Binding ExerciseTypeSelect}"/>
             </StackPanel>
         </Viewbox>
 
-        <ContentPresenter Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" 
-                          Margin="30 50 30 30"
-                          Content="{Binding TextSelect}"/>
+        <Viewbox Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch">
+            <ContentPresenter Content="{Binding TextSelect}"/>
+        </Viewbox>
 
-        <Button  Grid.Row="2" Grid.Column="3" VerticalAlignment="Bottom" Margin="40" MinHeight="100"
+        <Button Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Height="100"
                  Background="#687EFF" BorderBrush="Black" BorderThickness="3"
                  FontSize="40" FontWeight="Bold"
                  Content="Verder" Command="{Binding Verder}"/>

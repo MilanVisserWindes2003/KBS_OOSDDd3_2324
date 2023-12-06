@@ -7,16 +7,16 @@
              mc:Ignorable="d" 
       d:DesignHeight="1080" d:DesignWidth="1920">
 
-    <Grid Background="Transparent">
+    <Grid Background="White">
         <StackPanel Orientation="Vertical">
             <TextBlock Grid.ColumnSpan="2" Text="Gekozen tekst" HorizontalAlignment="Center" VerticalAlignment="Center" 
                        FontSize="45" FontWeight="Bold" Margin="10"/>
 
-            <Border BorderBrush="black" BorderThickness="2" Padding="20" >
-                <TextBlock HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding RandomTextShuffle}" VerticalAlignment="Stretch"  FontSize="24"/>
+            <Border BorderBrush="black" BorderThickness="2" Padding="20" VerticalAlignment="Stretch">
+                <TextBlock HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding RandomTextShuffle}" VerticalAlignment="Stretch" FontSize="24" Height="400"/>
             </Border>
 
-            <Button  Grid.Row="2" Grid.Column="3" VerticalAlignment="Bottom" Margin="0 20 0 0" MinHeight="100"
+            <Button  Grid.Row="2" Grid.Column="3" VerticalAlignment="Bottom" Margin="0 20 0 0" Height="100"
                  Background="#687EFF" BorderBrush="Black" BorderThickness="3"
                  FontSize="40" FontWeight="Bold"
                  Content="Shuffle" Command="{Binding Shuffle}"/>

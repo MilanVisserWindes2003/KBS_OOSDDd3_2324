@@ -8,8 +8,8 @@
              d:DesignHeight="1080" d:DesignWidth="1920">
     <Grid Background="White">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="960"/>
-            <ColumnDefinition Width="960"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid>
             <Grid.RowDefinitions>
@@ -30,22 +30,22 @@
         </Image>
 
         <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Height="590">
-            <Label Content="                    MENU" FontSize="30" Height="82" Width="436"/>
+            <Label Content="MENU" FontSize="30" Height="82" Width="436" HorizontalContentAlignment="Center"/>
             <Button x:Name="LoginButton" Content="Excersize"
                     Height="55" Width="300" Background="#687EFF" Foreground="White" 
-                    Command="{Binding Excersize}" Margin="20" FontSize="20" BorderThickness="0"/>
+                    Command="{Binding Excersize}" Margin="20" FontSize="24" BorderThickness="0"/>
             <Button x:Name="HistoryButton" Content="History"
                     Height="55" Width="300" Background="#687EFF" Foreground="White" 
-                    Command="{Binding History}" Margin="20" FontSize="20" BorderThickness="0"/>
+                    Command="{Binding History}" Margin="20" FontSize="24" BorderThickness="0"/>
             <Button x:Name="SettingsButton" Content="Settings"
                     Height="55" Width="300" Background="#687EFF" Foreground="White" 
-                    Command="{Binding Settings}" Margin="20" FontSize="20" BorderThickness="0"/>
+                    Command="{Binding Settings}" Margin="20" FontSize="24" BorderThickness="0"/>
             <Button x:Name="LogoutButton" Content="Logout"
                     Height="55" Width="300" Background="#687EFF" Foreground="White" 
-                    Command="{Binding Logout}" Margin="20" FontSize="20" BorderThickness="0"/>
+                    Command="{Binding Logout}" Margin="20" FontSize="24" BorderThickness="0"/>
             <Button x:Name="ExitButton" Content="Exit"
-                    Height="55" Width="300" Background="#687EFF" Foreground="White" 
-                    Command="{Binding Exit}" Margin="20" FontSize="20" BorderThickness="0"/>
+                    Height="55" Width="300" Background="#687EFF" Foreground="White"
+                    Command="{Binding Exit}" Margin="20" FontSize="24" BorderThickness="0"/>
 
         </StackPanel>
 

@@ -41,9 +41,9 @@
             <Label Content="Herhaal Wachtwoord" HorizontalAlignment="Center"  FontSize="24" Width="250" HorizontalContentAlignment="Center" Foreground="#7C8099"/>
             <PasswordBox PasswordChar="*" PasswordChanged="CheckPasswordChanged"
                              HorizontalAlignment="Center"  VerticalAlignment="Center" Width="250" FontSize="20" Foreground="#7C8099"/>
-            <Button Name="registreerbut" Content="Registreer" Height="35" HorizontalAlignment="Center" Command="{Binding Registreer}" Background="#687EFF" Foreground="White" Width="250" FontSize="20" Margin="0,25,0,0"/>
+            <Button Name="registreerbut" Content="Registreer" Height="40" HorizontalAlignment="Center" Command="{Binding Registreer}" Background="#687EFF" Foreground="White" Width="250" FontSize="24" Margin="0,24,0,0"/>
             <Label Content="Heb je al een account?" HorizontalAlignment="Center" FontWeight="Thin" FontSize="16" Height="35" VerticalContentAlignment="Center"  Foreground="#7C8099"/>
-            <Button Name="loginbut" Content="Naar login" HorizontalAlignment="Center" Command="{Binding Login}"  Background="#687EFF" Foreground="White" Width="250" Height="35" FontSize="20" BorderThickness="0"/>
+            <Button Name="loginbut" Content="Naar login" HorizontalAlignment="Center" Command="{Binding Login}"  Background="#687EFF" Foreground="White" Width="250" Height="40" FontSize="24" BorderThickness="0"/>
             <TextBlock Text="{Binding ErrorText}" Foreground="Red"  FontSize="16" FontWeight="Thin" MaxWidth="250" TextWrapping="Wrap" HorizontalAlignment="Center"/>
             <TextBlock Text="{Binding RegistrationStatus}" Foreground="Green"  FontSize="16" FontWeight="Thin" MaxWidth="250" TextWrapping="Wrap" HorizontalAlignment="Center"/>
         </StackPanel>
