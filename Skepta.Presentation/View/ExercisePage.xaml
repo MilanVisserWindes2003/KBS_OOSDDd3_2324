@@ -7,7 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="1080" d:DesignWidth="1920">
 
-    <Grid Background="White" Margin="20,0,20,0">
+    <Grid Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -19,21 +19,18 @@
 
 
         <Viewbox Grid.Row="0" Grid.Column="0" Grid.RowSpan="2">
-            <StackPanel Orientation="Vertical" Margin="10">
+            <StackPanel Orientation="Vertical">
                 <ContentPresenter Content="{Binding DifficultySelect}"/>
                 <ContentPresenter Content="{Binding LenghtSelect}"/>
                 <ContentPresenter Content="{Binding ExerciseTypeSelect}"/>
             </StackPanel>
         </Viewbox>
 
-        <Viewbox Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch">
-            <ContentPresenter Content="{Binding TextSelect}"/>
-        </Viewbox>
+        <ContentPresenter Content="{Binding TextSelect}" Grid.Column="1"/>
 
         <Button Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Height="100"
-                 Background="#687EFF" BorderBrush="Black" BorderThickness="3"
-                 FontSize="40" FontWeight="Bold"
+                 Background="#687EFF"
+                 FontSize="40" Foreground="White"
                  Content="Verder" Command="{Binding Verder}"/>
     </Grid>
-
 </UserControl>

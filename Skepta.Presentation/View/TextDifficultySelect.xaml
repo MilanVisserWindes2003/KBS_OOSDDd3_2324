@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WpfProject"
       mc:Ignorable="d" 
-      d:DesignHeight="1080" d:DesignWidth="1920">
+      d:DesignHeight="360" d:DesignWidth="960">
 
     <Grid Background="White">
         <Grid.ColumnDefinitions>
@@ -17,73 +17,68 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Selecteer tekst niveau" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="120" FontWeight="Bold" Margin="0,0,0,0"/>
+        <TextBlock Text="Tekst niveau" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="60" FontWeight="Bold" Margin="10,0,0,0"/>
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Margin="10" Background="GhostWhite" 
-                    Command="{Binding Select}" CommandParameter="A1"
-                    HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" BorderBrush="Green" BorderThickness="{Binding Selected[0]}" Tag="A1">
-                <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10">
-                    <TextBlock Text="A1-Basis" TextAlignment="Center" FontSize="80" FontWeight="Bold" Foreground="Green"/>
-                    <TextBlock Text="Doorbraak – basiskennis van de taal, bekende dagelijkse uitdrukkingen en eenvoudige zinnen." TextAlignment="Center" FontSize="15"/>
-                </StackPanel>
-            </Button>
-            <Button Grid.Column="1" Margin="10" Background="GhostWhite" 
-                    Command="{Binding Select}" CommandParameter="A2"
-                    HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" BorderBrush="Green" BorderThickness="{Binding Selected[1]}" Tag="A2">
-                <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10">
-                    <TextBlock Text="A2-Basis" TextAlignment="Center" FontSize="80" FontWeight="Bold" Foreground="Green"/>
-                    <TextBlock Text="Tussenstap – bekend met veelgebruikte uitdrukkingen en kan gesprekken voeren over alledaagse zaken." TextAlignment="Center" FontSize="15"/>
-                </StackPanel>
-            </Button>
+            <Border Grid.Column="0" Margin="10" BorderBrush="Green" BorderThickness="{Binding Selected[0]}" Background="GhostWhite">
+                <Button Command="{Binding Select}" CommandParameter="A1" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Tag="A1" Background="GhostWhite" BorderThickness="0">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock Text="A1" TextAlignment="Center" FontSize="36" FontWeight="Bold" Foreground="Green"/>
+                    </StackPanel>
+                </Button>
+            </Border>
+            <Border Grid.Column="1" Margin="10" BorderBrush="Green" BorderThickness="{Binding Selected[1]}" Background="GhostWhite">
+                <Button Command="{Binding Select}" CommandParameter="A2" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Tag="A2" Background="GhostWhite" BorderThickness="0">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock Text="A2" TextAlignment="Center" FontSize="36" FontWeight="Bold" Foreground="Green"/>
+                    </StackPanel>
+                </Button>
+            </Border>
         </Grid>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Margin="10" Background="GhostWhite" 
-                    Command="{Binding Select}" CommandParameter="B1"
-                    HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" BorderBrush="Orange" BorderThickness="{Binding Selected[2]}" Tag="B1">
-            <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10">
-                <TextBlock Text="B1-Gevorderd" TextAlignment="Center" FontSize="80" FontWeight="Bold" Foreground="Orange"/>
-                <TextBlock Text="Doorbraak – basiskennis van de taal, bekende dagelijkse uitdrukkingen en eenvoudige zinnen." TextAlignment="Center" FontSize="15"/>
-            </StackPanel>
-            </Button>
-            <Button Grid.Column="1" Margin="10" Background="GhostWhite" 
-                    Command="{Binding Select}" CommandParameter="B2"
-                    HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" BorderBrush="Orange" BorderThickness="{Binding Selected[3]}" Tag="B2">
-                <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10">
-                    <TextBlock Text="B2-Gevorderd" TextAlignment="Center" FontSize="80" FontWeight="Bold" Foreground="Orange"/>
-                    <TextBlock Text="Doorbraak – basiskennis van de taal, bekende dagelijkse uitdrukkingen en eenvoudige zinnen." TextAlignment="Center" FontSize="15"/>
-                </StackPanel>
-            </Button>
+            <Border Grid.Column="0" Margin="10" BorderBrush="Orange" BorderThickness="{Binding Selected[2]}" Background="GhostWhite">
+                <Button Command="{Binding Select}" CommandParameter="B1" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Tag="B1" Background="GhostWhite" BorderThickness="0">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock Text="B1" TextAlignment="Center" FontSize="36" FontWeight="Bold" Foreground="Orange"/>
+                    </StackPanel>
+                </Button>
+            </Border>
+            <Border Grid.Column="1" Margin="10" BorderBrush="Orange" BorderThickness="{Binding Selected[3]}" Background="GhostWhite">
+                <Button Command="{Binding Select}" CommandParameter="B2" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Tag="B2" Background="GhostWhite" BorderThickness="0">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock Text="B2" TextAlignment="Center" FontSize="36" FontWeight="Bold" Foreground="Orange"/>
+                    </StackPanel>
+                </Button>
+            </Border>
         </Grid>
         <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Margin="10" Background="GhostWhite" 
-                    Command="{Binding Select}" CommandParameter="C1"
-                    HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" BorderBrush="Red" BorderThickness="{Binding Selected[4]}" Tag="C1">
-                <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10">
-                    <TextBlock Text="C1-Vergevorderd" TextAlignment="Center" FontSize="80" FontWeight="Bold" Foreground="Red"/>
-                    <TextBlock Text="Doorbraak – basiskennis van de taal, bekende dagelijkse uitdrukkingen en eenvoudige zinnen." TextAlignment="Center" FontSize="15"/>
-                </StackPanel>
-            </Button>
-            <Button Grid.Column="1" Margin="10" Background="GhostWhite" 
-                    Command="{Binding Select}" CommandParameter="C2"
-                    HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" BorderBrush="Red" BorderThickness="{Binding Selected[5]}" Tag="C2">
-                <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10">
-                    <TextBlock Text="C2-Vergevorderd" TextAlignment="Center" FontSize="80" FontWeight="Bold" Foreground="Red"/>
-                    <TextBlock Text="Doorbraak – basiskennis van de taal, bekende dagelijkse uitdrukkingen en eenvoudige zinnen." TextAlignment="Center" FontSize="15"/>
-                </StackPanel>
-            </Button>
+            <Border Grid.Column="0" Margin="10" BorderBrush="Red" BorderThickness="{Binding Selected[4]}" Background="GhostWhite">
+                <Button Command="{Binding Select}" CommandParameter="C1" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Tag="C1" Background="GhostWhite" BorderThickness="0">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock Text="C1" TextAlignment="Center" FontSize="36" FontWeight="Bold" Foreground="Red"/>
+                    </StackPanel>
+                </Button>
+            </Border>
+
+            <Border Grid.Column="1" Margin="10" BorderBrush="Red" BorderThickness="{Binding Selected[5]}" Background="GhostWhite">
+                <Button Command="{Binding Select}" CommandParameter="C2" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Tag="C2" Background="GhostWhite" BorderThickness="0">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock Text="C2" TextAlignment="Center" FontSize="36" FontWeight="Bold" Foreground="Red"/>
+                    </StackPanel>
+                </Button>
+            </Border>
         </Grid>
     </Grid>
 </UserControl>

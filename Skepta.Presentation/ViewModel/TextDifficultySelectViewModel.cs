@@ -1,8 +1,12 @@
 ﻿using Skepta.Business;
 using Skepta.Presentation.ViewModel.Commands;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace Skepta.Presentation.ViewModel;
 
@@ -44,4 +48,19 @@ public class TextDifficultySelectViewModel : ViewModelBase
         model.TextDifficulty = difficulty;
         RequestPage = PageId.TextLength;
     }
+
+    public class BoolToColorConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            bool isSelected = (bool)value;
+            return isSelected ? Brushes.Black : Brushes.GhostWhite;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
 }

@@ -10,15 +10,15 @@
     <Grid Background="White">
         <StackPanel Orientation="Vertical">
             <TextBlock Grid.ColumnSpan="2" Text="Gekozen tekst" HorizontalAlignment="Center" VerticalAlignment="Center" 
-                       FontSize="45" FontWeight="Bold" Margin="10"/>
+                       FontSize="45" Margin="10" Foreground="#7C8099"/>
 
-            <Border BorderBrush="black" BorderThickness="2" Padding="20" VerticalAlignment="Stretch">
-                <TextBlock HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding RandomTextShuffle}" VerticalAlignment="Stretch" FontSize="24" Height="400"/>
+            <Border BorderBrush="#7C8099" BorderThickness="1" Padding="20" VerticalAlignment="Stretch">
+                <TextBlock HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding RandomTextShuffle}" VerticalAlignment="Stretch" FontSize="24" Height="420"/>
             </Border>
 
             <Button  Grid.Row="2" Grid.Column="3" VerticalAlignment="Bottom" Margin="0 20 0 0" Height="100"
-                 Background="#687EFF" BorderBrush="Black" BorderThickness="3"
-                 FontSize="40" FontWeight="Bold"
+                 Background="#687EFF"
+                 FontSize="40" Foreground="White"
                  Content="Shuffle" Command="{Binding Shuffle}"/>
         </StackPanel>
     </Grid>
