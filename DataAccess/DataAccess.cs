@@ -1,13 +1,43 @@
-﻿using System.Data.SqlClient;
+﻿using Renci.SshNet;
+using System.Data.SqlClient;
 
 namespace DataAccess
 {
     public class DataAccess
     {
         bool isConnected = false;
-        private const string connectionString = "Server=.\\SQLEXPRESS; Database = Skepta; Integrated Security = true;";
+        private string connectionString =
+        "Server=.\\SQLEXPRESS; Database = Skepta; Integrated Security = true;";
+        // $"Server={SshHostName},{LocalForwardedPort};Database=Skepta;User Id={SshUserName};Password={SshPassword};"
+        private const string SshHostName = "145.44.233.245";
+        private const string SshUserName = "student";
+        private const string SshPassword = "LerenTP321!";
+
+        private const string SqlServerHostName = "localhost";
+        private const int SqlServerPort = 1433;
+        private const int LocalForwardedPort = 3333;
+
+        private SshClient _sshClient;
+        private ForwardedPortLocal _forwardedPort;
         //private const string connectionString =  "data source=localhost;Initial Catalog=Skepta; User ID=sa;Password=Sekrap40";
         public SqlConnection Connection { get; set; }
+
+        public void CreateTunnel()
+        {
+            _sshClient = new SshClient(SshHostName, SshUserName, SshPassword);
+            _sshClient.Connect();
+
+            _forwardedPort = new ForwardedPortLocal("127.0.0.1", LocalForwardedPort, SqlServerHostName, (uint)SqlServerPort);
+            _sshClient.AddForwardedPort(_forwardedPort);
+            _forwardedPort.Start();
+        }
+
+        public void CloseTunnel()
+        {
+            _forwardedPort?.Stop();
+            _sshClient?.Disconnect();
+        }
+        
 
         public void TableLerenTypenConnection()
         {

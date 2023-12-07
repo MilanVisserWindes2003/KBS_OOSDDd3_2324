@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:Skepta.Presentation.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+    <Grid Background="Blue">
+        <Button Content="Button" HorizontalAlignment="Left" Margin="356,235,0,0" VerticalAlignment="Top" Height="111" Width="191"/>
+
     </Grid>
 </UserControl>

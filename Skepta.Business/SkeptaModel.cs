@@ -75,23 +75,31 @@ public class SkeptaModel : ObservableObject
 
     public bool CheckLogin(string username, string password)
     {
-        if (dataConnection.UsernameExists(username))
+        try
         {
-            string databasePassword = dataConnection.GetPassword(username);
 
-            // Check if the database password is not null and trim leading/trailing spaces
-            if (!string.IsNullOrEmpty(databasePassword))
+            dataConnection.CreateTunnel();
+            if (dataConnection.UsernameExists(username))
             {
-                databasePassword = databasePassword.Trim();
+                string databasePassword = dataConnection.GetPassword(username);
 
-                // Compare the trimmed database password with the entered password
-                if (databasePassword == password)
+                // Check if the database password is not null and trim leading/trailing spaces
+                if (!string.IsNullOrEmpty(databasePassword))
                 {
-                    return true;
+                    databasePassword = databasePassword.Trim();
+
+                    // Compare the trimmed database password with the entered password
+                    if (databasePassword == password)
+                    {
+                        return true;
+                    }
                 }
             }
+        } catch (Exception ex)
+        {
+            Console.WriteLine("bruh");
         }
-
+        finally { dataConnection.CloseTunnel(); }
         return false;
     }
 

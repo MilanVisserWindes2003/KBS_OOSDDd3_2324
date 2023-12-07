@@ -54,9 +54,11 @@
     <DataTemplate DataType="{x:Type viewmodel:MenuScreenViewModel}">
         <view:MenuView/>
     </DataTemplate>
+    
     <DataTemplate DataType="{x:Type viewmodel:HistoryViewModel}">
         <view:MenuView/>
     </DataTemplate>
+    
     <DataTemplate DataType="{x:Type viewmodel:SettingsViewModel}">
         <view:MenuView/>
     </DataTemplate>
