@@ -25,7 +25,7 @@ namespace Skepta.Presentation.ViewModel
 
         public void HistoryCmd()
         {
-            RequestPage = PageId.History;
+            RequestPage = PageId.Geschiedenis;
         }
 
         public void SettingsCmd()

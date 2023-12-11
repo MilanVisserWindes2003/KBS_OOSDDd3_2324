@@ -18,7 +18,13 @@ namespace Skepta.Business.ResultsLogic
             set { wpm = value; NotifyPropertyChanged(nameof(WPM)); }
         }
 
-        public ResultsLogic() { }
+        public Dictionary<char, int> TypedMistake { get; set; }
+        public char WorstMistake { get; private set; } = '-';
+
+        public ResultsLogic() 
+        {
+            TypedMistake = new Dictionary<char, int>();
+        }
         public void aantalWoordenPerMinuut(string RandomText, TimeSpan ElapsedTime)
         {
             int aantalWoorden = WordCounting(RandomText);
@@ -32,5 +38,34 @@ namespace Skepta.Business.ResultsLogic
             var amountOfWords = randomText.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             return amountOfWords.Length; // Return the count directly
         }
+        public void addMistake(char mistake)
+        {
+            char key = char.ToLower(mistake);
+            if (TypedMistake.ContainsKey(key))
+            {
+                TypedMistake[key]++;
+            }
+            else
+            {
+                TypedMistake[key] = 1;
+            }
+            if (WorstMistake == '-')
+            {
+                WorstMistake = key;
+                return;
+            }
+            if (TypedMistake.Count == 0 || TypedMistake[key] > TypedMistake[WorstMistake])
+            {
+                WorstMistake = key;
+            }
+
+        }
+
+        public void EmptyDictionairy()
+        {
+            TypedMistake.Clear();
+            WorstMistake = '-';
+        }
+        
     }
 }

@@ -1,13 +1,10 @@
 ﻿using Buisness.TTS;
-using Skepta.Business.Result;
 using Skepta.Business.Util;
-<<<<<<< HEAD
 using Skepta.DataAcces.HistoryFolder;
 using System.ComponentModel;
 using System.Globalization;
 using System.Windows.Input;
-=======
->>>>>>> 7de131a8126355bc2d1ae94eb30b5eb473da33e0
+
 
 namespace Skepta.Business;
 
@@ -62,17 +59,16 @@ public class SkeptaModel : ObservableObject
     {
         dataConnection = new DataAccess.DataAccess();
         TTSConverter = new TextToSpeechConverter();
-<<<<<<< HEAD
 
-=======
-        result = new ResultsLogic();
->>>>>>> 7de131a8126355bc2d1ae94eb30b5eb473da33e0
+
+        result = new ResultsLogic.ResultsLogic();
+
     }
 
     public string Username { get; set; }
 
     
-    public ResultsLogic result { get;}
+    public ResultsLogic.ResultsLogic result { get;}
     public TextToSpeechConverter TTSConverter { get; }
 
     public void textLengthSetter(int length)

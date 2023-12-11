@@ -20,13 +20,9 @@ namespace Skepta.Presentation.ViewModel
         TypeWindow,
         Resultaat,
         Exercise,
-<<<<<<< HEAD
-        Geschiedenis
-=======
+        Geschiedenis,
         MenuScreen,
-        Settings,
-        History
->>>>>>> 7de131a8126355bc2d1ae94eb30b5eb473da33e0
+        Settings
     }
 
     public class MainWindowViewModel : ViewModelBase
@@ -51,14 +47,9 @@ namespace Skepta.Presentation.ViewModel
             pages.Add(PageId.TypeWindow, new TypeWindowModel(model));
             pages.Add(PageId.Resultaat, new ResultaatViewModel(model));
             pages.Add(PageId.Exercise, new ExercisePageViewModel(model));
-<<<<<<< HEAD
             pages.Add(PageId.Geschiedenis, new GeschiedenisViewModel(model));
-=======
             pages.Add(PageId.MenuScreen, new MenuScreenViewModel(model));
             pages.Add(PageId.Settings, new SettingsViewModel(model));
-            pages.Add(PageId.History, new HistoryViewModel(model));
-
->>>>>>> 7de131a8126355bc2d1ae94eb30b5eb473da33e0
             SelectPage(PageId.Login);
         }
 
