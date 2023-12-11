@@ -11,6 +11,11 @@
         <view:KeyBoardView/>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type viewmodel:GeschiedenisViewModel}">
+        <view:GeschiedenisView/>
+    </DataTemplate>
+
+
     <DataTemplate DataType="{x:Type viewmodel:TypeWindowModel}">
         <view:TypeWindowView/>
     </DataTemplate>
