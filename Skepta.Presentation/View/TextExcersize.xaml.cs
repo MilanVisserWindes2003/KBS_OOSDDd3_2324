@@ -19,14 +19,13 @@ public partial class TextExcersize : UserControl
         InitializeComponent();
         this.DataContextChanged += TextExcersize_DataContextChanged;
     }
-
+    
     private void TextExcersize_DataContextChanged(object sender, System.Windows.DependencyPropertyChangedEventArgs e)
     {
         if (DataContext is TextExcersizeViewModel viewModel)
         {
             this.viewModel = viewModel;
-            viewModel.PropertyChanged += ViewModel_PropertyChanged
-                ;
+            viewModel.PropertyChanged += ViewModel_PropertyChanged;
         }
     }
 
@@ -40,9 +39,9 @@ public partial class TextExcersize : UserControl
 
     private void CompareText()
     {
+        
         InputTextBlock.Inlines.Clear();
         var userInput = viewModel.InputText;
-        
 
         for (int i = 0; i < userInput.Length; i++)
         {
@@ -62,6 +61,7 @@ public partial class TextExcersize : UserControl
                     {
                         InputTextBlock.Inlines.Add(new Run(userInput[i].ToString()) { Foreground = Brushes.Red });
                     }
+                    viewModel.addMistake(viewModel.RandomText[i]);
                 }
             }
         }

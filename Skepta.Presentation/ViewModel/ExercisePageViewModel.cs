@@ -1,6 +1,5 @@
 ﻿using Skepta.Business;
 using Skepta.Presentation.ViewModel.Commands;
-using System;
 using System.Windows.Input;
 
 namespace Skepta.Presentation.ViewModel;
@@ -61,7 +60,6 @@ public class ExercisePageViewModel : ViewModelBase
         }
         RequestPage = PageId.TextExcersize;
     }
-
     private bool VerderAllowed() => difficultySelected && textLengthSelected && exerciseSelected && textSelected;
 
 }

@@ -49,9 +49,14 @@ public class LoginViewModel : ViewModelBase
     private void LoginCmd()
     {
         if (model.CheckLogin(Username, Password))
+<<<<<<< HEAD
         {   
             model.Username = Username;
             //RequestPage = PageId.Exercise;
+=======
+        {
+            RequestPage = PageId.MenuScreen;
+>>>>>>> 7de131a8126355bc2d1ae94eb30b5eb473da33e0
             //NavigationService.Navigate(new TextDifficultySelect(business));
             //RequestPage = PageId.Geschiedenis;
             RequestPage = PageId.Exercise;

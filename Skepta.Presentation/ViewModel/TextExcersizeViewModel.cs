@@ -1,10 +1,14 @@
 ﻿using Business;
 using Skepta.Business;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
@@ -20,7 +24,7 @@ public class TextExcersizeViewModel : ViewModelBase
     private DateTime lastRenderTime;
     private string inputText = string.Empty;
 
-    
+    private ObservableCollection<Brush> letterColors;
     public double ElapsedSeconds
     {
         get => stopwatch.Elapsed.TotalSeconds;
@@ -37,6 +41,8 @@ public class TextExcersizeViewModel : ViewModelBase
 
         CompositionTarget.Rendering += CompositionTarget_Rendering;
     }
+
+    
 
     private void CompositionTarget_Rendering(object sender, EventArgs e)
     {
@@ -70,6 +76,7 @@ public class TextExcersizeViewModel : ViewModelBase
         set
         {
             inputText = value;
+            NotifyPropertyChanged(nameof(InputText));
         }
     }
 
@@ -78,6 +85,8 @@ public class TextExcersizeViewModel : ViewModelBase
     public override void OpenPage()
     {
         RandomText = model.RandomText;
+        InputText = string.Empty;
+        userInput.Clear();
         StartTimer();
     }
     private void StartTimer()
@@ -160,6 +169,11 @@ public class TextExcersizeViewModel : ViewModelBase
         }
 
         return isShiftPressed ? keyString.ToUpper() : keyString.ToLower();
+    }
+
+    public void addMistake(char mistake)
+    {
+        model.result.addMistake(mistake);
     }
 
     private bool IsPrintableKey(Key key)
