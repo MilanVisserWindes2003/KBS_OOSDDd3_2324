@@ -29,7 +29,6 @@ namespace Skepta.Business.ResultsLogic
         {
             if (string.IsNullOrWhiteSpace(randomText)) // Corrected variable name
                 return 0;
-
             var amountOfWords = randomText.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             return amountOfWords.Length; // Return the count directly
         }
