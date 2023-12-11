@@ -53,7 +53,8 @@ public class LoginViewModel : ViewModelBase
             model.Username = Username;
             //RequestPage = PageId.Exercise;
             //NavigationService.Navigate(new TextDifficultySelect(business));
-             RequestPage = PageId.Geschiedenis;
+            //RequestPage = PageId.Geschiedenis;
+            RequestPage = PageId.Exercise;
         }
         else
         {
