@@ -40,6 +40,7 @@ namespace Skepta.Presentation.ViewModel
 
         public void ExitCmd()
         {
+            model.CloseTunnel();
             System.Environment.Exit(0);
         }
     }

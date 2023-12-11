@@ -174,5 +174,14 @@ public class SkeptaModel : ObservableObject
     {
         return $"{elapsedTime}";
     }
+
+    public void OpenTunnel()
+    {
+        dataConnection.CreateTunnel();
+    }
+    public void CloseTunnel()
+    {
+        dataConnection.CloseTunnel();
+    }
 }
 
