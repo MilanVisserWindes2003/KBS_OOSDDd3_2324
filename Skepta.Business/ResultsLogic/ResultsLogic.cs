@@ -23,6 +23,7 @@ namespace Skepta.Business.ResultsLogic
         {
             int aantalWoorden = WordCounting(RandomText);
             WPM = Math.Ceiling((aantalWoorden / ElapsedTime.TotalSeconds) * 60);
+            
         }
         private int WordCounting(string randomText)
         {

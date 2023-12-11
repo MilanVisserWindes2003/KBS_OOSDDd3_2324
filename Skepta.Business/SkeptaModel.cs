@@ -1,6 +1,8 @@
 ﻿using Buisness.TTS;
 using Skepta.Business.Util;
+using Skepta.DataAcces.HistoryFolder;
 using System.ComponentModel;
+using System.Globalization;
 using System.Windows.Input;
 
 namespace Skepta.Business;
@@ -56,7 +58,10 @@ public class SkeptaModel : ObservableObject
     {
         dataConnection = new DataAccess.DataAccess();
         TTSConverter = new TextToSpeechConverter();
+
     }
+
+    public string Username { get; set; }
 
     
 
@@ -94,7 +99,22 @@ public class SkeptaModel : ObservableObject
 
         return false;
     }
+    public string ObtainTextId(string level, string length, string content)
+    {
+       
+       return dataConnection.ObtainTextId(level, length, content);
+        
+    }
+    
+    public  void InsertHistoryData(History history)
+    {
+        dataConnection.InsertHistoryData(history);
+    }
 
+    public History ObtainHistory(string username)
+    {
+        return dataConnection.ObtainHistory(username);
+    }
     public (bool, string) CheckRegister(string username, string password, string password2)
     {
         if (dataConnection.UsernameExists(username))

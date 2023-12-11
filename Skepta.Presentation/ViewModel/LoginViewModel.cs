@@ -9,6 +9,7 @@ public class LoginViewModel : ViewModelBase
     private readonly SkeptaModel model;
     private string errorText = "";
     private string password = "";
+    
 
     public LoginViewModel(SkeptaModel model)
     {
@@ -42,14 +43,17 @@ public class LoginViewModel : ViewModelBase
     public override void OpenPage()
     {
         ErrorText = string.Empty;
+        
     }
 
     private void LoginCmd()
     {
         if (model.CheckLogin(Username, Password))
-        {
-            RequestPage = PageId.Exercise;
+        {   
+            model.Username = Username;
+            //RequestPage = PageId.Exercise;
             //NavigationService.Navigate(new TextDifficultySelect(business));
+             RequestPage = PageId.Geschiedenis;
         }
         else
         {

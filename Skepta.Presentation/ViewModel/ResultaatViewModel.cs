@@ -12,6 +12,8 @@ using System.Windows;
 using System.Windows.Input;
 using Skepta.Business.ResultsLogic;
 using Skepta.Presentation.ViewModel.Commands;
+using System.Threading;
+using Skepta.DataAcces.HistoryFolder;
 
 namespace Skepta.Presentation.ViewModel
 {
@@ -21,6 +23,7 @@ namespace Skepta.Presentation.ViewModel
         private ResultsLogic rsl;
         private double wpm;
 
+        public string Typespeed { get; set; }
         public double wpmValue 
         {
             get
@@ -38,6 +41,7 @@ namespace Skepta.Presentation.ViewModel
         { 
             this.model = model; 
              rsl = new ResultsLogic();
+            
             //this.model.aantalWoordenPerMinuut();
             // idk model.Text = model.GetTimerText();
         }
@@ -46,9 +50,22 @@ namespace Skepta.Presentation.ViewModel
         {
             rsl.aantalWoordenPerMinuut(model.RandomText, model.ElapsedTime);
             wpmValue = rsl.WPM;
+            Typespeed = rsl.WPM.ToString();
+            
         }
 
         public ICommand back => new BaseCommand(() => RequestPage = PageId.Exercise);
+
+        private void InsertHistory()
+        {
+            History history = new History();
+            history.IsSpoken = model.IsSpeechExercise;
+            history.TextId = model.ObtainTextId(model.TextDifficulty, model.TextLength.ToString(), model.RandomText);
+            history.WorstMistake = "h";
+            history.TypeSpeed = Typespeed;
+            history.Username = model.Username;
+            model.InsertHistoryData(history);
+        }
 
     }
 }
