@@ -99,10 +99,8 @@ public class TextToSpeechViewModel : ViewModelBase
         userInput.Clear();
         StartTimer();
     }
-    private async void StartTimer()
-    {
-        await Task.Delay(3000);
-        // Start de spraaksynthese en stopwatch na 3 seconden 
+    private void StartTimer()
+    { 
         SpeakCmd();
         RefreshButtons();
         stopwatch.Restart();
@@ -169,7 +167,10 @@ public class TextToSpeechViewModel : ViewModelBase
         return isShiftPressed ? keyString.ToUpper() : keyString.ToLower();
     }
 
-
+    public void addMistake(char mistake)
+    {
+        model.result.addMistake(mistake);
+    }
 
     public SpeedValue SelectedSpeedOption
     {
@@ -230,9 +231,11 @@ public class TextToSpeechViewModel : ViewModelBase
             TimeSpan timeSpan = TimeSpan.FromSeconds(stopwatch.Elapsed.TotalSeconds);
             ElapsedTimeText = $"{timeSpan:mm\\:ss},{timeSpan:ff}";
             MessageBox.Show($"Exercise completed in {ElapsedTimeText}", "Exercise Completed", MessageBoxButton.OK, MessageBoxImage.Information);
+            model.ElapsedTime = stopwatch.Elapsed;
             RequestPage = PageId.Resultaat;
         }
     }
+
 
     private void RefreshButtons()
     {

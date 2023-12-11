@@ -34,6 +34,8 @@
                  Background="#687EFF" BorderBrush="Black" BorderThickness="3"
                  FontSize="40" FontWeight="Bold"
                  Content="Verder" Command="{Binding Verder}"/>
+        <Button Content="⬅" Width="70" Height="60" Margin="10" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Column = "1" Background="#687EFF" Foreground="White"
+FontSize="40" FontWeight="Bold" BorderThickness="0" Command="{Binding Back}"/>
     </Grid>
 
 </UserControl>

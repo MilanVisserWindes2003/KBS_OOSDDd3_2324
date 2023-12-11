@@ -128,7 +128,7 @@ namespace DataAccess
                         {
                             while (reader.Read())
                             {
-                                 textId = reader["textid"].ToString();
+                                 textId = reader["id"].ToString();
                                
                             }
                         }

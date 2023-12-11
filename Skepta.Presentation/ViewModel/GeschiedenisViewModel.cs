@@ -49,7 +49,7 @@ namespace Skepta.Presentation.ViewModel
             
 
         }
-        public ICommand Back => new BaseCommand(() => RequestPage = PageId.Exercise);
+        public ICommand Back => new BaseCommand(() => RequestPage = PageId.MenuScreen);
 
 
         public override void OpenPage()

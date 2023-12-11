@@ -35,6 +35,7 @@ namespace Skepta.Presentation.ViewModel
 
         public void LogoutCmd()
         {
+            model.Username = string.Empty;
             RequestPage = PageId.Login;
         }
 

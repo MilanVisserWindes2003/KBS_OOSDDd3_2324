@@ -24,7 +24,6 @@ public class TextExcersizeViewModel : ViewModelBase
     private DateTime lastRenderTime;
     private string inputText = string.Empty;
 
-    private ObservableCollection<Brush> letterColors;
     public double ElapsedSeconds
     {
         get => stopwatch.Elapsed.TotalSeconds;

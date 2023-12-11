@@ -27,8 +27,13 @@ namespace Skepta.Business.ResultsLogic
         }
         public void aantalWoordenPerMinuut(string RandomText, TimeSpan ElapsedTime)
         {
+            double time = ElapsedTime.TotalSeconds;
+            if (time == 0) 
+            {
+                time = 1;
+            }
             int aantalWoorden = WordCounting(RandomText);
-            WPM = Math.Ceiling((aantalWoorden / ElapsedTime.TotalSeconds) * 60);
+            WPM = Math.Ceiling((aantalWoorden / time) * 60);
             
         }
         private int WordCounting(string randomText)
@@ -40,7 +45,12 @@ namespace Skepta.Business.ResultsLogic
         }
         public void addMistake(char mistake)
         {
+
             char key = char.ToLower(mistake);
+            if (key.Equals(' '))
+            {
+                key = '_';
+            }
             if (TypedMistake.ContainsKey(key))
             {
                 TypedMistake[key]++;
@@ -56,6 +66,7 @@ namespace Skepta.Business.ResultsLogic
             }
             if (TypedMistake.Count == 0 || TypedMistake[key] > TypedMistake[WorstMistake])
             {
+                
                 WorstMistake = key;
             }
 

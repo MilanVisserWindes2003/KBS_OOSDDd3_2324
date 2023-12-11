@@ -12,7 +12,9 @@ namespace Skepta.Presentation.ViewModel
         private readonly SkeptaModel model;
         public HistoryViewModel(SkeptaModel model)
         {
+            // moet weg
             this.model = model;
+
         }
     }
 }
