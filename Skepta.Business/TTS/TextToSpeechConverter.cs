@@ -21,6 +21,15 @@ public enum PlayMode
     Paused
 }
 
+// Volume changer
+public enum Volume
+{
+    Off = 0,
+    Low = 1,
+    Mid = 2,
+    High = 3,
+    Max = 4,
+}
 
 
 public class TextToSpeechConverter
@@ -98,12 +107,12 @@ public class TextToSpeechConverter
     public void SetVoice(string voice)
     {
         string Speaker = LanguageOptions[voice];
-        if (CheckVoiceExists(Speaker)) 
+        if (CheckVoiceExists(Speaker))
         {
             synthesizer.SelectVoice(Speaker);
-            voice = Speaker;
+            this.voice = voice;
         }
-        
+
     }
 
     private void SetupSpeedValues()
