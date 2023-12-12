@@ -1,32 +1,59 @@
 ﻿using Buisness.TTS;
 using Skepta.Business;
-using Skepta.Business.Util;
 using Skepta.Presentation.ViewModel.Commands;
 using System;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 
 namespace Skepta.Presentation.ViewModel;
 
-public class TextToSpeechViewModel : ViewModelBase, INotifyPropertyChanged
+public class TextToSpeechViewModel : ViewModelBase
 {
-    private readonly SkeptaModel model; 
+
+    private readonly SkeptaModel model;
     private readonly Stopwatch stopwatch = new Stopwatch();
     private DateTime lastRenderTime;
 
     private StringBuilder userInput = new StringBuilder();
     private string inputText = string.Empty;
-    private int aantalTekens;
+    private string elapsedTimeText;
 
-    public event PropertyChangedEventHandler PropertyChanged;
+    private string randomText;
 
-    private void NotifyPropertyChanged(string propertyName)
+
+    public TextToSpeechViewModel(SkeptaModel model)
     {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        this.model = model;
+        stopwatch = new Stopwatch();
+        SpeedOptions = Enum.GetValues<SpeedValue>();
+        LanguageOptions = model.TTSConverter.Voices.ToArray();
+        CompositionTarget.Rendering += CompositionTarget_Rendering;
+    }
+    public ICommand Speak => new BaseCommand(SpeakCmd, () => model.TTSConverter.PlayMode == PlayMode.Stopped);
+
+    public ICommand Pause => new BaseCommand(PauseCmd, () => model.TTSConverter.PlayMode != PlayMode.Stopped);
+
+    public string PauzeText
+    {
+        get => model.TTSConverter.PlayMode == PlayMode.Playing ? "Pauze" : model.TTSConverter.PlayMode == PlayMode.Paused ? "Resume" : "-";
+    }
+
+    public string RandomText
+    {
+        get => randomText;
+        private set { randomText = value; }
+    }
+    public string InputText
+    {
+        get => inputText;
+        set
+        {
+            inputText = value;
+        }
     }
     public string ElapsedTimeText
     {
@@ -40,30 +67,12 @@ public class TextToSpeechViewModel : ViewModelBase, INotifyPropertyChanged
             }
         }
     }
-    private string elapsedTimeText;
     public double ElapsedSeconds
     {
         get => stopwatch.Elapsed.TotalSeconds;
         set
         {
             NotifyPropertyChanged(nameof(ElapsedSeconds));
-        }
-    }
-    public TextToSpeechViewModel(SkeptaModel model)
-    {
-        this.model = model;
-        stopwatch = new Stopwatch();
-
-        CompositionTarget.Rendering += CompositionTarget_Rendering;
-    }
-
-    public string RandomText { get; set; } = string.Empty;
-    public string InputText
-    {
-        get => inputText;
-        set
-        {
-            inputText = value;
         }
     }
 
@@ -73,8 +82,9 @@ public class TextToSpeechViewModel : ViewModelBase, INotifyPropertyChanged
     {
         double elapsedMilliseconds = (DateTime.Now - lastRenderTime).TotalMilliseconds;
 
-        if (elapsedMilliseconds >= 16)
+        if (elapsedMilliseconds >= 100)
         {
+            RefreshButtons();
             ElapsedSeconds = stopwatch.Elapsed.TotalSeconds;
             model.ElapsedTime = stopwatch.Elapsed;
 
@@ -85,10 +95,14 @@ public class TextToSpeechViewModel : ViewModelBase, INotifyPropertyChanged
     public override void OpenPage()
     {
         RandomText = model.RandomText;
+        InputText = string.Empty;
+        userInput.Clear();
         StartTimer();
     }
     private void StartTimer()
-    {
+    { 
+        SpeakCmd();
+        RefreshButtons();
         stopwatch.Restart();
     }
 
@@ -124,20 +138,6 @@ public class TextToSpeechViewModel : ViewModelBase, INotifyPropertyChanged
         }
     }
 
-    private void UpdateUserInputDisplay()
-    {
-        InputText = userInput.ToString();
-        NotifyPropertyChanged(nameof(InputText));
-
-        if (RandomText.Equals(InputText))
-        {
-            stopwatch.Stop();
-            TimeSpan timeSpan = TimeSpan.FromSeconds(stopwatch.Elapsed.TotalSeconds);
-            ElapsedTimeText = $"{timeSpan:mm\\:ss},{timeSpan:ff}";
-            MessageBox.Show($"Exercise completed in {ElapsedTimeText}", "Exercise Completed", MessageBoxButton.OK, MessageBoxImage.Information);
-            RequestPage = PageId.Resultaat;
-        }
-    }
 
     public string GetPrintableCharacter(Key key, bool isShiftPressed)
     {
@@ -167,6 +167,41 @@ public class TextToSpeechViewModel : ViewModelBase, INotifyPropertyChanged
         return isShiftPressed ? keyString.ToUpper() : keyString.ToLower();
     }
 
+    public void addMistake(char mistake)
+    {
+        model.result.addMistake(mistake);
+    }
+
+    public SpeedValue SelectedSpeedOption
+    {
+        get => model.TTSConverter.SpeedValue;
+        set => model.TTSConverter.SpeedValue = value;
+    }
+    public SpeedValue[] SpeedOptions { get; set; }
+    public string[] LanguageOptions { get; set; }
+    public string SelectedLanguage
+    {
+        get => model.TTSConverter.Voice;
+        set => model.TTSConverter.SetVoice(value);
+    }
+
+    private void SpeakCmd()
+    {
+        model.TTSConverter.PlayText(RandomText);
+        RefreshButtons();
+    }
+    private void PauseCmd()
+    {
+        if (model.TTSConverter.PlayMode == PlayMode.Playing)
+        {
+            model.TTSConverter.Pause(); // Pauzeer het afspelen
+        }
+        else
+        {
+            model.TTSConverter.Resume(); // Hervat de tekst-naar-spraak als het gepauzeerd is 
+        }
+        RefreshButtons();
+    }
     private bool IsPrintableKey(Key key)
     {
 
@@ -185,21 +220,28 @@ public class TextToSpeechViewModel : ViewModelBase, INotifyPropertyChanged
                key == Key.OemOpenBrackets || // Opening square bracket ([)
                key == Key.OemCloseBrackets; // Closing square bracket (])
     }
-
-    public ICommand Speak => new BaseCommand(SpeakCmd, () => !string.IsNullOrEmpty(Text));
-    public SpeedValue SelectedSpeedOption
+    private void UpdateUserInputDisplay()
     {
-        get => model.TTSConverter.SpeedValue;
-        set => model.TTSConverter.SpeedValue = value;
-    }
-    public SpeedValue[] SpeedOptions { get; set; }
+        InputText = userInput.ToString();
+        NotifyPropertyChanged(nameof(InputText));
 
-    public string Text { 
-        get => RandomText; 
+        if (RandomText.Equals(InputText))
+        {
+            stopwatch.Stop();
+            TimeSpan timeSpan = TimeSpan.FromSeconds(stopwatch.Elapsed.TotalSeconds);
+            ElapsedTimeText = $"{timeSpan:mm\\:ss},{timeSpan:ff}";
+            MessageBox.Show($"Exercise completed in {ElapsedTimeText}", "Exercise Completed", MessageBoxButton.OK, MessageBoxImage.Information);
+            model.ElapsedTime = stopwatch.Elapsed;
+            RequestPage = PageId.Resultaat;
+        }
     }
 
-    private void SpeakCmd()
+
+    private void RefreshButtons()
     {
-        model.TTSConverter.PlayText(Text);
+        NotifyPropertyChanged(nameof(PauzeText));
+        NotifyPropertyChanged(nameof(Speak));
+        NotifyPropertyChanged(nameof(Pause));
     }
+
 }

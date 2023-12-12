@@ -60,9 +60,11 @@ namespace Skepta.Presentation.View
                         {
                             InputTextBlock.Inlines.Add(new Run(userInput[i].ToString()) { Foreground = Brushes.Red });
                         }
+                        viewModel.addMistake(viewModel.RandomText[i]);
                     }
                 }
             }
         }
     }
 }
+

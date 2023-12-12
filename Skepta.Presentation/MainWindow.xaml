@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Skepta.Presentation"
         mc:Ignorable="d"
         d:DesignHeight="1080" d:DesignWidth="1920"
-        WindowStyle="None"
+        WindowStyle="ThreeDBorderWindow"
         WindowState="Maximized">
 
     <Grid Name="Window" SnapsToDevicePixels="True">

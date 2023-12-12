@@ -1,7 +1,10 @@
 ﻿using Buisness.TTS;
 using Skepta.Business.Util;
+using Skepta.DataAcces.HistoryFolder;
 using System.ComponentModel;
+using System.Globalization;
 using System.Windows.Input;
+
 
 namespace Skepta.Business;
 
@@ -16,18 +19,22 @@ public class SkeptaModel : ObservableObject
     private string _textDifficulty;
     private bool _isSpeechExercise;
     private string randomText = "";
+    private string username = string.Empty;
+
 
     private TimeSpan elapsedTime { get; set; }
+    
 
-    public TimeSpan ElapsedTime { 
-      get { return elapsedTime; }
-    set { elapsedTime = value; }
+    public TimeSpan ElapsedTime 
+    { 
+        get { return elapsedTime; }
+        set { elapsedTime = value; }
     }
 
     public string RandomText
     {
         get { return randomText; }
-        set { randomText = value; }
+        set { randomText = value; NotifyPropertyChanged(nameof(RandomText)); }
     }
 
     public int TextLength
@@ -45,15 +52,29 @@ public class SkeptaModel : ObservableObject
     public bool IsSpeechExercise
     {
         get { return _isSpeechExercise; }
-        set { _isSpeechExercise = value; }
+        set { _isSpeechExercise = value; NotifyPropertyChanged(nameof(IsSpeechExercise)); }
     }
+
+    
 
     public SkeptaModel()
     {
         dataConnection = new DataAccess.DataAccess();
         TTSConverter = new TextToSpeechConverter();
+
+
+        result = new ResultsLogic.ResultsLogic();
+
     }
 
+    public string Username
+    {
+        get { return username; }
+        set { username = value; NotifyPropertyChanged(nameof(Username)); }
+    }
+
+
+    public ResultsLogic.ResultsLogic result { get;}
     public TextToSpeechConverter TTSConverter { get; }
 
     public void textLengthSetter(int length)
@@ -64,6 +85,8 @@ public class SkeptaModel : ObservableObject
     {
         this._isSpeechExercise = isSpeechExercise;
     }
+
+    
 
     public bool CheckLogin(string username, string password)
     {
@@ -86,7 +109,22 @@ public class SkeptaModel : ObservableObject
 
         return false;
     }
+    public string ObtainTextId(string level, string length, string content)
+    {
+       
+       return dataConnection.ObtainTextId(level, length, content);
+        
+    }
+    
+    public  void InsertHistoryData(History history)
+    {
+        dataConnection.InsertHistoryData(history);
+    }
 
+    public History ObtainHistory(string username)
+    {
+        return dataConnection.ObtainHistory(username);
+    }
     public (bool, string) CheckRegister(string username, string password, string password2)
     {
         if (dataConnection.UsernameExists(username))
@@ -138,27 +176,16 @@ public class SkeptaModel : ObservableObject
 
     public string ObtainRandomText()
     {
+        if (string.IsNullOrEmpty(TextDifficulty) || TextLength == 0)
+        {
+            return string.Empty;
+        }
         List<string> teksten = dataConnection.ObTainTexts(TextDifficulty, TextLength);
         Random random = new Random();
         int randomIndex = random.Next(0, teksten.Count);
         this.randomText = teksten[randomIndex];
-
         return teksten[randomIndex];
     }
-
-    //public void waitToStartTimer()
-    //{
-    //   Task.Delay(3);
-    // stopWatch.Start();
-    //}
-    //public void StopWatch()
-    //{
-    //  stopWatch.Stop();
-    //}
-    //public void TimeElapsed()
-    //{
-    //   elapsedTime = stopWatch.Elapsed.TotalSeconds;
-    //}
 
     public void AddTimerTick()
     {

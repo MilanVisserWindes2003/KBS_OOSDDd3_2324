@@ -2,14 +2,41 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Skepta.Presentation.View"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:viewmodel="clr-namespace:Skepta.Presentation.ViewModel" 
+             d:DataContext="{d:DesignInstance Type=viewmodel:ResultaatViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="1080" d:DesignWidth="1920">
-    <!--Dit stond er nog in idk: xmlns:business="clr-namespace:Business;assembly=Business" xmlns:business1="clr-namespace:Skepta.Business;assembly=Skepta.Business" d:DataContext="{d:DesignInstance Type=business1:SkeptaModel}"-->
-    <Grid Background="Azure">
-        <TextBlock Name="timerResult" HorizontalAlignment="Center" Margin="0,341,0,0" TextWrapping="Wrap" Text="{Binding Path=ElapsedTime}" VerticalAlignment="Top" Height="199" Width="1144"/>
-        <Label Content="TeringGroot" FontSize="100" HorizontalAlignment="Center" Margin="0,642,0,0" VerticalAlignment="Top" Height="137" Width="812"/>
 
-    </Grid>
+    <Viewbox>
+        <Grid Background="Azure" Width="1500">
+            <Rectangle x:Name="rectangle" RadiusX="50" RadiusY="50" Width="800" Height="200">
+                <Rectangle.Effect>
+                    <DropShadowEffect BlurRadius="25" ShadowDepth="0" Opacity="0.2"/>
+                </Rectangle.Effect>
+                <Rectangle.Fill>
+                    <SolidColorBrush Color="#BFEFFF"/>
+                </Rectangle.Fill>
+            </Rectangle>
+
+            <TextBlock Name="timerResult" TextAlignment="Center" HorizontalAlignment="Center" Margin="0,369,0,0" FontSize="40" FontWeight="Bold" TextWrapping="Wrap" VerticalAlignment="Top" Height="199" Width="1144">
+            <Run Text="{Binding wpmValue}"/>
+            <Run Text=" Woorden per minuut"/>
+            </TextBlock>
+            <Button Content="Terug naar Menu" Foreground="White" Command="{Binding back}" FontSize="35" Background="#687EFF"  HorizontalAlignment="Center" Margin="0,689,0,0" VerticalAlignment="Top" Height="135" Width="632"/>
+            <Rectangle Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Center" RadiusX="50" RadiusY="50" Height="200" Width="700" Margin="0 20 0 0">
+                <Rectangle.Effect>
+                    <DropShadowEffect BlurRadius="25" ShadowDepth="0" Opacity="0.2"/>
+                </Rectangle.Effect>
+                <Rectangle.Fill>
+                    <SolidColorBrush Color="#BFEFFF"/>
+                </Rectangle.Fill>
+
+            </Rectangle>
+            <TextBlock TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,80,0,0" FontSize="40" FontWeight="Bold" TextWrapping="Wrap" Height="200" Width="700">
+                <Run Text="{Binding Mistake}"/>
+                <Run Text=" , is de meest gemaakte fout"/>
+            </TextBlock>
+        </Grid>
+    </Viewbox>
 </UserControl>

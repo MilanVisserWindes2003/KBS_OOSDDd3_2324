@@ -9,6 +9,7 @@ public class LoginViewModel : ViewModelBase
     private readonly SkeptaModel model;
     private string errorText = "";
     private string password = "";
+    
 
     public LoginViewModel(SkeptaModel model)
     {
@@ -18,7 +19,11 @@ public class LoginViewModel : ViewModelBase
     public ICommand Login => new BaseCommand(LoginCmd);
     public ICommand Register => new BaseCommand(() => RequestPage = PageId.Register);
 
-    public string Username { get; set; } = string.Empty;
+    public string Username
+    {
+        get { return model.Username; }
+        set { model.Username = value; NotifyPropertyChanged(nameof(Username)); }
+    }
     public string Password
     {
         get => password;
@@ -42,14 +47,19 @@ public class LoginViewModel : ViewModelBase
     public override void OpenPage()
     {
         ErrorText = string.Empty;
+        
     }
 
     private void LoginCmd()
     {
         if (model.CheckLogin(Username, Password))
-        {
-            RequestNext = true;
-            //NavigationService.Navigate(new TextDifficultySelect(business));
+
+        {   
+            model.Username = Username;
+            //RequestPage = PageId.Exercise
+            RequestPage = PageId.MenuScreen;
+            //RequestPage = PageId.Geschiedenis;
+
         }
         else
         {

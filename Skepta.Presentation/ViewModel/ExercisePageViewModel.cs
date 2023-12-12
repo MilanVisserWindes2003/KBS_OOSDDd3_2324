@@ -1,10 +1,5 @@
 ﻿using Skepta.Business;
 using Skepta.Presentation.ViewModel.Commands;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Skepta.Presentation.ViewModel;
@@ -15,6 +10,7 @@ public class ExercisePageViewModel : ViewModelBase
     private bool difficultySelected = false;
     private bool textLengthSelected = false;
     private bool exerciseSelected = false;
+    private bool textSelected = false;
     public ExercisePageViewModel(SkeptaModel model)
     {
         this.model = model;
@@ -22,13 +18,16 @@ public class ExercisePageViewModel : ViewModelBase
         DifficultySelect = new TextDifficultySelectViewModel(model);
         LenghtSelect = new TextLenghtSelectViewModel(model);
         ExerciseTypeSelect = new ExerciseTypeSelectViewModel(model);
+        TextSelect = new TextShuffleViewModel(model);
     }
 
     public ICommand Verder => new BaseCommand(VerderCmd, VerderAllowed);
+    public ICommand Back => new BaseCommand(() => RequestPage = PageId.MenuScreen);
 
     public TextDifficultySelectViewModel DifficultySelect { get; set; }
     public TextLenghtSelectViewModel LenghtSelect { get; set;}
     public ExerciseTypeSelectViewModel ExerciseTypeSelect { get; set;}
+    public TextShuffleViewModel TextSelect {  get; set;}
 
     private void Model_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
@@ -47,12 +46,21 @@ public class ExercisePageViewModel : ViewModelBase
             exerciseSelected = true;
             NotifyPropertyChanged(nameof(Verder));
         }
+        if (e.PropertyName == nameof(model.RandomText))
+        {
+            textSelected = true;
+            NotifyPropertyChanged(nameof(Verder));
+        }
     }
 
     private void VerderCmd()
     {
-
+        if (model.IsSpeechExercise)
+        {
+            RequestPage = PageId.TextToSpeech;
+        }
+        RequestPage = PageId.TextExcersize;
     }
+    private bool VerderAllowed() => difficultySelected && textLengthSelected && exerciseSelected && textSelected;
 
-    private bool VerderAllowed() => difficultySelected && textLengthSelected;
 }

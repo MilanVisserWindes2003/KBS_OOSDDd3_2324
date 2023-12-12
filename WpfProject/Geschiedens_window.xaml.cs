@@ -1,5 +1,4 @@
-﻿using Skepta.Business;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,23 +10,23 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Skepta.Presentation.View
+namespace WpfProject
 {
     /// <summary>
-    /// Interaction logic for ResultaatView.xaml
+    /// Interaction logic for Geschiedens_window.xaml
     /// </summary>
-    public partial class ResultaatView : UserControl
+    public partial class Geschiedens_window : Window
     {
-        private readonly SkeptaModel model;
-
-        public ResultaatView()
+        public Geschiedens_window()
         {
-            InitializeComponent();          
+            InitializeComponent();
         }
 
-        
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }

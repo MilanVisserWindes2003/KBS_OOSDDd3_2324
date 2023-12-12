@@ -11,6 +11,11 @@
         <view:KeyBoardView/>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type viewmodel:GeschiedenisViewModel}">
+        <view:GeschiedenisView/>
+    </DataTemplate>
+
+
     <DataTemplate DataType="{x:Type viewmodel:TypeWindowModel}">
         <view:TypeWindowView/>
     </DataTemplate>
@@ -50,5 +55,15 @@
     <DataTemplate DataType="{x:Type viewmodel:TextShuffleViewModel}">
         <view:TextShuffle/>
     </DataTemplate>
-   
+
+    <DataTemplate DataType="{x:Type viewmodel:MenuScreenViewModel}">
+        <view:MenuView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type viewmodel:HistoryViewModel}">
+        <view:HistoryView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type viewmodel:SettingsViewModel}">
+        <view:SettingsView/>
+    </DataTemplate>
+
 </ResourceDictionary>

@@ -56,12 +56,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Geschiedens_window.xaml.cs">
+      <DependentUpon>Geschiedens_window.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Speech_Window.xaml.cs">
       <DependentUpon>Speech_Window.xaml</DependentUpon>
     </Compile>
     <Compile Include="Type_Window.xaml.cs">
       <DependentUpon>Type_Window.xaml</DependentUpon>
     </Compile>
+    <Page Include="Geschiedens_window.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

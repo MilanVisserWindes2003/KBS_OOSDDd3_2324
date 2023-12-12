@@ -1,6 +1,7 @@
-﻿using Skepta.Business;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,18 +17,21 @@ using System.Windows.Shapes;
 
 namespace Skepta.Presentation.View
 {
+   
+
     /// <summary>
-    /// Interaction logic for ResultaatView.xaml
+    /// Interaction logic for GeschiedenisView.xaml
     /// </summary>
-    public partial class ResultaatView : UserControl
+    public partial class GeschiedenisView : UserControl
     {
-        private readonly SkeptaModel model;
-
-        public ResultaatView()
-        {
-            InitializeComponent();          
-        }
-
         
+
+        public GeschiedenisView()
+        {
+           
+            
+            InitializeComponent();
+
+        }
     }
 }

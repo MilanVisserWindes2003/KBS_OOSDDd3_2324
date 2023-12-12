@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="Skepta.Presentation.View.MenuScreenView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Width="1920" Height="1080">
+
+    <Grid Background="#F0F0F0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Image Name="Logo" Margin="50" HorizontalAlignment="Center" Grid.RowSpan="3">
+            <Image.Source>
+                <BitmapImage UriSource="pack://application:,,,/Resources/Img/LogoWhite.png"/>
+            </Image.Source>
+        </Image>
+
+        <TextBlock Grid.Row="0" Grid.Column="1" Text="Welcome!" HorizontalAlignment="Center" VerticalAlignment="Center"
+                   FontSize="36" FontWeight="Bold"/>
+
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button Width="200" Height="50" Margin="10" Content="Click me!" FontSize="18" FontWeight="Bold"
+                    Background="#3498DB" Foreground="White" BorderThickness="0"
+                    />
+            <Button Width="200" Height="50" Margin="10" Content="Or click me!" FontSize="18" FontWeight="Bold"
+                    Background="#E74C3C" Foreground="White" BorderThickness="0"
+                    />
+        </StackPanel>
+    </Grid>
+</UserControl>

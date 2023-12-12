@@ -22,6 +22,7 @@
         <Border Grid.Column="2" Grid.Row="0" Margin="5">
             <TextBlock Text="{Binding ElapsedSeconds, StringFormat=F2}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Foreground="#7C8099" FontSize="24"/>
         </Border>
+
         <Rectangle x:Name="rectangle" Grid.Column="1" Grid.Row="1" Margin="25" RadiusX="50" RadiusY="50">
             <Rectangle.Effect>
                 <DropShadowEffect BlurRadius="25" ShadowDepth="0" Opacity="0.2"/>
@@ -41,5 +42,19 @@
         </Rectangle>
         <TextBlock x:Name="InputTextBlock" 
    HorizontalAlignment="Center"  Margin="30" VerticalAlignment="Center" TextWrapping="Wrap" FontSize="24" Grid.Column="1" Grid.Row="2"/>
+        <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+            <ComboBox HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="200" FontSize="20" FontWeight="Bold"
+                HorizontalContentAlignment="Right"
+                ItemsSource="{Binding SpeedOptions}"
+                SelectedItem="{Binding SelectedSpeedOption}">
+            </ComboBox>
+            <ComboBox HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="200" FontSize="20" FontWeight="Bold" Margin="10 0 0 0"
+                HorizontalContentAlignment="Right"
+                ItemsSource="{Binding LanguageOptions}"
+                SelectedItem="{Binding SelectedLanguage}">
+            </ComboBox>
+            <Button Content="{Binding PauzeText}" Command="{Binding Pause}" Margin="30 0" VerticalAlignment="Center" Height="54" Width="138" Background="#FF687EFF" BorderBrush="#FF707070" Foreground="White" FontSize="20" FontWeight="Bold"/>
+            <Button Content="Luister" Command="{Binding Speak}" VerticalAlignment="Center" Height="54" Width="138" Background="#FF687EFF" BorderBrush="#FF707070" Foreground="White" FontSize="20" FontWeight="Bold"/>
+        </StackPanel>
     </Grid>
 </UserControl>

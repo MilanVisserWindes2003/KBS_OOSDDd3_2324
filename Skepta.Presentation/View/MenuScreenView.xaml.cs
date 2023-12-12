@@ -1,5 +1,4 @@
-﻿using Skepta.Business;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,17 +16,13 @@ using System.Windows.Shapes;
 namespace Skepta.Presentation.View
 {
     /// <summary>
-    /// Interaction logic for ResultaatView.xaml
+    /// Interaction logic for MenuScreenView.xaml
     /// </summary>
-    public partial class ResultaatView : UserControl
+    public partial class MenuScreenView : UserControl
     {
-        private readonly SkeptaModel model;
-
-        public ResultaatView()
+        public MenuScreenView()
         {
-            InitializeComponent();          
+            InitializeComponent();
         }
-
-        
     }
 }
