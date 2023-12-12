@@ -42,7 +42,7 @@ namespace Skepta.Presentation.ViewModel
                     volume = value;
                     NotifyPropertyChanged(nameof(Volume));
                     // Stel het volume in
-                    model.TTSConverter.volume(volume);
+                    //model.TTSConverter.
                 }
             }
         }
