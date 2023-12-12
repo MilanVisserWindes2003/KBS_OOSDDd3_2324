@@ -8,8 +8,8 @@
              d:DesignHeight="1080" d:DesignWidth="1920">
     <Grid Background="White">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="960"/>
-            <ColumnDefinition Width="960"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid>
             <Grid.RowDefinitions>
@@ -48,6 +48,6 @@
                     Command="{Binding Exit}" Margin="20" FontSize="20" BorderThickness="0"/>
 
         </StackPanel>
-
+        
     </Grid>
 </UserControl>

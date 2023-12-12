@@ -22,6 +22,7 @@ public class ExercisePageViewModel : ViewModelBase
     }
 
     public ICommand Verder => new BaseCommand(VerderCmd, VerderAllowed);
+    public ICommand Back => new BaseCommand(() => RequestPage = PageId.MenuScreen);
 
     public TextDifficultySelectViewModel DifficultySelect { get; set; }
     public TextLenghtSelectViewModel LenghtSelect { get; set;}

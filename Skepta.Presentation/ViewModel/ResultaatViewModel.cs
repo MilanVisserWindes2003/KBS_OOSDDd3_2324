@@ -54,12 +54,7 @@ namespace Skepta.Presentation.ViewModel
         public ResultaatViewModel(SkeptaModel model) 
         { 
             this.model = model;
-            rsl = new ResultsLogic();
-            
-
-            this.model = model;
             rsl = model.result;
-
             //this.model.aantalWoordenPerMinuut();
             // idk model.Text = model.GetTimerText();
         }
@@ -68,16 +63,16 @@ namespace Skepta.Presentation.ViewModel
         {
             rsl.aantalWoordenPerMinuut(model.RandomText, model.ElapsedTime);
             wpmValue = rsl.WPM;
-            Typespeed = rsl.WPM.ToString();
-            
-
+            Typespeed = rsl.WPM.ToString();         
             Mistake = rsl.WorstMistake;
+            InsertHistory();
         }
 
         public ICommand back => new BaseCommand(BackCmd);
 
         private void BackCmd()
         {
+            
             rsl.EmptyDictionairy();
             RequestPage = PageId.MenuScreen;
         }
@@ -87,7 +82,7 @@ namespace Skepta.Presentation.ViewModel
             History history = new History();
             history.IsSpoken = model.IsSpeechExercise;
             history.TextId = model.ObtainTextId(model.TextDifficulty, model.TextLength.ToString(), model.RandomText);
-            history.WorstMistake = "h";
+            history.WorstMistake = Mistake;
             history.TypeSpeed = Typespeed;
             history.Username = model.Username;
             model.InsertHistoryData(history);

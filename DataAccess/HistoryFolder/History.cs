@@ -11,7 +11,7 @@ namespace Skepta.DataAcces.HistoryFolder
     public class History
     {
         public string TypeSpeed { get; set; }
-        public string WorstMistake { get; set; }
+        public char WorstMistake { get; set; }
 
         public bool IsSpoken { get; set; }
 

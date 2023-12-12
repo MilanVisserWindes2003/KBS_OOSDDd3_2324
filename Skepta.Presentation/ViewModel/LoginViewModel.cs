@@ -19,7 +19,11 @@ public class LoginViewModel : ViewModelBase
     public ICommand Login => new BaseCommand(LoginCmd);
     public ICommand Register => new BaseCommand(() => RequestPage = PageId.Register);
 
-    public string Username { get; set; } = string.Empty;
+    public string Username
+    {
+        get { return model.Username; }
+        set { model.Username = value; NotifyPropertyChanged(nameof(Username)); }
+    }
     public string Password
     {
         get => password;

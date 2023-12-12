@@ -19,6 +19,8 @@ public class SkeptaModel : ObservableObject
     private string _textDifficulty;
     private bool _isSpeechExercise;
     private string randomText = "";
+    private string username = string.Empty;
+
 
     private TimeSpan elapsedTime { get; set; }
     
@@ -65,9 +67,13 @@ public class SkeptaModel : ObservableObject
 
     }
 
-    public string Username { get; set; }
+    public string Username
+    {
+        get { return username; }
+        set { username = value; NotifyPropertyChanged(nameof(Username)); }
+    }
 
-    
+
     public ResultsLogic.ResultsLogic result { get;}
     public TextToSpeechConverter TTSConverter { get; }
 
