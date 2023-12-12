@@ -29,23 +29,23 @@
             </Image.Source>
         </Image>
 
-        <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Height="590">
-            <Label Content="                    MENU" FontSize="30" Height="82" Width="436"/>
-            <Button x:Name="LoginButton" Content="Excersize"
-                    Height="55" Width="300" Background="#687EFF" Foreground="White" 
-                    Command="{Binding Excersize}" Margin="20" FontSize="20" BorderThickness="0"/>
-            <Button x:Name="HistoryButton" Content="History"
-                    Height="55" Width="300" Background="#687EFF" Foreground="White" 
-                    Command="{Binding History}" Margin="20" FontSize="20" BorderThickness="0"/>
-            <Button x:Name="SettingsButton" Content="Settings"
-                    Height="55" Width="300" Background="#687EFF" Foreground="White" 
-                    Command="{Binding Settings}" Margin="20" FontSize="20" BorderThickness="0"/>
-            <Button x:Name="LogoutButton" Content="Logout"
-                    Height="55" Width="300" Background="#687EFF" Foreground="White" 
-                    Command="{Binding Logout}" Margin="20" FontSize="20" BorderThickness="0"/>
-            <Button x:Name="ExitButton" Content="Exit"
-                    Height="55" Width="300" Background="#687EFF" Foreground="White" 
-                    Command="{Binding Exit}" Margin="20" FontSize="20" BorderThickness="0"/>
+        <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label Content="Menu" HorizontalAlignment="Center" FontSize="32" FontWeight="Bold" HorizontalContentAlignment="Center" Foreground="#7C8099"/>
+            <Button x:Name="LoginButton" Content="Oefeningen"
+                    Height="40" Width="250" Background="#687EFF" Foreground="White" 
+                    Command="{Binding Excersize}" Margin="15" FontSize="20" BorderThickness="0"/>
+            <Button x:Name="HistoryButton" Content="Geschiedenis"
+                    Height="40" Width="250" Background="#687EFF" Foreground="White" 
+                    Command="{Binding History}" Margin="15" FontSize="20" BorderThickness="0"/>
+            <Button x:Name="SettingsButton" Content="Instellingen"
+                    Height="40" Width="250" Background="#687EFF" Foreground="White" 
+                    Command="{Binding Settings}" Margin="15" FontSize="20" BorderThickness="0"/>
+            <Button x:Name="LogoutButton" Content="Uitloggen"
+                    Height="40" Width="250" Background="#687EFF" Foreground="White" 
+                    Command="{Binding Logout}" Margin="15" FontSize="20" BorderThickness="0"/>
+            <Button x:Name="ExitButton" Content="Afsluiten"
+                    Height="40" Width="250" Background="#687EFF" Foreground="White" 
+                    Command="{Binding Exit}" Margin="15" FontSize="20" BorderThickness="0"/>
 
         </StackPanel>
         

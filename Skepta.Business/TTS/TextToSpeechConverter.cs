@@ -9,9 +9,9 @@ namespace Buisness.TTS;
 
 public enum SpeedValue
 {
-    Slow = -2,
-    Normal = 0,
-    Fast = 2
+    Sloom = -2,
+    Normaal = 0,
+    Snel = 2
 }
 
 public enum PlayMode
@@ -50,7 +50,7 @@ public class TextToSpeechConverter
     }
 
     public IList<SpeedValue> SpeedValues { get; private set; }
-    public SpeedValue SpeedValue { get; set; } = SpeedValue.Normal;
+    public SpeedValue SpeedValue { get; set; } = SpeedValue.Normaal;
     public PlayMode PlayMode { get; private set; } = PlayMode.Stopped;
     public List<string> Voices { get;} = new List<string>() { "Nederlands" , "Belgisch"};
     private Dictionary<string, string> LanguageOptions { get; } = new Dictionary<string, string>
