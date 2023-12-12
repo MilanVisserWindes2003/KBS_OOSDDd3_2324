@@ -7,8 +7,8 @@ namespace DataAccess
     {
         bool isConnected = false;
         private string connectionString =
-        "Server=.\\SQLEXPRESS; Database = Skepta; Integrated Security = true;";
-        // $"Server={SshHostName},{LocalForwardedPort};Database=Skepta;User Id={SshUserName};Password={SshPassword};"
+        //"Server=.\\SQLEXPRESS; Database = Skepta; Integrated Security = true;";
+         $"DataSource=127.0.0.1,{LocalForwardedPort};InitialCatalog=Skepta;User Id={SshUserName};Password={SshPassword};";
         private const string SshHostName = "145.44.233.245";
         private const string SshUserName = "student";
         private const string SshPassword = "LerenTP321!";
@@ -30,6 +30,14 @@ namespace DataAccess
             _forwardedPort = new ForwardedPortLocal("127.0.0.1", LocalForwardedPort, SqlServerHostName, (uint)SqlServerPort);
             _sshClient.AddForwardedPort(_forwardedPort);
             _forwardedPort.Start();
+
+            SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
+            builder.DataSource = "127.0.0.1";
+            builder.UserID = "SA";
+            builder.Password = $"{SshUserName}";
+            builder.InitialCatalog = "Skepta";
+
+            this.Connection = new SqlConnection(builder.ConnectionString);
         }
 
         public void CloseTunnel()
@@ -46,7 +54,7 @@ namespace DataAccess
         
         public List<string> ObTainTexts(string level, int length)
         {
-            using (Connection = new SqlConnection(connectionString))
+            using (Connection)
             {
                 try
                 {
@@ -77,13 +85,13 @@ namespace DataAccess
 
         public bool UsernameExists(string username)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (Connection)
             {
-                connection.Open();
+                Connection.Open();
 
                 string query = "SELECT COUNT(*) FROM [dbo].[user] WHERE [username] = @Username";
 
-                using (SqlCommand command = new SqlCommand(query, connection))
+                using (SqlCommand command = new SqlCommand(query, Connection))
                 {
                     command.Parameters.AddWithValue("@Username", username);
 
@@ -96,13 +104,13 @@ namespace DataAccess
 
         public string GetPassword(string username)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (Connection)
             {
-                connection.Open();
+                Connection.Open();
 
                 string query = "SELECT [password] FROM [dbo].[user] WHERE [username] = @Username";
 
-                using (SqlCommand command = new SqlCommand(query, connection))
+                using (SqlCommand command = new SqlCommand(query, Connection))
                 {
                     command.Parameters.AddWithValue("@Username", username);
 
@@ -115,13 +123,13 @@ namespace DataAccess
 
         public bool Register(string username, string password)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (Connection)
             {
-                connection.Open();
+                Connection.Open();
 
                 string query = "INSERT INTO [dbo].[user] ([username], [password]) VALUES (@Username, @Password)";
 
-                using (SqlCommand command = new SqlCommand(query, connection))
+                using (SqlCommand command = new SqlCommand(query, Connection))
                 {
                     command.Parameters.AddWithValue("@Username", username);
                     command.Parameters.AddWithValue("@Password", password);
