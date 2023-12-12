@@ -55,10 +55,10 @@
         <view:MenuView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type viewmodel:HistoryViewModel}">
-        <view:MenuView/>
+        <view:HistoryView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type viewmodel:SettingsViewModel}">
-        <view:MenuView/>
+        <view:SettingsView/>
     </DataTemplate>
 
 </ResourceDictionary>
