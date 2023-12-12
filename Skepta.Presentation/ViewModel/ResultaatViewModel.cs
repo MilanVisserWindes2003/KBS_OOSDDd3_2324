@@ -79,7 +79,7 @@ namespace Skepta.Presentation.ViewModel
         private void BackCmd()
         {
             rsl.EmptyDictionairy();
-            RequestPage = PageId.Exercise;
+            RequestPage = PageId.MenuScreen;
         }
 
         private void InsertHistory()
