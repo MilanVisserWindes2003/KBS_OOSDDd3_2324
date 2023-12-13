@@ -1,11 +1,13 @@
 ﻿using Renci.SshNet;
 using System.Data.SqlClient;
+using System.Diagnostics;
 
 namespace DataAccess
 {
     public class DataAccess
     {
         bool isConnected = false;
+
         private string connectionString =
         //"Server=.\\SQLEXPRESS; Database = Skepta; Integrated Security = true;";
          $"DataSource=127.0.0.1,{LocalForwardedPort};InitialCatalog=Skepta;User Id={SshUserName};Password={SshPassword};";
@@ -13,9 +15,10 @@ namespace DataAccess
         private const string SshUserName = "student";
         private const string SshPassword = "LerenTP321!";
 
-        private const string SqlServerHostName = "localhost";
-        private const int SqlServerPort = 1433;
-        private const int LocalForwardedPort = 3333;
+        private const string LocalHost = "127.0.0.1";
+        private const string RemoteSqlServerHost = "localhost";
+        private const int RemoteSqlServerPort = 1433;
+        private const int LocalForwardingPort = 3333;
 
         private SshClient _sshClient;
         private ForwardedPortLocal _forwardedPort;
@@ -24,10 +27,10 @@ namespace DataAccess
 
         public void CreateTunnel()
         {
-            _sshClient = new SshClient(SshHostName, SshUserName, SshPassword);
+            _sshClient = new SshClient(SshServerHost, SshUsername, SshPassword);
             _sshClient.Connect();
 
-            _forwardedPort = new ForwardedPortLocal("127.0.0.1", LocalForwardedPort, SqlServerHostName, (uint)SqlServerPort);
+            _forwardedPort = new ForwardedPortLocal(LocalHost, RemoteSqlServerHost, (uint)RemoteSqlServerPort);
             _sshClient.AddForwardedPort(_forwardedPort);
             _forwardedPort.Start();
 
@@ -59,21 +62,19 @@ namespace DataAccess
                 try
                 {
                     Connection.Open();
-                    List<string> teksten = new List<string>();
                     string query = "SELECT [content] FROM [dbo].[text] WHERE [level] = @Level AND [length] = @Length";
                     using (SqlCommand command = new SqlCommand(query, Connection))
                     {
                         command.Parameters.AddWithValue("@level", level);
                         command.Parameters.AddWithValue("@length", length);
-                        using (SqlDataReader reader = command.ExecuteReader())
+                        using (var reader = command.ExecuteReader())
                         {
                             while (reader.Read())
                             {
-                                string tekst = reader["content"].ToString();
-                                teksten.Add(tekst);
+                                teksten.Add(reader["content"].ToString());
+
                             }
                         }
-                        return teksten;
                     }
                 }
                 finally
@@ -81,6 +82,7 @@ namespace DataAccess
                     Connection.Close();
                 }
             }
+            return teksten;
         } 
 
         public bool UsernameExists(string username)
@@ -89,15 +91,20 @@ namespace DataAccess
             {
                 Connection.Open();
 
-                string query = "SELECT COUNT(*) FROM [dbo].[user] WHERE [username] = @Username";
+                    var query = "SELECT COUNT(*) FROM [dbo].[user] WHERE [username] = @Username";
 
                 using (SqlCommand command = new SqlCommand(query, Connection))
                 {
                     command.Parameters.AddWithValue("@Username", username);
 
-                    int count = (int)command.ExecuteScalar();
+                        int count = Convert.ToInt32(command.ExecuteScalar());
 
-                    return count > 0;
+                        return count > 0;
+                    }
+                }
+                finally
+                {
+                    connection.Close();
                 }
             }
         }
@@ -108,15 +115,20 @@ namespace DataAccess
             {
                 Connection.Open();
 
-                string query = "SELECT [password] FROM [dbo].[user] WHERE [username] = @Username";
+                    var query = "SELECT [password] FROM [dbo].[user] WHERE [username] = @Username";
 
                 using (SqlCommand command = new SqlCommand(query, Connection))
                 {
                     command.Parameters.AddWithValue("@Username", username);
 
-                    object result = command.ExecuteScalar();
+                        object result = command.ExecuteScalar();
 
-                    return result != null ? result.ToString() : null;
+                        return result?.ToString();
+                    }
+                }
+                finally
+                {
+                    connection.Close();
                 }
             }
         }
@@ -127,16 +139,21 @@ namespace DataAccess
             {
                 Connection.Open();
 
-                string query = "INSERT INTO [dbo].[user] ([username], [password]) VALUES (@Username, @Password)";
+                    var query = "INSERT INTO [dbo].[user] ([username], [password]) VALUES (@Username, @Password)";
 
                 using (SqlCommand command = new SqlCommand(query, Connection))
                 {
                     command.Parameters.AddWithValue("@Username", username);
                     command.Parameters.AddWithValue("@Password", password);
 
-                    int rowsAffected = command.ExecuteNonQuery();
+                        int rowsAffected = command.ExecuteNonQuery();
 
-                    return rowsAffected > 0;
+                        return rowsAffected > 0;
+                    }
+                }
+                finally
+                {
+                    connection.Close();
                 }
             }
         }
