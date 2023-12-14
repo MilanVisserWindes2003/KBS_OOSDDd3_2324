@@ -112,6 +112,4 @@ namespace Skepta.Presentation.ViewModel
             }
         }
     }
-
-    
 }
