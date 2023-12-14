@@ -29,7 +29,9 @@ public class TextToSpeechConverter
     private string voice;
     public TextToSpeechConverter()
     {
+        
         synthesizer = new SpeechSynthesizer();
+        Setup();
         synthesizer.SetOutputToDefaultAudioDevice();
         SetVoice("Nederlands");
         synthesizer.SpeakCompleted += Synthesizer_SpeakCompleted;
@@ -43,7 +45,7 @@ public class TextToSpeechConverter
     public IList<SpeedValue> SpeedValues { get; private set; }
     public SpeedValue SpeedValue { get; set; } = SpeedValue.Normal;
     public PlayMode PlayMode { get; private set; } = PlayMode.Stopped;
-    public List<string> Voices { get;} = new List<string>() { "Nederlands" , "Belgisch"};
+    public List<string> Voices { get;} = new List<string>();
     private Dictionary<string, string> LanguageOptions { get; } = new Dictionary<string, string>
 {
     { "Nederlands", "Microsoft Frank" },
@@ -127,5 +129,22 @@ public class TextToSpeechConverter
             }
         }
         return false;
+    }
+
+    private void Setup() 
+    {
+        foreach (InstalledVoice voices in synthesizer.GetInstalledVoices())
+        {
+            VoiceInfo info = voices.VoiceInfo;
+            string Name = info.Name;
+            if (Name == "Microsoft Frank" || Name == "Microsoft Bart")
+            {
+                var keyValuePair = LanguageOptions.FirstOrDefault(x => x.Value == Name);
+                if (!Voices.Contains(keyValuePair.Key)) 
+                {
+                    Voices.Add(keyValuePair.Key);
+                }               
+            }
+        }
     }
 }

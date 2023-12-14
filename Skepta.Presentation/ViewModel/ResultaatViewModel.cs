@@ -1,19 +1,8 @@
-﻿using Business;
-using GalaSoft.MvvmLight.Command;
-using Skepta.Business;
-using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
-using Skepta.Presentation.ViewModel.Commands;
-using System.Threading;
-using Skepta.DataAcces.HistoryFolder;
+﻿using Skepta.Business;
 using Skepta.Business.ResultsLogic;
+using Skepta.DataAcces.HistoryFolder;
+using Skepta.Presentation.ViewModel.Commands;
+using System.Windows.Input;
 
 
 namespace Skepta.Presentation.ViewModel

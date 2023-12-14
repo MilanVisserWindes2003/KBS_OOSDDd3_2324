@@ -45,9 +45,6 @@ namespace Skepta.Presentation.ViewModel
         public GeschiedenisViewModel(SkeptaModel model)
         {
             this.model = model;
-            model.ObtainHistory(model.Username);
-            
-
         }
         public ICommand Back => new BaseCommand(() => RequestPage = PageId.MenuScreen);
 

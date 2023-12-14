@@ -13,7 +13,7 @@ namespace Skepta.Presentation.ViewModel
         public TypeWindowModel(SkeptaModel model)
         {
             this.model = model;
-            TTS = new TextToSpeechConverter();
+            TTS = model.TTSConverter;
             typedText = string.Empty;
             Story = "Story";
         }
