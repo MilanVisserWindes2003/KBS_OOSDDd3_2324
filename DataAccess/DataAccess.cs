@@ -11,15 +11,8 @@ namespace DataAccess
     public class DataAccess
     {
         bool isConnected = false;
-        //private const string connectionString = "Server=localhost,11433;Database=Skepta;User ID=sa;Password=DDSL@1379ESA;Trusted_Connection=True;Encrypt=True;Connection Timeout=5;";
+        private const string connectionString = "Server=tcp:145.44.233.245,443;Initial Catalog=Skepta;User ID = sa; Password = DDSL@1379ESA; Connect Timeout=12;";
 
-        private const string connectionString =
-            "Server=tcp:145.44.233.245,443;Initial Catalog=Skepta;User ID = sa; Password = DDSL@1379ESA; Connect Timeout=12;";
-        //private static KnownHostStore _knownHosts;
-
-        //"Server=.\\SQLEXPRESS; Database = Skepta; Integrated Security = true;"
-        //"Server=tcp:127.0.0.1,11433;Initial Catalog=Skepta;User ID = sa; Password = DDSL@1379ESA; Connect Timeout=12;";
-        //private const string connectionString =  "data source=localhost;Initial Catalog=Skepta; User ID=sa;Password=Sekrap40";
         public SqlConnection Connection { get; set; }
 
         public void TableLerenTypenConnection()
@@ -236,64 +229,7 @@ namespace DataAccess
         }
     }
 
-    public class KnownHostsManager
-    {
-        private Dictionary<string, byte[]> knownHosts;
 
-        public KnownHostsManager()
-        {
-            // Initialize your known hosts here
-            // For example, load them from a file or database
-            knownHosts = new Dictionary<string, byte[]>();
-        }
-
-        public void AddKnownHost(string hostname, byte[] hostKey)
-        {
-            knownHosts[hostname] = hostKey;
-        }
-
-        public bool IsHostKnown(string hostname, byte[] hostKey)
-        {
-            return knownHosts.TryGetValue(hostname, out var knownKey) && AreKeysEqual(knownKey, hostKey);
-        }
-
-        private bool AreKeysEqual(byte[] key1, byte[] key2)
-        {
-            if (key1.Length != key2.Length)
-                return false;
-
-            for (int i = 0; i < key1.Length; i++)
-            {
-                if (key1[i] != key2[i])
-                    return false;
-            }
-            return true;
-        }
-    }
-
-    public class SshConnection
-    {
-        public static void Connect(string host, int port, string username, string password)
-        {
-            KnownHostsManager knownHostsManager = new KnownHostsManager();
-            // Populate knownHostsManager with your known hosts
-
-            using (var client = new SshClient(host, port, username, password))
-            {
-                client.HostKeyReceived += (sender, e) =>
-                {
-                    if (!knownHostsManager.IsHostKnown(host , e.HostKey))
-                    {
-                        e.CanTrust = false; // Or handle this according to your policy
-                    }
-                };
-
-                client.Connect();
-                // Perform your SSH operations
-                client.Disconnect();
-            }
-        }
-    }
 
 
 
