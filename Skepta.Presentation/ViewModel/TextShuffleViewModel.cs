@@ -1,6 +1,7 @@
 ﻿using Skepta.Business;
 using Skepta.Presentation.ViewModel.Commands;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace Skepta.Presentation.ViewModel
 {
@@ -8,7 +9,6 @@ namespace Skepta.Presentation.ViewModel
     {
         private readonly SkeptaModel model;
         private string randomText;
-
         public TextShuffleViewModel(SkeptaModel model)
         {
             this.model = model;
@@ -17,7 +17,10 @@ namespace Skepta.Presentation.ViewModel
 
         public ICommand Shuffle => new BaseCommand(() => RandomTextShuffle = model.ObtainRandomText(), VerderAllowed);
 
-
+        public bool IsPersonalized
+        {
+            get { return model.IsPersonalized; }
+        }
         public string RandomTextShuffle
         {
             get => randomText;

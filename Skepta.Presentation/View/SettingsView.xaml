@@ -49,7 +49,7 @@
             </ComboBox>
             <Label Content="Gepersonaliseerde oefeningen" HorizontalAlignment="Center" FontSize="24" Margin="5" Width="336" HorizontalContentAlignment="Center"  Foreground="#7C8099"/>
             <Border BorderBrush="#FFACACAC" BorderThickness="1" Margin="5" Width="100" Height="30">
-                <RadioButton Content="Aan" Margin="6" Width="50" Foreground="Black" Command="{Binding PersonalisedExercise}"/>
+                <RadioButton Content="Aan" Margin="6" Width="50" Foreground="Black" IsChecked="{Binding IsPersonalized, Mode=TwoWay}"/>
             </Border>
             <Button Name="WijzigWW" Content="Wachtwoord wijzigen" HorizontalAlignment="Center" VerticalAlignment="Center"
                          Height="35" Width="250"  Background="#687EFF" Foreground="White" 
