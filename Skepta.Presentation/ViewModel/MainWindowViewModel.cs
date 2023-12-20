@@ -35,7 +35,7 @@ namespace Skepta.Presentation.ViewModel
 
         public MainWindowViewModel()
         {
-            model = new SkeptaModel();
+            model = new SkeptaModel(new DataAccess.DataAccess());
             pages.Add(PageId.Register, new RegistreerViewModel(model));
             pages.Add(PageId.Login, new LoginViewModel(model));
             pages.Add(PageId.TextDifficultySelect, new TextDifficultySelectViewModel(model));

@@ -1,4 +1,5 @@
 ﻿using Buisness.TTS;
+using DataAccess;
 using Skepta.Business.Util;
 using Skepta.DataAcces.HistoryFolder;
 using System.ComponentModel;
@@ -10,7 +11,7 @@ namespace Skepta.Business;
 
 public class SkeptaModel : ObservableObject
 {
-    private DataAccess.DataAccess dataConnection;
+    private IDataAccess dataConnection;
 
     bool isLoggedin;
     //Stopwatch stopWatch = new Stopwatch();
@@ -57,9 +58,9 @@ public class SkeptaModel : ObservableObject
 
     
 
-    public SkeptaModel()
+    public SkeptaModel(IDataAccess dataAccess)
     {
-        dataConnection = new DataAccess.DataAccess();
+        dataConnection = dataAccess;
         TTSConverter = new TextToSpeechConverter();
 
 

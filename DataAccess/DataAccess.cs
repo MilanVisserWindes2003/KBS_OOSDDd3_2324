@@ -1,14 +1,10 @@
 ﻿using Skepta.DataAcces.HistoryFolder;
 using System.Data;
 using System.Data.SqlClient;
-using System.Globalization;
-using Renci.SshNet;
-using Renci.SshNet.Common;
-using System.Diagnostics;
 
 namespace DataAccess
 {
-    public class DataAccess
+    public class DataAccess : IDataAccess
     {
         bool isConnected = false;
         private const string connectionString = "Server=tcp:145.44.233.245,443;Initial Catalog=Skepta;User ID = sa; Password = DDSL@1379ESA; Connect Timeout=12;";

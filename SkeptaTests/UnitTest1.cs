@@ -1,13 +1,19 @@
+using DataAccess;
 using Skepta.Business;
 
 namespace SkeptaTests
 {
-    
+
     public class SkeptaModelTests
     {
+        private SkeptaModel model;
+        private DataAccessStub dataAccessStub;
         [SetUp]
         public void Setup()
         {
+            dataAccessStub = new DataAccessStub();
+            dataAccessStub.AcceptedUsernames.Add("s");
+            model = new SkeptaModel(dataAccessStub);
         }
 
         [TestCase("kiran", "123")]
@@ -18,7 +24,7 @@ namespace SkeptaTests
         public void CheckLogin_NotRight_RetrunsTrue(string username, string password)
         {
             //Arrange
-            var model = new SkeptaModel();
+
 
             //Act
             var login = model.CheckLogin(username, password);
@@ -34,12 +40,17 @@ namespace SkeptaTests
         public void CheckLogin_NotRight_RetrunsFalse(string username, string password)
         {
             //Arrange
-            var model = new SkeptaModel();
 
             //Act
             var login = model.CheckLogin(username, password);
             //Assert
-            Assert.IsFalse(login);
+            if (dataAccessStub.AcceptedUsernames.Contains(username))
+            {
+                Assert.IsFalse(login);
+            } else
+            {
+                Assert.IsTrue(login);
+            }
         }
     }
 }
