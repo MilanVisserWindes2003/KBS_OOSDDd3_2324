@@ -232,7 +232,7 @@ namespace DataAccess
         {
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(newPassword))
             {
-                // Handle empty or null username/newPassword
+                //  wanneer er een empty or null username/newPassword is
                 return false;
             }
             using (SqlConnection connection = new SqlConnection(connectionString))
