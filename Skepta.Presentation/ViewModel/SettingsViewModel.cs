@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows;
+using DataAccess;
 
 namespace Skepta.Presentation.ViewModel
 {
@@ -61,11 +63,29 @@ namespace Skepta.Presentation.ViewModel
         }
         private void ChangePasswordCmd()
         {
-            throw new NotImplementedException();
+            RequestPage = PageId.ChangePassword;
         }
         private void RemoveAccountCmd()
         {
-            throw new NotImplementedException();
+            string loggedInUsername = model.Username; // Gebruik de huidige ingelogde gebruikersnaam
+            DataAccess.DataAccess dataAccess = new DataAccess.DataAccess();
+
+            MessageBoxResult result = MessageBox.Show("Weet je zeker dat je het account wilt verwijderen?", "Bevestiging", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                bool success = dataAccess.RemoveAccount(loggedInUsername);
+                if (success)
+                {
+                    // Account succesvol verwijderd & uitlogacties
+                    loggedInUsername = null;
+                    RequestPage = PageId.Login;
+                }
+            }
+            else
+            {
+                // Account verwijderen is mislukt
+                MessageBox.Show("Het verwijderen van het account is mislukt.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
         private void BackSetCmd()
         {

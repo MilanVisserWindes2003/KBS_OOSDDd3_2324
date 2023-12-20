@@ -24,11 +24,11 @@ public enum PlayMode
 // Volume changer
 public enum Volume
 {
-    Off = 0,
-    Low = 1,
-    Mid = 2,
-    High = 3,
-    Max = 4,
+    Uit = -10,
+    Laag = -2,
+    Gemiddeld = 0,
+    Hoog = 2,
+    Maximum = 10,
 }
 
 
