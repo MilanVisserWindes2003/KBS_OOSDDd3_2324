@@ -227,13 +227,95 @@ namespace DataAccess
                 }
             }
         }
+
+        public bool ChangePassword(string username, string newPassword)
+        {
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(newPassword))
+            {
+                //  wanneer er een empty or null username/newPassword is
+                return false;
+            }
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "UPDATE [dbo].[user] SET [password] = @NewPassword WHERE [username] = @Username";
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@NewPassword", newPassword);
+                        command.Parameters.AddWithValue("@Username", username);
+
+                        int rowsAffected = command.ExecuteNonQuery();
+
+                        return rowsAffected > 0; // (wachtwoord is gewijzigd)
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return false;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+               
+            }
+        }
+
+        public bool RemoveAccount(string username)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    // Zoek eerst naar het accoun en controleer of het bestaat.
+                    string checkQuery = "SELECT COUNT(*) FROM [dbo].[user] WHERE [username] = @Username";
+                    using (SqlCommand checkCommand = new SqlCommand(checkQuery, connection))
+                    {
+                        checkCommand.Parameters.AddWithValue("@Username", username);
+                        int count = (int)checkCommand.ExecuteScalar();
+                        if (count == 0)
+                        {
+                            // Het account bestaat niet dus return false
+                            return false;
+                        }
+                    }
+                    // Verwijder de geschiedenisgegevens van de gebruiker
+                    string deleteHistoryQuery = "DELETE FROM [dbo].[history] WHERE [username] = @Username";
+                    using (SqlCommand deleteHistoryCommand = new SqlCommand(deleteHistoryQuery, connection))
+                    {
+                        deleteHistoryCommand.Parameters.AddWithValue("@Username", username);
+                        deleteHistoryCommand.ExecuteNonQuery();
+                    }
+
+                    // Verwijder het account als het wel bestaat
+                    string deleteQuery = "DELETE FROM [dbo].[user] WHERE [username] = @Username";
+
+                    using (SqlCommand deleteCommand = new SqlCommand(deleteQuery, connection))
+                    {
+                        deleteCommand.Parameters.AddWithValue("@Username", username);
+
+                        int rowsAffected = deleteCommand.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                } 
+                finally 
+                {
+                    connection.Close();
+                }
+            }
+        }
     }
-
-
-
-
-
-
-
 }
     
