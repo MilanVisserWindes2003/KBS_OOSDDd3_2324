@@ -12,7 +12,7 @@ namespace SkeptaTests
         {
         }
 
-        [TestCase("kiran", "123")]
+        [TestCase("kiran", "1234")]
         [TestCase("s", "1")]
         [TestCase("BobDeBouwer", "1234")]
         [TestCase("LeroyRodermond", "ICT1379!")]
@@ -28,7 +28,7 @@ namespace SkeptaTests
             Assert.IsTrue(login);
         }
 
-        [TestCase("kiran", "1234")]
+        [TestCase("kiran", "123")]
         [TestCase("s", "12")]
         [TestCase("BobDeBouwer", "123411")]
         [TestCase("LeroyRodermond", "ICT1379!2123")]
