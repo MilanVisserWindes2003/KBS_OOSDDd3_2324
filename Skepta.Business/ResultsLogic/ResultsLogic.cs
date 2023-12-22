@@ -34,14 +34,13 @@ namespace Skepta.Business.ResultsLogic
             }
             int aantalWoorden = WordCounting(RandomText);
             WPM = Math.Ceiling((aantalWoorden / time) * 60);
-            
         }
-        private int WordCounting(string randomText)
+        public int WordCounting(string randomText)
         {
-            if (string.IsNullOrWhiteSpace(randomText)) // Corrected variable name
+            if (string.IsNullOrWhiteSpace(randomText))
                 return 0;
             var amountOfWords = randomText.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            return amountOfWords.Length; // Return the count directly
+            return amountOfWords.Length; 
         }
         public void addMistake(char mistake)
         {

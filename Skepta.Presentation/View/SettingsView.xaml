@@ -35,21 +35,21 @@
             <Button Content="⬅" Width="70" Height="60" Margin="10" Background="#687EFF" Foreground="White"  
                     FontSize="40" FontWeight="Bold" BorderThickness="0" Command="{Binding BackFromSet}"/>
         </StackPanel>
-        <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Height="590" Width="436">
-            <Label Content="Instellingen" HorizontalAlignment="Center" FontSize="28" FontWeight="Bold" Margin="10" HorizontalContentAlignment="Center" Foreground="#7C8099"/>
-            <Label Content="Hoofdvolume" HorizontalAlignment="Center" FontSize="24" Margin="10" Width="180" HorizontalContentAlignment="Center"  Foreground="#7C8099"/>
-            <Border BorderBrush="#FFACACAC" BorderThickness="1" Margin="10" Width="250" Height="35">
-                <Slider Width="240" Margin="6" Value="{Binding HeadVolume, Mode=OneWay}" />
+        <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label Content="Instellingen" HorizontalAlignment="Center" FontSize="32" FontWeight="Bold" Margin="10" HorizontalContentAlignment="Center" Foreground="#7C8099"/>
+            <Label Content="Hoofdvolume" HorizontalAlignment="Center" FontSize="24" Margin="5" Width="180" HorizontalContentAlignment="Center"  Foreground="#7C8099"/>
+            <Border BorderBrush="#FFACACAC" BorderThickness="1" Margin="5" Width="250" Height="35">
+                <Slider Width="240" Margin="6" Value="{Binding SliderValue, Mode=TwoWay}" />
             </Border>
-            <Label Content="Gesproken stem" HorizontalAlignment="Center" FontSize="24" Margin="10" Width="180" HorizontalContentAlignment="Center"  Foreground="#7C8099"/>
-            <ComboBox HorizontalAlignment="Center" Margin="0,10,0,0" Width="250" Height="35" FontSize="20" 
+            <Label Content="Gesproken stem" HorizontalAlignment="Center" FontSize="24" Margin="5" Width="180" HorizontalContentAlignment="Center"  Foreground="#7C8099"/>
+            <ComboBox HorizontalAlignment="Center" Margin="0,5,0,0" Width="250" Height="35" FontSize="20" 
                 ItemsSource="{Binding LanguageOptions}"
                 SelectedItem="{Binding SelectedLanguage}"
                 IsEditable="True" IsReadOnly="True" IsTextSearchEnabled="False">
             </ComboBox>
-            <Label Content="Gepersonaliseerde oefeningen" HorizontalAlignment="Center" FontSize="24" Margin="10" Width="336" HorizontalContentAlignment="Center"  Foreground="#7C8099"/>
-            <Border BorderBrush="#FFACACAC" BorderThickness="1" Margin="10" Width="100" Height="30">
-                <RadioButton Content="Aan" Margin="6" Width="50" Foreground="Black" Command="{Binding PersonalisedExercise}"/>
+            <Label Content="Gepersonaliseerde oefeningen" HorizontalAlignment="Center" FontSize="24" Margin="5" Width="336" HorizontalContentAlignment="Center"  Foreground="#7C8099"/>
+            <Border BorderBrush="#FFACACAC" BorderThickness="1" Margin="5" Width="100" Height="30">
+                <RadioButton Content="Aan" Margin="6" Width="50" Foreground="Black" IsChecked="{Binding IsPersonalized, Mode=TwoWay}"/>
             </Border>
             <Button Name="WijzigWW" Content="Wachtwoord wijzigen" HorizontalAlignment="Center" VerticalAlignment="Center"
                          Height="35" Width="250"  Background="#687EFF" Foreground="White" 

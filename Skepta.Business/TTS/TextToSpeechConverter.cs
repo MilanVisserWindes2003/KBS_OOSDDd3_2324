@@ -9,9 +9,9 @@ namespace Buisness.TTS;
 
 public enum SpeedValue
 {
-    Slow = -2,
-    Normal = 0,
-    Fast = 2
+    Sloom = -2,
+    Normaal = 0,
+    Snel = 2
 }
 
 public enum PlayMode
@@ -21,26 +21,19 @@ public enum PlayMode
     Paused
 }
 
-// Volume changer
-public enum Volume
-{
-    Off = 0,
-    Low = 1,
-    Mid = 2,
-    High = 3,
-    Max = 4,
-}
-
 
 public class TextToSpeechConverter
 {
     private readonly SpeechSynthesizer synthesizer;
     private string voice;
+    private int volume = 5;
     public TextToSpeechConverter()
     {
         synthesizer = new SpeechSynthesizer();
+        Setup();
         synthesizer.SetOutputToDefaultAudioDevice();
         SetVoice("Nederlands");
+        synthesizer.Volume = volume;
         synthesizer.SpeakCompleted += Synthesizer_SpeakCompleted;
     }
 
@@ -50,9 +43,20 @@ public class TextToSpeechConverter
     }
 
     public IList<SpeedValue> SpeedValues { get; private set; }
-    public SpeedValue SpeedValue { get; set; } = SpeedValue.Normal;
+    public SpeedValue SpeedValue { get; set; } = SpeedValue.Normaal;
     public PlayMode PlayMode { get; private set; } = PlayMode.Stopped;
-    public List<string> Voices { get;} = new List<string>() { "Nederlands" , "Belgisch"};
+    public List<string> Voices { get; } = new List<string>();
+    public int Volume { 
+        get
+        {
+            return volume;
+        }
+        set
+        {
+            SetVolume(value);
+        }
+    }
+    
     private Dictionary<string, string> LanguageOptions { get; } = new Dictionary<string, string>
 {
     { "Nederlands", "Microsoft Frank" },
@@ -106,6 +110,10 @@ public class TextToSpeechConverter
 
     public void SetVoice(string voice)
     {
+        if (!LanguageOptions.TryGetValue(voice, out string value))
+        {
+            return;
+        }
         string Speaker = LanguageOptions[voice];
         if (CheckVoiceExists(Speaker))
         {
@@ -113,6 +121,25 @@ public class TextToSpeechConverter
             this.voice = voice;
         }
 
+    }
+
+    public void SetVolume(int volume)
+    {
+        if (volume < 0)
+        {
+            this.volume = 0;
+            synthesizer.Volume = 0;
+            return;
+        }
+        if (volume > 10)
+        {
+            this.volume = 10;
+            synthesizer.Volume = 100;
+            return;
+        }
+
+        synthesizer.Volume = volume*10;
+        this.volume = volume;
     }
 
     private void SetupSpeedValues()
@@ -136,5 +163,22 @@ public class TextToSpeechConverter
             }
         }
         return false;
+    }
+
+    private void Setup()
+    {
+        foreach (InstalledVoice voices in synthesizer.GetInstalledVoices())
+        {
+            VoiceInfo info = voices.VoiceInfo;
+            string Name = info.Name;
+            if (Name == "Microsoft Frank" || Name == "Microsoft Bart")
+            {
+                var keyValuePair = LanguageOptions.FirstOrDefault(x => x.Value == Name);
+                if (!Voices.Contains(keyValuePair.Key))
+                {
+                    Voices.Add(keyValuePair.Key);
+                }
+            }
+        }
     }
 }
