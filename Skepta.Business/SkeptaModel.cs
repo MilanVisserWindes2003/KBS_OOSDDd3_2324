@@ -23,10 +23,10 @@ public class SkeptaModel : ObservableObject
 
 
     private TimeSpan elapsedTime { get; set; }
-    
 
-    public TimeSpan ElapsedTime 
-    { 
+
+    public TimeSpan ElapsedTime
+    {
         get { return elapsedTime; }
         set { elapsedTime = value; }
     }
@@ -55,7 +55,7 @@ public class SkeptaModel : ObservableObject
         set { _isSpeechExercise = value; NotifyPropertyChanged(nameof(IsSpeechExercise)); }
     }
 
-    
+    public bool IsPersonalized { get; set; } = false;
 
     public SkeptaModel()
     {
@@ -74,7 +74,7 @@ public class SkeptaModel : ObservableObject
     }
 
 
-    public ResultsLogic.ResultsLogic result { get;}
+    public ResultsLogic.ResultsLogic result { get; }
     public TextToSpeechConverter TTSConverter { get; }
 
     public void textLengthSetter(int length)
@@ -86,7 +86,7 @@ public class SkeptaModel : ObservableObject
         this._isSpeechExercise = isSpeechExercise;
     }
 
-    
+
 
     public bool CheckLogin(string username, string password)
     {
@@ -111,10 +111,13 @@ public class SkeptaModel : ObservableObject
     }
     public string ObtainTextId(string level, string length, string content)
     {
-       return dataConnection.ObtainTextId(level, length, content);
+
+
+        return dataConnection.ObtainTextId(level, length, content);
+
     }
-    
-    public  void InsertHistoryData(History history)
+
+    public void InsertHistoryData(History history)
     {
         dataConnection.InsertHistoryData(history);
     }
@@ -178,7 +181,13 @@ public class SkeptaModel : ObservableObject
         {
             return string.Empty;
         }
-        List<string> teksten = dataConnection.ObTainTexts(TextDifficulty, TextLength);
+
+        List<string> teksten = dataConnection.GetPersonalizedTexts(TextDifficulty, TextLength.ToString(), Username);
+        if (IsPersonalized == false || teksten == null ||teksten.Count == 0)
+        {
+            teksten = dataConnection.ObTainTexts(TextDifficulty, TextLength);
+        }
+
         Random random = new Random();
         int randomIndex = random.Next(0, teksten.Count);
         this.randomText = teksten[randomIndex];

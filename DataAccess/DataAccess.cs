@@ -1,10 +1,7 @@
-﻿using Skepta.DataAcces.HistoryFolder;
+﻿using DataAccess.Mistakes;
+using Skepta.DataAcces.HistoryFolder;
 using System.Data;
 using System.Data.SqlClient;
-using System.Globalization;
-using Renci.SshNet;
-using Renci.SshNet.Common;
-using System.Diagnostics;
 
 namespace DataAccess
 {
@@ -227,6 +224,113 @@ namespace DataAccess
                 }
             }
         }
+
+
+        public List<string> GetPersonalizedTexts(string level, string length, string username)
+        {
+            List<string> texts = new List<string>();
+            
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(level) || string.IsNullOrEmpty(length))
+            {
+                return null;
+            }
+            List<Mistake> mistakes = GetWorstMistake(username);
+            if (mistakes == null || mistakes.Count == 0)
+            {
+                return null;
+            }
+            foreach (Mistake mistake in mistakes) 
+            {
+                texts = ExecutePersonalizedTexts(level, length, mistake.CharMistake);
+                if (texts == null || texts.Count == 0)
+                {
+                    return null;
+                }
+                texts = ExecutePersonalizedTexts(level, length, mistake.CharMistake);
+                return texts;   
+            }
+            return null;
+        }
+
+        private List<Mistake> GetWorstMistake(string username)
+        {
+            if (string.IsNullOrEmpty(username))
+            {
+                return null;
+            }
+            List<Mistake> mistakes = new List<Mistake>();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "SELECT worstMistake, COUNT(*) AS MistakeCount FROM history WHERE username = @username AND worstMistake <> '-' GROUP BY worstMistake ORDER BY MistakeCount DESC;";
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@username", username); 
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (!reader.HasRows)
+                            {
+                                return null;
+                            }
+                            while (reader.Read())
+                            {
+                                Mistake mistake = new Mistake();
+                                mistake.CharMistake = reader["worstMistake"].ToString();
+                                mistake.Count = int.Parse(reader["MistakeCount"].ToString());
+                                mistakes.Add(mistake);
+                            }
+                        }
+                    }
+                    return mistakes;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+        private List<string> ExecutePersonalizedTexts(string level, string length, string character)
+        {
+            List<string> texts = new List<string>();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "SELECT content FROM text WHERE CHARINDEX(@Character, content) > 0 AND length = @Length AND level = @Level;";
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Character", character);
+                        command.Parameters.AddWithValue("@Level", level);
+                        command.Parameters.AddWithValue("@Length", length);
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (!reader.HasRows)
+                            {
+                                return null;
+                            }
+                            while (reader.Read())
+                            {
+                                string tekst = reader["content"].ToString();
+                                texts.Add(tekst);
+                            }
+                        }
+                    }
+
+                    return texts;
+                }
+              finally 
+                {
+                    connection.Close();
+                }
+            }
+        }       
 
         public bool ChangePassword(string username, string newPassword)
         {

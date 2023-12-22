@@ -22,6 +22,19 @@ namespace Skepta.Presentation.ViewModel
             this.model = model;
             InitializeLanguageOptions();
         }
+
+        public bool IsPersonalized 
+        {   get
+            {
+                return model.IsPersonalized;
+            } 
+            set
+            {
+                model.IsPersonalized = !model.IsPersonalized;
+                NotifyPropertyChanged(nameof(IsPersonalized));
+            }
+        }
+        public ICommand HeadVolume => new BaseCommand(VolumeChangeCmd);
         public ICommand PersonalisedExercise => new BaseCommand(PersonalisedExerciseCmd);
         public ICommand WijzigWW => new BaseCommand(ChangePasswordCmd);
         public ICommand VerwijderAC => new BaseCommand(RemoveAccountCmd);
@@ -66,7 +79,7 @@ namespace Skepta.Presentation.ViewModel
         }
         private void PersonalisedExerciseCmd()
         {
-            throw new NotImplementedException();
+            model.IsPersonalized = !model.IsPersonalized;
         }
         private void ChangePasswordCmd()
         {
