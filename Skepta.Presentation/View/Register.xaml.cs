@@ -40,5 +40,4 @@ public partial class Register : UserControl
             vm.PasswordConfirm = box.Password.ToString();
         }
     }
-
 }

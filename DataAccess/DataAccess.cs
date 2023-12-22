@@ -2,22 +2,14 @@
 using Skepta.DataAcces.HistoryFolder;
 using System.Data;
 using System.Data.SqlClient;
-using System.Globalization;
-using System.Net.Http.Headers;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace DataAccess
 {
     public class DataAccess
     {
         bool isConnected = false;
-        //private const string connectionString = "Server=localhost,11433;Database=Skepta;User ID=sa;Password=DDSL@1379ESA;Trusted_Connection=True;Encrypt=True;Connection Timeout=5;";
+        private const string connectionString = "Server=tcp:145.44.233.245,443;Initial Catalog=Skepta;User ID = sa; Password = DDSL@1379ESA; Connect Timeout=12;";
 
-        private const string connectionString = "Server=tcp:127.0.0.1,11433;Initial Catalog=Skepta;User ID = sa; Password = DDSL@1379ESA; Connect Timeout=12;";
-
-        //"Server=.\\SQLEXPRESS; Database = Skepta; Integrated Security = true;"
-        //"Server=tcp:127.0.0.1,11433;Initial Catalog=Skepta;User ID = sa; Password = DDSL@1379ESA; Connect Timeout=12;";
-        //private const string connectionString =  "data source=localhost;Initial Catalog=Skepta; User ID=sa;Password=Sekrap40";
         public SqlConnection Connection { get; set; }
 
         public void TableLerenTypenConnection()
@@ -25,6 +17,7 @@ namespace DataAccess
             this.Connection = new SqlConnection(connectionString);
         }
 
+        
         public List<string> ObTainTexts(string level, int length)
         {
             using (Connection = new SqlConnection(connectionString))
@@ -58,7 +51,7 @@ namespace DataAccess
 
         public bool UsernameExists(string username)
         {
-            
+
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
@@ -136,8 +129,8 @@ namespace DataAccess
                         {
                             while (reader.Read())
                             {
-                                 textId = reader["id"].ToString();
-                               
+                                textId = reader["id"].ToString();
+
                             }
                         }
                     }
@@ -193,11 +186,6 @@ namespace DataAccess
                 }
             }
         }
-
-
-
-
-
         public void InsertHistoryData(History history)
         {
             if (history == null)
@@ -236,6 +224,7 @@ namespace DataAccess
                 }
             }
         }
+
 
         public List<string> GetPersonalizedTexts(string level, string length, string username)
         {
@@ -336,7 +325,96 @@ namespace DataAccess
 
                     return texts;
                 }
+              finally 
+                {
+                    connection.Close();
+                }
+            }
+        }       
+
+        public bool ChangePassword(string username, string newPassword)
+        {
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(newPassword))
+            {
+                //  wanneer er een empty or null username/newPassword is
+                return false;
+            }
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "UPDATE [dbo].[user] SET [password] = @NewPassword WHERE [username] = @Username";
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@NewPassword", newPassword);
+                        command.Parameters.AddWithValue("@Username", username);
+
+                        int rowsAffected = command.ExecuteNonQuery();
+
+                        return rowsAffected > 0; // (wachtwoord is gewijzigd)
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return false;
+                }
                 finally
+                {
+                    connection.Close();
+                }
+               
+            }
+        }
+
+        public bool RemoveAccount(string username)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    // Zoek eerst naar het accoun en controleer of het bestaat.
+                    string checkQuery = "SELECT COUNT(*) FROM [dbo].[user] WHERE [username] = @Username";
+                    using (SqlCommand checkCommand = new SqlCommand(checkQuery, connection))
+                    {
+                        checkCommand.Parameters.AddWithValue("@Username", username);
+                        int count = (int)checkCommand.ExecuteScalar();
+                        if (count == 0)
+                        {
+                            // Het account bestaat niet dus return false
+                            return false;
+                        }
+                    }
+                    // Verwijder de geschiedenisgegevens van de gebruiker
+                    string deleteHistoryQuery = "DELETE FROM [dbo].[history] WHERE [username] = @Username";
+                    using (SqlCommand deleteHistoryCommand = new SqlCommand(deleteHistoryQuery, connection))
+                    {
+                        deleteHistoryCommand.Parameters.AddWithValue("@Username", username);
+                        deleteHistoryCommand.ExecuteNonQuery();
+                    }
+
+                    // Verwijder het account als het wel bestaat
+                    string deleteQuery = "DELETE FROM [dbo].[user] WHERE [username] = @Username";
+
+                    using (SqlCommand deleteCommand = new SqlCommand(deleteQuery, connection))
+                    {
+                        deleteCommand.Parameters.AddWithValue("@Username", username);
+
+                        int rowsAffected = deleteCommand.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                } 
+                finally 
                 {
                     connection.Close();
                 }

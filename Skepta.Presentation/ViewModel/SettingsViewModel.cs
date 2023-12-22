@@ -8,13 +8,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows;
+using DataAccess;
 
 namespace Skepta.Presentation.ViewModel
 {
     public class SettingsViewModel : ViewModelBase
     {
         private readonly SkeptaModel model;
-        private double volume = 0.5;
+        private double sliderValue;
         public SettingsViewModel(SkeptaModel model)
         {
             this.model = model;
@@ -33,6 +35,7 @@ namespace Skepta.Presentation.ViewModel
             }
         }
         public ICommand HeadVolume => new BaseCommand(VolumeChangeCmd);
+        public ICommand PersonalisedExercise => new BaseCommand(PersonalisedExerciseCmd);
         public ICommand WijzigWW => new BaseCommand(ChangePasswordCmd);
         public ICommand VerwijderAC => new BaseCommand(RemoveAccountCmd);
         public ICommand BackFromSet => new BaseCommand(BackSetCmd);
@@ -43,19 +46,27 @@ namespace Skepta.Presentation.ViewModel
             get => model.TTSConverter.Voice;
             set => model.TTSConverter.SetVoice(value);
         }
-        public double Volume
+        public int SliderValue
         {
-            get => volume;
+            get => model.TTSConverter.Volume;
             set
             {
-                if (volume != value)
+                if (sliderValue != value)
                 {
-                    volume = value;
-                    NotifyPropertyChanged(nameof(Volume));
-                    // Stel het volume in
-                    //model.TTSConverter.
+                    model.TTSConverter.Volume = value;
+                    NotifyPropertyChanged(nameof(sliderValue));
                 }
             }
+        }
+        private void UpdateHeadVolume(double value)
+        {
+            double convertedVolume = value;
+            SetHeadVolume(convertedVolume);
+        }
+
+        private void SetHeadVolume(double volume)
+        {
+            volume = volume;
         }
         private void VolumeChangeCmd()
         {
@@ -72,11 +83,29 @@ namespace Skepta.Presentation.ViewModel
         }
         private void ChangePasswordCmd()
         {
-            throw new NotImplementedException();
+            RequestPage = PageId.ChangePassword;
         }
         private void RemoveAccountCmd()
         {
-            throw new NotImplementedException();
+            string loggedInUsername = model.Username; // Gebruik de huidige ingelogde gebruikersnaam
+            DataAccess.DataAccess dataAccess = new DataAccess.DataAccess();
+
+            MessageBoxResult result = MessageBox.Show("Weet je zeker dat je het account wilt verwijderen?", "Bevestiging", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                bool success = dataAccess.RemoveAccount(loggedInUsername);
+                if (success)
+                {
+                    // Account succesvol verwijderd & uitlogacties
+                    loggedInUsername = null;
+                    RequestPage = PageId.Login;
+                }
+            }
+            else
+            {
+                // Account verwijderen is mislukt
+                MessageBox.Show("Het verwijderen van het account is mislukt.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
         private void BackSetCmd()
         {

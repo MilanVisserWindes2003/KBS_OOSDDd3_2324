@@ -112,6 +112,7 @@ public class SkeptaModel : ObservableObject
     public string ObtainTextId(string level, string length, string content)
     {
 
+
         return dataConnection.ObtainTextId(level, length, content);
 
     }

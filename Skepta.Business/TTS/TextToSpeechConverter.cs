@@ -21,26 +21,18 @@ public enum PlayMode
     Paused
 }
 
-// Volume changer
-public enum Volume
-{
-    Off = 0,
-    Low = 1,
-    Mid = 2,
-    High = 3,
-    Max = 4,
-}
-
 
 public class TextToSpeechConverter
 {
     private readonly SpeechSynthesizer synthesizer;
     private string voice;
+    private int volume = 5;
     public TextToSpeechConverter()
     {
         synthesizer = new SpeechSynthesizer();
         synthesizer.SetOutputToDefaultAudioDevice();
         SetVoice("Nederlands");
+        synthesizer.Volume = volume;
         synthesizer.SpeakCompleted += Synthesizer_SpeakCompleted;
     }
 
@@ -53,6 +45,17 @@ public class TextToSpeechConverter
     public SpeedValue SpeedValue { get; set; } = SpeedValue.Normaal;
     public PlayMode PlayMode { get; private set; } = PlayMode.Stopped;
     public List<string> Voices { get;} = new List<string>() { "Nederlands" , "Belgisch"};
+    public int Volume { 
+        get
+        {
+            return volume;
+        }
+        set
+        {
+            SetVolume(value);
+        }
+    }
+    
     private Dictionary<string, string> LanguageOptions { get; } = new Dictionary<string, string>
 {
     { "Nederlands", "Microsoft Frank" },
@@ -113,6 +116,12 @@ public class TextToSpeechConverter
             this.voice = voice;
         }
 
+    }
+
+    public void SetVolume(int volume)
+    {
+        synthesizer.Volume = volume;
+        this.volume = volume;
     }
 
     private void SetupSpeedValues()
