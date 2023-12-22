@@ -30,6 +30,7 @@ public class TextToSpeechConverter
     public TextToSpeechConverter()
     {
         synthesizer = new SpeechSynthesizer();
+        Setup();
         synthesizer.SetOutputToDefaultAudioDevice();
         SetVoice("Nederlands");
         synthesizer.Volume = volume;
@@ -44,7 +45,7 @@ public class TextToSpeechConverter
     public IList<SpeedValue> SpeedValues { get; private set; }
     public SpeedValue SpeedValue { get; set; } = SpeedValue.Normaal;
     public PlayMode PlayMode { get; private set; } = PlayMode.Stopped;
-    public List<string> Voices { get;} = new List<string>() { "Nederlands" , "Belgisch"};
+    public List<string> Voices { get; } = new List<string>();
     public int Volume { 
         get
         {
@@ -109,6 +110,10 @@ public class TextToSpeechConverter
 
     public void SetVoice(string voice)
     {
+        if (!LanguageOptions.TryGetValue(voice, out string value))
+        {
+            return;
+        }
         string Speaker = LanguageOptions[voice];
         if (CheckVoiceExists(Speaker))
         {
@@ -120,7 +125,20 @@ public class TextToSpeechConverter
 
     public void SetVolume(int volume)
     {
-        synthesizer.Volume = volume;
+        if (volume < 0)
+        {
+            this.volume = 0;
+            synthesizer.Volume = 0;
+            return;
+        }
+        if (volume > 10)
+        {
+            this.volume = 10;
+            synthesizer.Volume = 100;
+            return;
+        }
+
+        synthesizer.Volume = volume*10;
         this.volume = volume;
     }
 
@@ -145,5 +163,22 @@ public class TextToSpeechConverter
             }
         }
         return false;
+    }
+
+    private void Setup()
+    {
+        foreach (InstalledVoice voices in synthesizer.GetInstalledVoices())
+        {
+            VoiceInfo info = voices.VoiceInfo;
+            string Name = info.Name;
+            if (Name == "Microsoft Frank" || Name == "Microsoft Bart")
+            {
+                var keyValuePair = LanguageOptions.FirstOrDefault(x => x.Value == Name);
+                if (!Voices.Contains(keyValuePair.Key))
+                {
+                    Voices.Add(keyValuePair.Key);
+                }
+            }
+        }
     }
 }
