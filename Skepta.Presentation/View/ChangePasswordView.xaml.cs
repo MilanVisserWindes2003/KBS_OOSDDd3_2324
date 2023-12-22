@@ -26,19 +26,19 @@ namespace Skepta.Presentation.View
             InitializeComponent();
         }
 
-        private void PasswordChange(object sender, RoutedEventArgs e)
+        private void NewPasswordChangedEventHandler(object sender, RoutedEventArgs e)
         {
-            if (DataContext is RegistreerViewModel vm && sender is PasswordBox box)
+            if (DataContext is ChangePasswordViewModel viewModel && sender is PasswordBox passwordBox)
             {
-                vm.Password = box.Password.ToString();
+                viewModel.NewPassword = passwordBox.Password;
             }
         }
 
-        private void CheckPasswordChange(object sender, RoutedEventArgs e)
+        private void ConfirmPasswordChangedEventHandler(object sender, RoutedEventArgs e)
         {
-            if (DataContext is RegistreerViewModel vm && sender is PasswordBox box)
+            if (DataContext is ChangePasswordViewModel viewModel && sender is PasswordBox passwordBox)
             {
-                vm.PasswordConfirm = box.Password.ToString();
+                viewModel.ConfirmPassword = passwordBox.Password;
             }
         }
     }

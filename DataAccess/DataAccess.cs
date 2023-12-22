@@ -254,7 +254,6 @@ namespace DataAccess
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("Password change failed: " + ex.Message);
                     return false;
                 }
                 finally
@@ -284,6 +283,14 @@ namespace DataAccess
                             return false;
                         }
                     }
+                    // Verwijder de geschiedenisgegevens van de gebruiker
+                    string deleteHistoryQuery = "DELETE FROM [dbo].[history] WHERE [username] = @Username";
+                    using (SqlCommand deleteHistoryCommand = new SqlCommand(deleteHistoryQuery, connection))
+                    {
+                        deleteHistoryCommand.Parameters.AddWithValue("@Username", username);
+                        deleteHistoryCommand.ExecuteNonQuery();
+                    }
+
                     // Verwijder het account als het wel bestaat
                     string deleteQuery = "DELETE FROM [dbo].[user] WHERE [username] = @Username";
 

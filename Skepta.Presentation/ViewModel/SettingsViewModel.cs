@@ -16,13 +16,12 @@ namespace Skepta.Presentation.ViewModel
     public class SettingsViewModel : ViewModelBase
     {
         private readonly SkeptaModel model;
-        private double volume = 0.5;
+        private double sliderValue;
         public SettingsViewModel(SkeptaModel model)
         {
             this.model = model;
             InitializeLanguageOptions();
         }
-        public ICommand HeadVolume => new BaseCommand(VolumeChangeCmd);
         public ICommand PersonalisedExercise => new BaseCommand(PersonalisedExerciseCmd);
         public ICommand WijzigWW => new BaseCommand(ChangePasswordCmd);
         public ICommand VerwijderAC => new BaseCommand(RemoveAccountCmd);
@@ -34,19 +33,27 @@ namespace Skepta.Presentation.ViewModel
             get => model.TTSConverter.Voice;
             set => model.TTSConverter.SetVoice(value);
         }
-        public double Volume
+        public int SliderValue
         {
-            get => volume;
+            get => model.TTSConverter.Volume;
             set
             {
-                if (volume != value)
+                if (sliderValue != value)
                 {
-                    volume = value;
-                    NotifyPropertyChanged(nameof(Volume));
-                    // Stel het volume in
-                    //model.TTSConverter.
+                    model.TTSConverter.Volume = value;
+                    NotifyPropertyChanged(nameof(sliderValue));
                 }
             }
+        }
+        private void UpdateHeadVolume(double value)
+        {
+            double convertedVolume = value;
+            SetHeadVolume(convertedVolume);
+        }
+
+        private void SetHeadVolume(double volume)
+        {
+            volume = volume;
         }
         private void VolumeChangeCmd()
         {
