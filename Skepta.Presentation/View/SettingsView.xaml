@@ -56,7 +56,7 @@
                         Command="{Binding WijzigWW}" FontSize="20" Margin="0,15,0,0" BorderThickness="0"/>
             <Button Name="VerwijderAC" Content="Account verwijderen" HorizontalAlignment="Center" Command="{Binding VerwijderAC}" 
                     Margin="25" Background="#687EFF" Foreground="White" Width="250" Height="35" FontSize="20" BorderThickness="0"/>
-            <TextBlock Text="{Binding ErrorAccount}" Foreground="Red" FontSize="16" FontWeight="Thin" MaxWidth="250" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+            
         </StackPanel>
     </Grid>
 </UserControl>
