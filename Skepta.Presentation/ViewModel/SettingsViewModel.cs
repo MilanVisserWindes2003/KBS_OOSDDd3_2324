@@ -1,15 +1,8 @@
 ﻿using Skepta.Business;
-using Buisness.TTS;
 using Skepta.Presentation.ViewModel.Commands;
-using System;
-using System.CodeDom.Compiler;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 using System.Windows;
-using DataAccess;
+using System.Windows.Input;
 
 namespace Skepta.Presentation.ViewModel
 {
