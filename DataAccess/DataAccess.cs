@@ -7,17 +7,11 @@ namespace DataAccess
 {
     public class DataAccess
     {
-        bool isConnected = false;
         private const string connectionString = "Server=tcp:145.44.233.245,443;Initial Catalog=Skepta;User ID = sa; Password = DDSL@1379ESA; Connect Timeout=12;";
 
         public SqlConnection Connection { get; set; }
-
-        public void TableLerenTypenConnection()
-        {
-            this.Connection = new SqlConnection(connectionString);
-        }
-
         
+        //Gets all texts with given level and length from the database
         public List<string> ObTainTexts(string level, int length)
         {
             using (Connection = new SqlConnection(connectionString))
@@ -49,6 +43,7 @@ namespace DataAccess
             }
         }
 
+        //Checks if username exists in the database, returns true if exists
         public bool UsernameExists(string username)
         {
 
@@ -69,6 +64,7 @@ namespace DataAccess
             }
         }
 
+        //Gets the password from the given usernam
         public string GetPassword(string username)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -88,6 +84,7 @@ namespace DataAccess
             }
         }
 
+        //Adds a new account to the acccount table in the database
         public bool Register(string username, string password)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -108,6 +105,7 @@ namespace DataAccess
             }
         }
 
+        //Returns the textId from a text with the given  level, length and content. Content is the text itself
         public string ObtainTextId(string level, string length, string content)
         {
             string textId = "";
@@ -144,6 +142,7 @@ namespace DataAccess
             }
         }
 
+        //Gets the last 10 rows from the history table from the given username
         public History ObtainHistory(string username)
         {
             if (username == null)
@@ -186,6 +185,8 @@ namespace DataAccess
                 }
             }
         }
+
+        //Adds a new exercise made in the history table.
         public void InsertHistoryData(History history)
         {
             if (history == null)
@@ -199,8 +200,6 @@ namespace DataAccess
                 try
                 {
                     connection.Open();
-
-                    // Use a parameterized query for better security
                     string query = @"
                 INSERT INTO [dbo].[history] 
                 ([username], [textID], [typespeed], [worstMistake], [spoken]) 
@@ -225,7 +224,98 @@ namespace DataAccess
             }
         }
 
+        //Changes the password in the database with the given username and the new password
+        public bool ChangePassword(string username, string newPassword)
+        {
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(newPassword))
+            {
+                //When there is bad info
+                return false;
+            }
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "UPDATE [dbo].[user] SET [password] = @NewPassword WHERE [username] = @Username";
 
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@NewPassword", newPassword);
+                        command.Parameters.AddWithValue("@Username", username);
+
+                        int rowsAffected = command.ExecuteNonQuery();
+
+                        return rowsAffected > 0; // (password has changed)
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return false;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+
+            }
+        }
+
+        //Removes an account from the whole database
+        public bool RemoveAccount(string username)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    // Searches for the account
+                    string checkQuery = "SELECT COUNT(*) FROM [dbo].[user] WHERE [username] = @Username";
+                    using (SqlCommand checkCommand = new SqlCommand(checkQuery, connection))
+                    {
+                        checkCommand.Parameters.AddWithValue("@Username", username);
+                        int count = (int)checkCommand.ExecuteScalar();
+                        if (count == 0)
+                        {
+                            //Account doesn't exist
+                            return false;
+                        }
+                    }
+                    // Delete the history from the account
+                    string deleteHistoryQuery = "DELETE FROM [dbo].[history] WHERE [username] = @Username";
+                    using (SqlCommand deleteHistoryCommand = new SqlCommand(deleteHistoryQuery, connection))
+                    {
+                        deleteHistoryCommand.Parameters.AddWithValue("@Username", username);
+                        deleteHistoryCommand.ExecuteNonQuery();
+                    }
+
+                    //Remove account
+                    string deleteQuery = "DELETE FROM [dbo].[user] WHERE [username] = @Username";
+
+                    using (SqlCommand deleteCommand = new SqlCommand(deleteQuery, connection))
+                    {
+                        deleteCommand.Parameters.AddWithValue("@Username", username);
+
+                        int rowsAffected = deleteCommand.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+        //Gets all the texts that have the worstmistake of the user with the given level and length. If no mistakes were found it takes a random text.
         public List<string> GetPersonalizedTexts(string level, string length, string username)
         {
             List<string> texts = new List<string>();
@@ -252,6 +342,7 @@ namespace DataAccess
             return null;
         }
 
+        //Gets the worst mistakes from the username in order from most made mistake to the least.
         private List<Mistake> GetWorstMistake(string username)
         {
             if (string.IsNullOrEmpty(username))
@@ -293,6 +384,7 @@ namespace DataAccess
             }
         }
 
+        //Executes the query to get the personalized texts with given level, length and the character
         private List<string> ExecutePersonalizedTexts(string level, string length, string character)
         {
             List<string> texts = new List<string>();
@@ -331,95 +423,6 @@ namespace DataAccess
                 }
             }
         }       
-
-        public bool ChangePassword(string username, string newPassword)
-        {
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(newPassword))
-            {
-                //  wanneer er een empty or null username/newPassword is
-                return false;
-            }
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    connection.Open();
-                    string query = "UPDATE [dbo].[user] SET [password] = @NewPassword WHERE [username] = @Username";
-
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@NewPassword", newPassword);
-                        command.Parameters.AddWithValue("@Username", username);
-
-                        int rowsAffected = command.ExecuteNonQuery();
-
-                        return rowsAffected > 0; // (wachtwoord is gewijzigd)
-                    }
-                }
-                catch (Exception ex)
-                {
-                    return false;
-                }
-                finally
-                {
-                    connection.Close();
-                }
-               
-            }
-        }
-
-        public bool RemoveAccount(string username)
-        {
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    connection.Open();
-                    // Zoek eerst naar het accoun en controleer of het bestaat.
-                    string checkQuery = "SELECT COUNT(*) FROM [dbo].[user] WHERE [username] = @Username";
-                    using (SqlCommand checkCommand = new SqlCommand(checkQuery, connection))
-                    {
-                        checkCommand.Parameters.AddWithValue("@Username", username);
-                        int count = (int)checkCommand.ExecuteScalar();
-                        if (count == 0)
-                        {
-                            // Het account bestaat niet dus return false
-                            return false;
-                        }
-                    }
-                    // Verwijder de geschiedenisgegevens van de gebruiker
-                    string deleteHistoryQuery = "DELETE FROM [dbo].[history] WHERE [username] = @Username";
-                    using (SqlCommand deleteHistoryCommand = new SqlCommand(deleteHistoryQuery, connection))
-                    {
-                        deleteHistoryCommand.Parameters.AddWithValue("@Username", username);
-                        deleteHistoryCommand.ExecuteNonQuery();
-                    }
-
-                    // Verwijder het account als het wel bestaat
-                    string deleteQuery = "DELETE FROM [dbo].[user] WHERE [username] = @Username";
-
-                    using (SqlCommand deleteCommand = new SqlCommand(deleteQuery, connection))
-                    {
-                        deleteCommand.Parameters.AddWithValue("@Username", username);
-
-                        int rowsAffected = deleteCommand.ExecuteNonQuery();
-
-                        if (rowsAffected > 0)
-                        {
-                            return true;
-                        }
-                        else
-                        {
-                            return false;
-                        }
-                    }
-                } 
-                finally 
-                {
-                    connection.Close();
-                }
-            }
-        }
     }
 }
     

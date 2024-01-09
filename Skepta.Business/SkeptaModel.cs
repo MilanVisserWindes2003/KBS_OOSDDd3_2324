@@ -11,20 +11,25 @@ namespace Skepta.Business;
 public class SkeptaModel : ObservableObject
 {
     private DataAccess.DataAccess dataConnection;
-
-    bool isLoggedin;
-    //Stopwatch stopWatch = new Stopwatch();
-
     private int _textLength;
     private string _textDifficulty;
     private bool _isSpeechExercise;
     private string randomText = "";
     private string username = string.Empty;
-
-
     private TimeSpan elapsedTime { get; set; }
 
+    public SkeptaModel()
+    {
+        dataConnection = new DataAccess.DataAccess();
+        TTSConverter = new TextToSpeechConverter();
+        result = new ResultsLogic.ResultsLogic();
+    }
 
+    public string Username
+    {
+        get { return username; }
+        set { username = value; NotifyPropertyChanged(nameof(Username)); }
+    }
     public TimeSpan ElapsedTime
     {
         get { return elapsedTime; }
@@ -56,38 +61,10 @@ public class SkeptaModel : ObservableObject
     }
 
     public bool IsPersonalized { get; set; } = false;
-
-    public SkeptaModel()
-    {
-        dataConnection = new DataAccess.DataAccess();
-        TTSConverter = new TextToSpeechConverter();
-
-
-        result = new ResultsLogic.ResultsLogic();
-
-    }
-
-    public string Username
-    {
-        get { return username; }
-        set { username = value; NotifyPropertyChanged(nameof(Username)); }
-    }
-
-
     public ResultsLogic.ResultsLogic result { get; }
     public TextToSpeechConverter TTSConverter { get; }
 
-    public void textLengthSetter(int length)
-    {
-        this._textLength = length;
-    }
-    public void isSpeechExerciseSetter(bool isSpeechExercise)
-    {
-        this._isSpeechExercise = isSpeechExercise;
-    }
-
-
-
+    //Checks if the login credentials are valid
     public bool CheckLogin(string username, string password)
     {
         if (dataConnection.UsernameExists(username))
@@ -109,23 +86,26 @@ public class SkeptaModel : ObservableObject
 
         return false;
     }
+
+    //Calls the ObtainTextId from the dataAccess layer
     public string ObtainTextId(string level, string length, string content)
     {
-
-
         return dataConnection.ObtainTextId(level, length, content);
-
     }
 
+    //Calls the InsertHistory from the dataAccess layer
     public void InsertHistoryData(History history)
     {
         dataConnection.InsertHistoryData(history);
     }
 
+    //Calls the ObtainHistory from the dataAccess layer
     public History ObtainHistory(string username)
     {
         return dataConnection.ObtainHistory(username);
     }
+
+    //Checks if the username, passwords are valid to register a new account
     public (bool, string) CheckRegister(string username, string password, string password2)
     {
         if (dataConnection.UsernameExists(username))
@@ -163,18 +143,7 @@ public class SkeptaModel : ObservableObject
         return (false, "Er is iets fout gegaan. Probeer opnieuw.");
     }
 
-    public void setSpeechExercise(string exerciseTag)
-    {
-        if (exerciseTag == "Text")
-        {
-            _isSpeechExercise = false;
-        }
-        else
-        {
-            _isSpeechExercise = true;
-        }
-    }
-
+    //Obtains a text depending on the level, length and if the personalised text setting is on
     public string ObtainRandomText()
     {
         if (string.IsNullOrEmpty(TextDifficulty) || TextLength == 0)
@@ -192,16 +161,6 @@ public class SkeptaModel : ObservableObject
         int randomIndex = random.Next(0, teksten.Count);
         this.randomText = teksten[randomIndex];
         return teksten[randomIndex];
-    }
-
-    public void AddTimerTick()
-    {
-        elapsedTime.Add(TimeSpan.FromSeconds(1));
-    }
-
-    public string GetTimerText()
-    {
-        return $"{elapsedTime}";
     }
 }
 

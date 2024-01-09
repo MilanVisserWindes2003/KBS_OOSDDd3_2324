@@ -2,7 +2,7 @@
 
 namespace Skepta.Business.Util
 {
-
+    //Implements InotifyPropertyChanged
     public class ObservableObject : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;

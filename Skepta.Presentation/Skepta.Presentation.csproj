@@ -8,13 +8,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="View\SelectedSpeechSpeed.xaml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Resources\Img\LogoBlack.png" />
     <None Remove="Resources\Img\LogoWhite.png" />
     <None Remove="Resources\Img\Speak.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MvvmLightLibs" Version="5.4.1.1" />
+    <Page Remove="View\SelectedSpeechSpeed.xaml" />
   </ItemGroup>
 
   <ItemGroup>

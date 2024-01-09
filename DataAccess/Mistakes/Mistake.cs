@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DataAccess.Mistakes
+﻿namespace DataAccess.Mistakes
 {
+    //Class for properties for a mistake, with the character and a count
     public class Mistake
     {
         public string CharMistake { get; set; }

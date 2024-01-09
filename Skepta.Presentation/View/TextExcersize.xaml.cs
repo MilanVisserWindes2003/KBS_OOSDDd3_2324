@@ -1,9 +1,6 @@
-﻿using Business;
-using Skepta.Presentation.ViewModel;
-using System.Text;
+﻿using Skepta.Presentation.ViewModel;
 using System.Windows.Controls;
 using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 
 namespace Skepta.Presentation.View;

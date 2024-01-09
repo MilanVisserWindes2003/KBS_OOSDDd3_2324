@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Speech.Synthesis;
+﻿using System.Speech.Synthesis;
 
 namespace Buisness.TTS;
 
@@ -61,7 +56,6 @@ public class TextToSpeechConverter
 {
     { "Nederlands", "Microsoft Frank" },
     { "Belgisch", "Microsoft Bart" }
-    // Add more languages and voices as needed
 };
 
     public string Voice {
@@ -69,7 +63,7 @@ public class TextToSpeechConverter
         set => SetVoice(value);
     }
 
-
+    //Plays the the given text
     public bool PlayText(string text)
     {
         if (PlayMode != PlayMode.Stopped)
@@ -82,6 +76,7 @@ public class TextToSpeechConverter
         return true;
     }
 
+    //Pauses the playing text if there is a text playing
     public void Pause()
     {
         if (PlayMode == PlayMode.Playing)
@@ -90,6 +85,8 @@ public class TextToSpeechConverter
             PlayMode = PlayMode.Paused;
         }
     }
+
+    //Resumes the playing text after the text has been paused
     public void Resume()
     {
         if (PlayMode == PlayMode.Paused)
@@ -99,6 +96,7 @@ public class TextToSpeechConverter
         }
     }
 
+    //Stops the playing text
     public void Stop()
     {
         if (PlayMode != PlayMode.Stopped)
@@ -108,6 +106,7 @@ public class TextToSpeechConverter
         }
     }
 
+    //Changes the voice to the given voice
     public void SetVoice(string voice)
     {
         if (!LanguageOptions.TryGetValue(voice, out string value))
@@ -123,6 +122,7 @@ public class TextToSpeechConverter
 
     }
 
+    //Sets The volume to the given volume *10, volume has to be between 0 and 10
     public void SetVolume(int volume)
     {
         if (volume < 0)
@@ -142,16 +142,7 @@ public class TextToSpeechConverter
         this.volume = volume;
     }
 
-    private void SetupSpeedValues()
-    {
-        List<SpeedValue> speedValues = new List<SpeedValue>();
-        foreach (SpeedValue value in Enum.GetValues(typeof(SpeedValue)))
-        {
-            speedValues.Add(value);
-        }
-        SpeedValues = speedValues;
-    }
-
+    //Checks if the given voice exists on your computer
     private bool CheckVoiceExists (string voice)
     {
         foreach (InstalledVoice voices in synthesizer.GetInstalledVoices())
@@ -165,6 +156,7 @@ public class TextToSpeechConverter
         return false;
     }
 
+    //Adds the used voices to Voices
     private void Setup()
     {
         foreach (InstalledVoice voices in synthesizer.GetInstalledVoices())

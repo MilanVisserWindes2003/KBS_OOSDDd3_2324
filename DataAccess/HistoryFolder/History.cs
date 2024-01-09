@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data;
 
 namespace Skepta.DataAcces.HistoryFolder
 {
+    //Class to represent a history row page on the 'geschiedenis page'
     public class History
     {
         public string TypeSpeed { get; set; }
@@ -19,12 +14,5 @@ namespace Skepta.DataAcces.HistoryFolder
 
         public string Username { get; set; }
        public DataTable HistoryTable { get; set; }
-
-
-        
-        
-
-       
-
     }
 }
