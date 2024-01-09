@@ -47,19 +47,15 @@ public class LoginViewModel : ViewModelBase
     public override void OpenPage()
     {
         ErrorText = string.Empty;
-        
     }
 
     private void LoginCmd()
     {
+        // checks if login credentials are valid
         if (model.CheckLogin(Username, Password))
-
         {   
             model.Username = Username;
             RequestPage = PageId.MenuScreen;
-           
-            //RequestPage = PageId.Geschiedenis;
-
         }
         else
         {

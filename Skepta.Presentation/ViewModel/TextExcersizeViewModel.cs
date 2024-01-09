@@ -38,7 +38,7 @@ public class TextExcersizeViewModel : ViewModelBase
     }
 
     
-
+    // Method extracts the elapsed time
     private void CompositionTarget_Rendering(object sender, EventArgs e)
     {
         double elapsedMilliseconds = (DateTime.Now - lastRenderTime).TotalMilliseconds;
@@ -77,6 +77,7 @@ public class TextExcersizeViewModel : ViewModelBase
 
     public Key Key { get; set; }
 
+    // Method clears any possible leftover user input and starts the timer
     public override void OpenPage()
     {
         RandomText = model.RandomText;
@@ -84,11 +85,12 @@ public class TextExcersizeViewModel : ViewModelBase
         userInput.Clear();
         StartTimer();
     }
+    // The stopwatch is started
     private void StartTimer()
     {
         stopwatch.Restart();
     }
-
+    // Method processes what key is pressed in order to decide what is or isn't to be added to the string that the user has typed
     public override void KeyPressed(Key key)
     {
         if (key == Key.LeftShift || key == Key.RightShift)
@@ -165,15 +167,15 @@ public class TextExcersizeViewModel : ViewModelBase
 
         return isShiftPressed ? keyString.ToUpper() : keyString.ToLower();
     }
-
+    // adds to the counter of mistakes
     public void addMistake(char mistake)
     {
         model.result.addMistake(mistake);
     }
 
+    // method is responsible for checking if the key that is pressed is actually able to be displayed (a letter, number or another sign that has physical representation on the screen)
     private bool IsPrintableKey(Key key)
     {
-
         return (key >= Key.A && key <= Key.Z) ||
                (key >= Key.D0 && key <= Key.D9) ||
                (key >= Key.NumPad0 && key <= Key.NumPad9) ||

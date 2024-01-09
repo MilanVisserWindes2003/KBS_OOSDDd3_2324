@@ -1,12 +1,6 @@
 ﻿using Skepta.Business;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using DataAccess;
 using Skepta.Presentation.ViewModel.Commands;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Skepta.Presentation.ViewModel
@@ -45,7 +39,7 @@ namespace Skepta.Presentation.ViewModel
 
         private void ChangePasswordCmd()
         {
-            string loggedInUsername = model.Username; // Gebruik de huidige ingelogde gebruikersnaam
+            string loggedInUsername = model.Username; // Use current logged in username
             DataAccess.DataAccess dataAccess = new DataAccess.DataAccess();
 
             string newPassword = NewPassword;
@@ -58,18 +52,18 @@ namespace Skepta.Presentation.ViewModel
             bool passwordChanged = dataAccess.ChangePassword(loggedInUsername, newPassword);
             if (passwordChanged)
             {
-                // Wachtwoord is succesvol gewijzigd
+                // Password changed successful
                 MessageBox.Show("Het wachtwoord is succesvol gewijzigd!", "Wachtwoord gewijzigd", MessageBoxButton.OK, MessageBoxImage.Information);
 
             }
             else
             {
-                // Wachtwoord wijzigen is mislukt
+                // Password couldn't be changed
                 MessageBox.Show("Het wachtwoord kon niet worden gewijzigd. Probeer het opnieuw.", "Fout bij wachtwoord wijzigen", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
-
+        // Navigate back to settings
         private void BackChangeCmd()
         {
             RequestPage = PageId.Settings;

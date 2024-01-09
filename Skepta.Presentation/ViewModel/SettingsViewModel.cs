@@ -23,6 +23,7 @@ namespace Skepta.Presentation.ViewModel
             InitializeLanguageOptions();
         }
 
+        // checks if the desired exercise is adapted to the users skill set or not
         public bool IsPersonalized 
         {   get
             {
@@ -34,7 +35,8 @@ namespace Skepta.Presentation.ViewModel
                 NotifyPropertyChanged(nameof(IsPersonalized));
             }
         }
-        public ICommand HeadVolume => new BaseCommand(VolumeChangeCmd);
+
+        // button commands to execute different operations
         public ICommand PersonalisedExercise => new BaseCommand(PersonalisedExerciseCmd);
         public ICommand WijzigWW => new BaseCommand(ChangePasswordCmd);
         public ICommand VerwijderAC => new BaseCommand(RemoveAccountCmd);
@@ -58,36 +60,30 @@ namespace Skepta.Presentation.ViewModel
                 }
             }
         }
-        private void UpdateHeadVolume(double value)
-        {
-            double convertedVolume = value;
-            SetHeadVolume(convertedVolume);
-        }
+        
 
-        private void SetHeadVolume(double volume)
-        {
-            volume = volume;
-        }
-        private void VolumeChangeCmd()
-        {
-            throw new NotImplementedException();
-        }
-
+        // displays dropdown of different language options available
         private void InitializeLanguageOptions()
         {
             LanguageOptions = model.TTSConverter.Voices.ToArray();
         }
+
+        // sets value of IsPersonalized to the value that it currently does not have
         private void PersonalisedExerciseCmd()
         {
             model.IsPersonalized = !model.IsPersonalized;
         }
+
+        // opens the page to change user password
         private void ChangePasswordCmd()
         {
             RequestPage = PageId.ChangePassword;
         }
+        
+        // removes the users account and navigates them back to the login screen
         private void RemoveAccountCmd()
         {
-            string loggedInUsername = model.Username; // Gebruik de huidige ingelogde gebruikersnaam
+            string loggedInUsername = model.Username; // Use the current users username 
             DataAccess.DataAccess dataAccess = new DataAccess.DataAccess();
 
             MessageBoxResult result = MessageBox.Show("Weet je zeker dat je het account wilt verwijderen?", "Bevestiging", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -96,17 +92,19 @@ namespace Skepta.Presentation.ViewModel
                 bool success = dataAccess.RemoveAccount(loggedInUsername);
                 if (success)
                 {
-                    // Account succesvol verwijderd & uitlogacties
+                    // Account successfully removed and logout action instigated
                     loggedInUsername = null;
                     RequestPage = PageId.Login;
                 }
             }
             else
             {
-                // Account verwijderen is mislukt
+                // Account removal failed
                 MessageBox.Show("Het verwijderen van het account is mislukt.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+        // navigate back to the menu screen
         private void BackSetCmd()
         {
             RequestPage = PageId.MenuScreen;

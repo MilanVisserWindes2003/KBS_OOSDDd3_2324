@@ -71,9 +71,9 @@ namespace Skepta.Presentation.ViewModel
             ErrorText = string.Empty;
             RegistrationStatus = string.Empty;
         }
-
+        // is used to discern if credentials have been filled out
         public bool AllowRegistreer() => !string.IsNullOrWhiteSpace(password) && password.Equals(passwordConfirm);
-
+        // checks if user registration is allowed and if this is the case the user is forwarded to the login screen
         private async void RegistreerCmd()
         {
             (bool pass, string message) = model.CheckRegister(Username, password, passwordConfirm);
