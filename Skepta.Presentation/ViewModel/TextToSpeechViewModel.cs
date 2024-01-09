@@ -22,6 +22,7 @@ public class TextToSpeechViewModel : ViewModelBase
     private StringBuilder userInput = new StringBuilder();
     private string inputText = string.Empty;
     private string elapsedTimeText;
+    private double headVolume = 0.5;
 
     private string randomText;
 
@@ -168,6 +169,18 @@ public class TextToSpeechViewModel : ViewModelBase
 
         return isShiftPressed ? keyString.ToUpper() : keyString.ToLower();
     }
+    public double HeadVolume
+    {
+        get => headVolume;
+        set
+        {
+            if (headVolume != value)
+            {
+                headVolume = value;
+                NotifyPropertyChanged(nameof(HeadVolume));
+            }
+        }
+    }
 
     public void addMistake(char mistake)
     {
@@ -237,8 +250,19 @@ public class TextToSpeechViewModel : ViewModelBase
             RequestPage = PageId.Resultaat;
         }
     }
+    private void SetHeadVolume(double volume)
+    {
+        headVolume = volume;
+        NotifyPropertyChanged(nameof(headVolume));
+    }
 
-
+    private void UpdateHeadVolume(double value)
+    {
+        double convertedVolume = value;
+        SetHeadVolume(convertedVolume);
+        
+    }
+    
     private void RefreshButtons()
     {
         NotifyPropertyChanged(nameof(PauzeText));

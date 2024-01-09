@@ -23,7 +23,9 @@ namespace Skepta.Presentation.ViewModel
         Geschiedenis,
         MenuScreen,
         Settings,
-        Toetsenbord
+        Toetsenbord,
+        ChangePassword
+
     }
 
     public class MainWindowViewModel : ViewModelBase
@@ -52,6 +54,7 @@ namespace Skepta.Presentation.ViewModel
             pages.Add(PageId.MenuScreen, new MenuScreenViewModel(model));
             pages.Add(PageId.Settings, new SettingsViewModel(model));
             pages.Add(PageId.Toetsenbord, new ToetsenbordViewModel(model));
+            pages.Add(PageId.ChangePassword, new ChangePasswordViewModel(model));
             SelectPage(PageId.Login);
         }
 

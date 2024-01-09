@@ -69,5 +69,8 @@
     <DataTemplate DataType="{x:Type viewmodel:SettingsViewModel}">
         <view:SettingsView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type viewmodel:ChangePasswordViewModel}">
+        <view:ChangePasswordView/>
+    </DataTemplate>
 
 </ResourceDictionary>

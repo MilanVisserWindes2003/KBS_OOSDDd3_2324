@@ -1,10 +1,7 @@
-﻿using Skepta.DataAcces.HistoryFolder;
+﻿using DataAccess.Mistakes;
+using Skepta.DataAcces.HistoryFolder;
 using System.Data;
 using System.Data.SqlClient;
-using System.Globalization;
-using Renci.SshNet;
-using Renci.SshNet.Common;
-using System.Diagnostics;
 
 namespace DataAccess
 {
@@ -227,13 +224,202 @@ namespace DataAccess
                 }
             }
         }
+
+
+        public List<string> GetPersonalizedTexts(string level, string length, string username)
+        {
+            List<string> texts = new List<string>();
+            
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(level) || string.IsNullOrEmpty(length))
+            {
+                return null;
+            }
+            List<Mistake> mistakes = GetWorstMistake(username);
+            if (mistakes == null || mistakes.Count == 0)
+            {
+                return null;
+            }
+            foreach (Mistake mistake in mistakes) 
+            {
+                texts = ExecutePersonalizedTexts(level, length, mistake.CharMistake);
+                if (texts == null || texts.Count == 0)
+                {
+                    return null;
+                }
+                texts = ExecutePersonalizedTexts(level, length, mistake.CharMistake);
+                return texts;   
+            }
+            return null;
+        }
+
+        private List<Mistake> GetWorstMistake(string username)
+        {
+            if (string.IsNullOrEmpty(username))
+            {
+                return null;
+            }
+            List<Mistake> mistakes = new List<Mistake>();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "SELECT worstMistake, COUNT(*) AS MistakeCount FROM history WHERE username = @username AND worstMistake <> '-' GROUP BY worstMistake ORDER BY MistakeCount DESC;";
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@username", username); 
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (!reader.HasRows)
+                            {
+                                return null;
+                            }
+                            while (reader.Read())
+                            {
+                                Mistake mistake = new Mistake();
+                                mistake.CharMistake = reader["worstMistake"].ToString();
+                                mistake.Count = int.Parse(reader["MistakeCount"].ToString());
+                                mistakes.Add(mistake);
+                            }
+                        }
+                    }
+                    return mistakes;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+        private List<string> ExecutePersonalizedTexts(string level, string length, string character)
+        {
+            List<string> texts = new List<string>();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "SELECT content FROM text WHERE CHARINDEX(@Character, content) > 0 AND length = @Length AND level = @Level;";
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Character", character);
+                        command.Parameters.AddWithValue("@Level", level);
+                        command.Parameters.AddWithValue("@Length", length);
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (!reader.HasRows)
+                            {
+                                return null;
+                            }
+                            while (reader.Read())
+                            {
+                                string tekst = reader["content"].ToString();
+                                texts.Add(tekst);
+                            }
+                        }
+                    }
+
+                    return texts;
+                }
+              finally 
+                {
+                    connection.Close();
+                }
+            }
+        }       
+
+        public bool ChangePassword(string username, string newPassword)
+        {
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(newPassword))
+            {
+                //  wanneer er een empty or null username/newPassword is
+                return false;
+            }
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "UPDATE [dbo].[user] SET [password] = @NewPassword WHERE [username] = @Username";
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@NewPassword", newPassword);
+                        command.Parameters.AddWithValue("@Username", username);
+
+                        int rowsAffected = command.ExecuteNonQuery();
+
+                        return rowsAffected > 0; // (wachtwoord is gewijzigd)
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return false;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+               
+            }
+        }
+
+        public bool RemoveAccount(string username)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    // Zoek eerst naar het accoun en controleer of het bestaat.
+                    string checkQuery = "SELECT COUNT(*) FROM [dbo].[user] WHERE [username] = @Username";
+                    using (SqlCommand checkCommand = new SqlCommand(checkQuery, connection))
+                    {
+                        checkCommand.Parameters.AddWithValue("@Username", username);
+                        int count = (int)checkCommand.ExecuteScalar();
+                        if (count == 0)
+                        {
+                            // Het account bestaat niet dus return false
+                            return false;
+                        }
+                    }
+                    // Verwijder de geschiedenisgegevens van de gebruiker
+                    string deleteHistoryQuery = "DELETE FROM [dbo].[history] WHERE [username] = @Username";
+                    using (SqlCommand deleteHistoryCommand = new SqlCommand(deleteHistoryQuery, connection))
+                    {
+                        deleteHistoryCommand.Parameters.AddWithValue("@Username", username);
+                        deleteHistoryCommand.ExecuteNonQuery();
+                    }
+
+                    // Verwijder het account als het wel bestaat
+                    string deleteQuery = "DELETE FROM [dbo].[user] WHERE [username] = @Username";
+
+                    using (SqlCommand deleteCommand = new SqlCommand(deleteQuery, connection))
+                    {
+                        deleteCommand.Parameters.AddWithValue("@Username", username);
+
+                        int rowsAffected = deleteCommand.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                } 
+                finally 
+                {
+                    connection.Close();
+                }
+            }
+        }
     }
-
-
-
-
-
-
-
 }
     
