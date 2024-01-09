@@ -55,10 +55,9 @@ namespace Skepta.Presentation.ViewModel
         { 
             this.model = model;
             rsl = model.result;
-            //this.model.aantalWoordenPerMinuut();
-            // idk model.Text = model.GetTimerText();
         }
 
+        // the amount of words per minute that the user scored is recorded and local property's are set to reflect words per minute and the mistakes made this data is also logged in the database
         public override void OpenPage()
         {
             rsl.aantalWoordenPerMinuut(model.RandomText, model.ElapsedTime);
@@ -70,13 +69,14 @@ namespace Skepta.Presentation.ViewModel
 
         public ICommand back => new BaseCommand(BackCmd);
 
+        //method returns to the menu screen and clears current results of the user
         private void BackCmd()
         {
-            
             rsl.EmptyDictionairy();
             RequestPage = PageId.MenuScreen;
         }
 
+        // results of the user are inserted into the database
         private void InsertHistory()
         {
             History history = new History();

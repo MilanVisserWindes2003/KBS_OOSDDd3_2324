@@ -17,6 +17,7 @@ public class TextDifficultySelectViewModel : ViewModelBase
         this.model = model;
         selected = new Dictionary<string, int>
         {
+            // different difficulty levels
             {"A1", 5 },
             {"A2", 5 },
             {"B1", 5 },
@@ -31,16 +32,20 @@ public class TextDifficultySelectViewModel : ViewModelBase
 
     public int[] Selected { get => selected.Values.ToArray();}
 
+    // Method is responsible for regulating the border thickness when a specific item is selected
     private void SelectCmd(string difficulty)
     {
+        // if statement is used to reset item border back to 5 if another item is selected
         if (!string.IsNullOrEmpty(currenSelection))
         {
             selected[currenSelection] = 5;
         }
+        // currentSelection is assigned a value
         currenSelection = difficulty;
+        // the selected item is given a thickness of 15
         selected[currenSelection] = 15;
         NotifyPropertyChanged(nameof(Selected));    
-
+        // eventual difficulty is selected
         model.TextDifficulty = difficulty;
         RequestPage = PageId.TextLength;
     }

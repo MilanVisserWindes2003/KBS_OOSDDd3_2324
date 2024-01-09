@@ -46,18 +46,15 @@ namespace Skepta.Presentation.ViewModel
         {
             this.model = model;
             model.ObtainHistory(model.Username);
-            
-
         }
+        // command to navigate back to the Menu screen
         public ICommand Back => new BaseCommand(() => RequestPage = PageId.MenuScreen);
 
-
+        // the history of the user is obtained
         public override void OpenPage()
         {
-
             history = model.ObtainHistory(model.Username);
             HistoryTable = history.HistoryTable;
-            
         }
 
     }

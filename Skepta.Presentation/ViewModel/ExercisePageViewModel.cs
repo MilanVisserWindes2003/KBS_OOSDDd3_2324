@@ -31,6 +31,7 @@ public class ExercisePageViewModel : ViewModelBase
 
     private void Model_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
+        // Method checks if all required elements are selected to allow progression towards the application
         if (e.PropertyName == nameof(model.TextDifficulty))
         {
             difficultySelected = true;
@@ -52,7 +53,7 @@ public class ExercisePageViewModel : ViewModelBase
             NotifyPropertyChanged(nameof(Verder));
         }
     }
-
+    // Different options for the Verder command either navigating to a text exercise or an exercise where the user is assisted by a spoken text
     private void VerderCmd()
     {
         if (model.IsSpeechExercise)

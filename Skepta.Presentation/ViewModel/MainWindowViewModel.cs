@@ -6,6 +6,7 @@ using System.Windows.Input;
 
 namespace Skepta.Presentation.ViewModel
 {
+    //ID's for every page for ease of use and to prevent wrong pageID's being used in the rest of the code
     public enum PageId
     {
         Register,
@@ -25,7 +26,6 @@ namespace Skepta.Presentation.ViewModel
         Settings,
         Toetsenbord,
         ChangePassword
-
     }
 
     public class MainWindowViewModel : ViewModelBase
@@ -38,6 +38,7 @@ namespace Skepta.Presentation.ViewModel
 
         public MainWindowViewModel()
         {
+            // adding all pages to the dictionary so they are all reachable
             model = new SkeptaModel();
             pages.Add(PageId.Register, new RegistreerViewModel(model));
             pages.Add(PageId.Login, new LoginViewModel(model));
@@ -57,7 +58,7 @@ namespace Skepta.Presentation.ViewModel
             pages.Add(PageId.ChangePassword, new ChangePasswordViewModel(model));
             SelectPage(PageId.Login);
         }
-
+        // if a key is pressed this is communicated to the application
         public void HandleKey(Key key)
         {
             CurrentPage?.KeyPressed(key);
@@ -65,6 +66,7 @@ namespace Skepta.Presentation.ViewModel
 
         private void CurrentPage_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
+            // navigates to different page depending on what property is changed
             if (e.PropertyName == nameof(ViewModelBase.RequestNext))
             {
                 SelectNextPage();
@@ -82,6 +84,7 @@ namespace Skepta.Presentation.ViewModel
             }
         }
 
+        // this method figures out what page is selected
         private void SelectPage(PageId pageId)
         {
             if (!pages.ContainsKey(pageId))
