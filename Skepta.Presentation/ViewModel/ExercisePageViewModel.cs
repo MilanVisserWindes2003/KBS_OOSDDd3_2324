@@ -29,6 +29,7 @@ public class ExercisePageViewModel : ViewModelBase
     public ExerciseTypeSelectViewModel ExerciseTypeSelect { get; set;}
     public TextShuffleViewModel TextSelect {  get; set;}
 
+
     private void Model_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
         if (e.PropertyName == nameof(model.TextDifficulty))

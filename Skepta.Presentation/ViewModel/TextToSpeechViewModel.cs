@@ -4,7 +4,6 @@ using Skepta.Presentation.ViewModel.Commands;
 using System;
 using System.Diagnostics;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -32,7 +31,6 @@ public class TextToSpeechViewModel : ViewModelBase
         this.model = model;
         stopwatch = new Stopwatch();
         SpeedOptions = Enum.GetValues<SpeedValue>();
-        LanguageOptions = model.TTSConverter.Voices.ToArray();
         CompositionTarget.Rendering += CompositionTarget_Rendering;
         toetsenbord = new ToetsenbordViewModel(model);
     }
@@ -78,23 +76,33 @@ public class TextToSpeechViewModel : ViewModelBase
             NotifyPropertyChanged(nameof(ElapsedSeconds));
         }
     }
-
-    public Key Key { get; set; }
-
-    private void CompositionTarget_Rendering(object sender, EventArgs e)
+    
+    public double HeadVolume
     {
-        double elapsedMilliseconds = (DateTime.Now - lastRenderTime).TotalMilliseconds;
-
-        if (elapsedMilliseconds >= 100)
+        get => headVolume;
+        set
         {
-            RefreshButtons();
-            ElapsedSeconds = stopwatch.Elapsed.TotalSeconds;
-            model.ElapsedTime = stopwatch.Elapsed;
-
-            lastRenderTime = DateTime.Now;
+            if (headVolume != value)
+            {
+                headVolume = value;
+                NotifyPropertyChanged(nameof(HeadVolume));
+            }
         }
     }
 
+    public void addMistake(char mistake)
+    {
+        model.result.addMistake(mistake);
+    }
+
+    public SpeedValue SelectedSpeedOption
+    {
+        get => model.TTSConverter.SpeedValue;
+        set => model.TTSConverter.SpeedValue = value;
+    }
+    public SpeedValue[] SpeedOptions { get; set; }
+
+    //Setup when the page is opened
     public override void OpenPage()
     {
         RandomText = model.RandomText;
@@ -102,13 +110,8 @@ public class TextToSpeechViewModel : ViewModelBase
         userInput.Clear();
         StartTimer();
     }
-    private void StartTimer()
-    { 
-        SpeakCmd();
-        RefreshButtons();
-        stopwatch.Restart();
-    }
 
+    //Handles Keypresses on keyboard, it then shows the change on the screen
     public override void KeyPressed(Key key)
     {
         if (key == Key.LeftShift || key == Key.RightShift)
@@ -141,7 +144,7 @@ public class TextToSpeechViewModel : ViewModelBase
         }
     }
 
-
+    //returns the chracter that is typed
     public string GetPrintableCharacter(Key key, bool isShiftPressed)
     {
         string keyString = key.ToString();
@@ -169,42 +172,38 @@ public class TextToSpeechViewModel : ViewModelBase
 
         return isShiftPressed ? keyString.ToUpper() : keyString.ToLower();
     }
-    public double HeadVolume
+
+    //Starts the timer
+    private void StartTimer()
     {
-        get => headVolume;
-        set
+        SpeakCmd();
+        RefreshButtons();
+        stopwatch.Restart();
+    }
+
+    //Refreshes and renders the timer every 100 ms
+    private void CompositionTarget_Rendering(object sender, EventArgs e)
+    {
+        double elapsedMilliseconds = (DateTime.Now - lastRenderTime).TotalMilliseconds;
+
+        if (elapsedMilliseconds >= 100)
         {
-            if (headVolume != value)
-            {
-                headVolume = value;
-                NotifyPropertyChanged(nameof(HeadVolume));
-            }
+            RefreshButtons();
+            ElapsedSeconds = stopwatch.Elapsed.TotalSeconds;
+            model.ElapsedTime = stopwatch.Elapsed;
+
+            lastRenderTime = DateTime.Now;
         }
     }
 
-    public void addMistake(char mistake)
-    {
-        model.result.addMistake(mistake);
-    }
-
-    public SpeedValue SelectedSpeedOption
-    {
-        get => model.TTSConverter.SpeedValue;
-        set => model.TTSConverter.SpeedValue = value;
-    }
-    public SpeedValue[] SpeedOptions { get; set; }
-    public string[] LanguageOptions { get; set; }
-    public string SelectedLanguage
-    {
-        get => model.TTSConverter.Voice;
-        set => model.TTSConverter.SetVoice(value);
-    }
-
+    //Plays the text
     private void SpeakCmd()
     {
         model.TTSConverter.PlayText(RandomText);
         RefreshButtons();
     }
+
+    //Pauses the text that is playing
     private void PauseCmd()
     {
         if (model.TTSConverter.PlayMode == PlayMode.Playing)
@@ -217,6 +216,8 @@ public class TextToSpeechViewModel : ViewModelBase
         }
         RefreshButtons();
     }
+
+    //Checks if key has a visual representation
     private bool IsPrintableKey(Key key)
     {
 
@@ -235,6 +236,8 @@ public class TextToSpeechViewModel : ViewModelBase
                key == Key.OemOpenBrackets || // Opening square bracket ([)
                key == Key.OemCloseBrackets; // Closing square bracket (])
     }
+
+    //Updates the text and timer shown on the screen, it also checks if the exercise has been completed. If it is completed you get sent to the resultaat page
     private void UpdateUserInputDisplay()
     {
         InputText = userInput.ToString();
@@ -250,19 +253,8 @@ public class TextToSpeechViewModel : ViewModelBase
             RequestPage = PageId.Resultaat;
         }
     }
-    private void SetHeadVolume(double volume)
-    {
-        headVolume = volume;
-        NotifyPropertyChanged(nameof(headVolume));
-    }
-
-    private void UpdateHeadVolume(double value)
-    {
-        double convertedVolume = value;
-        SetHeadVolume(convertedVolume);
-        
-    }
     
+    //Refreshes the buttons to check if they can be pressed
     private void RefreshButtons()
     {
         NotifyPropertyChanged(nameof(PauzeText));

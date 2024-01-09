@@ -3,6 +3,10 @@ using System.Windows.Input;
 
 namespace Skepta.Presentation.ViewModel.Commands
 {
+    //Implements ICommand, it has two classes one where the return type is given and where it is not
+    //In the class where the type is not given it has 2 constructors. One that executes without the check to be able to execute and the other where it does have it.
+    //The CanExecute class checks if you are allowed to execute the command
+    //The Execute class executes the command
     public class BaseCommand<T> : ICommand
     {
         private Action<T>? execute;

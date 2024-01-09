@@ -11,6 +11,7 @@ public partial class Register : UserControl
         InitializeComponent();
     }
 
+    //Gets the password from the password box
     private void PasswordChanged(object sender, RoutedEventArgs e)
     {
         if (DataContext is RegistreerViewModel vm && sender is PasswordBox box)
@@ -19,6 +20,7 @@ public partial class Register : UserControl
         }
     }
 
+    //Checks the password confirm
     private void CheckPasswordChanged(object sender, RoutedEventArgs e)
     {
         if (DataContext is RegistreerViewModel vm && sender is PasswordBox box)

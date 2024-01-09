@@ -2,22 +2,13 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
                     xmlns:view="clr-namespace:Skepta.Presentation.View"
                     xmlns:viewmodel="clr-namespace:Skepta.Presentation.ViewModel">
-    
+
     <DataTemplate DataType="{x:Type viewmodel:TextToSpeechViewModel}">
         <view:TextToSpeechView/>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type viewmodel:KeyBoardViewModel}">
-        <view:KeyBoardView/>
-    </DataTemplate>
-
     <DataTemplate DataType="{x:Type viewmodel:GeschiedenisViewModel}">
         <view:GeschiedenisView/>
-    </DataTemplate>
-
-
-    <DataTemplate DataType="{x:Type viewmodel:TypeWindowModel}">
-        <view:TypeWindowView/>
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type viewmodel:LoginViewModel}">
@@ -63,9 +54,7 @@
     <DataTemplate DataType="{x:Type viewmodel:MenuScreenViewModel}">
         <view:MenuView/>
     </DataTemplate>
-    <DataTemplate DataType="{x:Type viewmodel:HistoryViewModel}">
-        <view:HistoryView/>
-    </DataTemplate>
+
     <DataTemplate DataType="{x:Type viewmodel:SettingsViewModel}">
         <view:SettingsView/>
     </DataTemplate>

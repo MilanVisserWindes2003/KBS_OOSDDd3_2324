@@ -1,24 +1,10 @@
-﻿using Org.BouncyCastle.Asn1.Mozilla;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Skepta.Presentation.View
 {
-    /// <summary>
-    /// Interaction logic for ToetsenbordView.xaml
-    /// </summary>
+
     public partial class ToetsenbordView : UserControl
     {
 
@@ -31,11 +17,13 @@ namespace Skepta.Presentation.View
             this.Loaded += ToetsenbordView_Loaded;
         }
 
+        //Makes it so that the keyboard becomes the focus of the screen
         private void ToetsenbordView_Loaded(object sender, RoutedEventArgs e)
         {
             this.Focus();
             Keyboard.Focus(this);
         }
+        //If a key is presses this key becomes highlighted
         public void OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
            
@@ -48,6 +36,7 @@ namespace Skepta.Presentation.View
             }
         }
 
+        //If a key is let go it gets to the key becomes default again.
         public void OnPreviewKeyUp(object sender, KeyEventArgs e)
         {
             string letter = e.Key.ToString();

@@ -1,5 +1,4 @@
-﻿using Org.BouncyCastle.Utilities;
-using Skepta.Business;
+﻿using Skepta.Business;
 using Skepta.Presentation.ViewModel.Commands;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,19 +25,10 @@ namespace Skepta.Presentation.ViewModel
         };
         }
 
-        public ICommand Next => new BaseCommand<string>((length) => NextCmd(length));
         public ICommand Select => new BaseCommand<string>((lengthText) => SelectCmd(lengthText));
         public int[] Selected { get => selected.Values.ToArray(); }
 
-        private void NextCmd(string length)
-        {
-            if (int.TryParse(length, out int value))
-            {
-                model.TextLength = value;
-                RequestNext = true;
-            }
-        }
-
+        //Highlights the selected text length and sets the rest to default. It also sets the length to the given value
         private void SelectCmd(string lengthText)
         {
             if (!string.IsNullOrEmpty(currenSelection))
@@ -48,8 +38,8 @@ namespace Skepta.Presentation.ViewModel
             currenSelection = lengthText;
             selected[currenSelection] = 15;
             NotifyPropertyChanged(nameof(Selected));
-            
-            model.TextLength =  int.Parse(lengthText);
+
+            model.TextLength = int.Parse(lengthText);
             RequestPage = PageId.TextShuffle;
         }
     }

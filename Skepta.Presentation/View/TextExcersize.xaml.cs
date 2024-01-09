@@ -17,6 +17,7 @@ public partial class TextExcersize : UserControl
         this.DataContextChanged += TextExcersize_DataContextChanged;
     }
     
+    //Makes it so that the TextExercise becomes the datacontext
     private void TextExcersize_DataContextChanged(object sender, System.Windows.DependencyPropertyChangedEventArgs e)
     {
         if (DataContext is TextExcersizeViewModel viewModel)
@@ -26,6 +27,7 @@ public partial class TextExcersize : UserControl
         }
     }
 
+    //If the text changes it compares the input text with the random text
     private void ViewModel_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
         if (e.PropertyName == nameof(TextExcersizeViewModel.InputText))
@@ -34,6 +36,7 @@ public partial class TextExcersize : UserControl
         }
     }
 
+    //Compares the typed text and randomtext, if the characters are the same the color of the character becomes purple, and if they don't the character becomes red
     private void CompareText()
     {
         

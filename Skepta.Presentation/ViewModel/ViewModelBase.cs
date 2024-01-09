@@ -1,9 +1,9 @@
-﻿using Org.BouncyCastle.Asn1.Mozilla;
-using Skepta.Business.Util;
+﻿using Skepta.Business.Util;
 using System.Windows.Input;
 
 namespace Skepta.Presentation.ViewModel;
 
+//Implements ObservableObject
 public class ViewModelBase : ObservableObject
 {
     private PageId page;
@@ -27,8 +27,10 @@ public class ViewModelBase : ObservableObject
         }
     }
 
+    //When the page is opened, virtual to make it able to change
     public virtual void OpenPage(){ }
 
+    //When key is pressed, virtual to make it able to change
     public virtual void KeyPressed(Key key){ }
 }
 

@@ -1,7 +1,6 @@
 ﻿using Skepta.Business;
 using Skepta.Presentation.ViewModel.Commands;
 using System.Windows.Input;
-using System.Windows.Media;
 
 namespace Skepta.Presentation.ViewModel
 {
@@ -15,7 +14,7 @@ namespace Skepta.Presentation.ViewModel
             model.PropertyChanged += Button_PropertyChanged;
         }
 
-        public ICommand Shuffle => new BaseCommand(() => RandomTextShuffle = model.ObtainRandomText(), VerderAllowed);
+        public ICommand Shuffle => new BaseCommand(() => RandomTextShuffle = model.ObtainRandomText(), ShuffleAllowed);
 
         public bool IsPersonalized
         {
@@ -32,11 +31,7 @@ namespace Skepta.Presentation.ViewModel
             }
         }
 
-        public override void OpenPage()
-        {
-            RandomTextShuffle = model.ObtainRandomText();
-        }
-
+        //Checks which property it is and notify's shuffle and try's to get a random text
         private void Button_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(model.TextDifficulty))
@@ -50,9 +45,9 @@ namespace Skepta.Presentation.ViewModel
                 NotifyPropertyChanged(nameof(Shuffle));
             }
         }
-
-
-        private bool VerderAllowed()
+        
+        //Checks if you can press on the shuffle button
+        private bool ShuffleAllowed()
         {
             if (model.TextLength == 0 || model.TextDifficulty == null)
             {
@@ -60,5 +55,6 @@ namespace Skepta.Presentation.ViewModel
             }
             return true;
         }
+        
     }
 }

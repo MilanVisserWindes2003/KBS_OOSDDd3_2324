@@ -5,9 +5,6 @@ using System.Windows.Media;
 
 namespace Skepta.Presentation.View
 {
-    /// <summary>
-    /// Interaction logic for TextToSpeechView.xaml
-    /// </summary>
     public partial class TextToSpeechView : UserControl
     {
         private TextToSpeechViewModel viewModel;
@@ -19,6 +16,7 @@ namespace Skepta.Presentation.View
             this.DataContextChanged += TextExcersize_DataContextChanged;
         }
 
+        //Makes it so that the TextExercise becomes the datacontext
         private void TextExcersize_DataContextChanged(object sender, System.Windows.DependencyPropertyChangedEventArgs e)
         {
             if (DataContext is TextToSpeechViewModel viewModel)
@@ -29,6 +27,7 @@ namespace Skepta.Presentation.View
             }
         }
 
+        //If the text changes it compares the input text with the random text
         private void ViewModel_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(TextToSpeechViewModel.InputText))
@@ -37,6 +36,7 @@ namespace Skepta.Presentation.View
             }
         }
 
+        //Compares the typed text and randomtext, if the characters are the same the color of the character becomes purple, and if they don't the character becomes red
         private void CompareText()
         {
             InputTextBlock.Inlines.Clear();
