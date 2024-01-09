@@ -10,9 +10,11 @@
     <Grid Background="White" SnapsToDevicePixels="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="5*"/>
-            <RowDefinition Height="5*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="3*"/>
             <RowDefinition Height="1*"/>
+
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -44,5 +46,6 @@
            
            
         </TextBlock>
+        <ContentPresenter Grid.Column="1" Grid.Row="3" Content="{Binding toetsenbord}"/>
     </Grid>
 </UserControl>

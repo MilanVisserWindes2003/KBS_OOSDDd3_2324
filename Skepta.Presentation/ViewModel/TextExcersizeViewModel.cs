@@ -19,10 +19,12 @@ public class TextExcersizeViewModel : ViewModelBase
 {
     private readonly SkeptaModel model;
     private StringBuilder userInput = new StringBuilder();
+    public ToetsenbordViewModel toetsenbord { get; set; }
 
     private readonly Stopwatch stopwatch = new Stopwatch();
     private DateTime lastRenderTime;
     private string inputText = string.Empty;
+
 
     public double ElapsedSeconds
     {
@@ -37,6 +39,7 @@ public class TextExcersizeViewModel : ViewModelBase
     {
         this.model = model;
         stopwatch = new Stopwatch();
+        toetsenbord = new ToetsenbordViewModel(model);
 
         CompositionTarget.Rendering += CompositionTarget_Rendering;
     }

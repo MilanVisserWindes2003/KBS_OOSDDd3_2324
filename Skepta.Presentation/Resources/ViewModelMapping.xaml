@@ -52,6 +52,10 @@
         <view:TextLengthSelect/>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type viewmodel:ToetsenbordViewModel}">
+        <view:ToetsenbordView/>
+    </DataTemplate>
+
     <DataTemplate DataType="{x:Type viewmodel:TextShuffleViewModel}">
         <view:TextShuffle/>
     </DataTemplate>
