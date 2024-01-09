@@ -6,6 +6,7 @@ namespace Skepta.Presentation.ViewModel
 {
     public class TypeWindowModel : ViewModelBase
     {
+
         private readonly SkeptaModel model;
         private string typedText;
         private TextToSpeechConverter TTS;
@@ -16,6 +17,7 @@ namespace Skepta.Presentation.ViewModel
             TTS = new TextToSpeechConverter();
             typedText = string.Empty;
             Story = "Story";
+            
         }
         public string TypedText { get => typedText; set => typedText = value; }
         public string Story { get; set; }

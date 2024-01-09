@@ -56,8 +56,8 @@ public class LoginViewModel : ViewModelBase
 
         {   
             model.Username = Username;
-            //RequestPage = PageId.Exercise
             RequestPage = PageId.MenuScreen;
+           
             //RequestPage = PageId.Geschiedenis;
 
         }

@@ -17,6 +17,7 @@ public class TextToSpeechViewModel : ViewModelBase
     private readonly SkeptaModel model;
     private readonly Stopwatch stopwatch = new Stopwatch();
     private DateTime lastRenderTime;
+    public ToetsenbordViewModel toetsenbord { get; set; }
 
     private StringBuilder userInput = new StringBuilder();
     private string inputText = string.Empty;
@@ -32,6 +33,7 @@ public class TextToSpeechViewModel : ViewModelBase
         SpeedOptions = Enum.GetValues<SpeedValue>();
         LanguageOptions = model.TTSConverter.Voices.ToArray();
         CompositionTarget.Rendering += CompositionTarget_Rendering;
+        toetsenbord = new ToetsenbordViewModel(model);
     }
     public ICommand Speak => new BaseCommand(SpeakCmd, () => model.TTSConverter.PlayMode == PlayMode.Stopped);
 
